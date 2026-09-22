@@ -6,7 +6,7 @@ import { sendSuccess } from '../utils/response';
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const validated = registerSchema.parse(req.body);
-    const result = await authService.register(validated);
+    const result = await authService.register(validated as any);
     sendSuccess(res, result, 'Registration successful', 201);
   } catch (error) {
     next(error);
