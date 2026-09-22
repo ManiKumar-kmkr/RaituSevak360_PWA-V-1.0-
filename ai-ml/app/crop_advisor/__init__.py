@@ -1,1 +1,0 @@
-# Crop advisor module package

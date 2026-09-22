@@ -1,9 +1,0 @@
-export const authApi = {};
-export const farmerApi = {};
-export const cropsApi = {};
-export const weatherApi = {};
-export const soilApi = {};
-export const aiApi = {};
-export const labourApi = {};
-export const machineryApi = {};
-export const marketplaceApi = {};
