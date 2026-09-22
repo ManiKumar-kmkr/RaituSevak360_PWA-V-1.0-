@@ -1,0 +1,44 @@
+name: Deployment Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build & Package Monorepo Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Frontend PWA
+        run: |
+          cd frontend
+          npm ci || npm install
+          npm run build --if-present
+
+      - name: Build Backend Service
+        run: |
+          cd backend
+          npm ci || npm install
+          npm run build --if-present
+
+      - name: Build Admin Dashboard
+        run: |
+          cd admin
+          npm ci || npm install
+          npm run build --if-present
+
+      - name: Verify AI Python Service
+        run: |
+          cd ai-ml
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt

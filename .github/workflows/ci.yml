@@ -1,0 +1,51 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm ci || npm install
+
+      - name: Frontend Typecheck & Lint
+        run: |
+          cd frontend
+          npm run lint --if-present
+
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm ci || npm install
+
+      - name: Backend Typecheck & Lint
+        run: |
+          cd backend
+          npm run lint --if-present
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install AI-ML Dependencies
+        run: |
+          cd ai-ml
+          pip install -r requirements.txt

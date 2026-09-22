@@ -1,0 +1,75 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  backend-tests:
+    name: Backend Unit & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm ci || npm install
+
+      - name: Run Backend Tests
+        run: |
+          cd backend
+          npm test --if-present
+
+  frontend-tests:
+    name: Frontend Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm ci || npm install
+
+      - name: Run Frontend Tests
+        run: |
+          cd frontend
+          npm test --if-present
+
+  ai-tests:
+    name: AI/ML Engine Pytests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install AI Dependencies
+        run: |
+          cd ai-ml
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Run Pytest
+        run: |
+          cd ai-ml
+          pytest --if-present
