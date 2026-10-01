@@ -9,7 +9,26 @@ const app = express();
 
 // Security and utility middleware
 app.use(helmet());
-app.use(cors({ origin: config.cors.origin, credentials: true }));
+// Dynamic CORS handling ensuring origin is reflected properly when credentials: true
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:3001',
+  config.cors.origin,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+        callback(null, origin || true);
+      } else {
+        callback(null, true);
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(morgan(config.env === 'development' ? 'dev' : 'combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

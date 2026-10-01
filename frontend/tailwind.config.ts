@@ -5,6 +5,8 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './config/**/*.{js,ts,jsx,tsx,mdx}',
+    './hooks/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -22,6 +24,13 @@ const config: Config = {
           100: '#fef3c7',
           500: '#f59e0b',
           800: '#92400e',
+        },
+        brand: {
+          DEFAULT: '#24833A',
+          dark: '#174D25',
+          light: '#E4F0DD',
+          subtle: '#F4FBF5',
+          canvas: '#F4F8EE',
         },
       },
     },
