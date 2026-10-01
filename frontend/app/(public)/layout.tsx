@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   description: "AI-powered smart agriculture platform",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en">
-      <body className="bg-slate-950 text-slate-50 antialiased">{children}</body>
-    </html>
-  );
+export default function PublicLayout({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 }
