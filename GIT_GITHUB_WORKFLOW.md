@@ -1,1858 +1,1248 @@
-# Branching Policy for RaituSevak360 PWA
+# RaituSevak360 — Git & GitHub Development Workflow
 
-## Purpose
+**Document:** `GIT_GITHUB_WORKFLOW.md`  
+**Project:** RaituSevak360 PWA  
+**Repository:** Private GitHub repository  
+**Protected branch:** `main`  
+**Team:** Repository owner + 3–4 developers
 
-This document defines the Git branching strategy for the RaituSevak360 project. The goal is to keep development organized, predictable, and easy to review while supporting collaboration across multiple contributors and features.
+## 1. Purpose of This Document
 
-This repository is a multi-feature agricultural platform, so the team should use a structured workflow based on issues, feature branches, pull requests, and protected main branches.
+This document defines the standard Git and GitHub workflow that every RaituSevak360 developer must follow.
 
-## Core Principles
+The objectives are:
+- Prevent accidental changes to the production/main branch.
+- Keep all developers working on the correct version of the project.
+- Prevent one developer's work from overwriting another developer's work.
+- Review changes before they enter `main`.
+- Keep the project history understandable.
+- Avoid merge conflicts, lost work, and unnecessary repository changes.
+- Make collaboration consistent across all developers.
 
-- Every change must be made on its own branch.
-- No direct commits to `main` or `develop`.
-- Every branch should be tied to a specific task, issue, or bug.
-- Pull requests must be reviewed before merging.
-- Small, focused changes are preferred over large, monolithic changes.
-- Branch names must be descriptive and consistent.
+**Every developer must follow this workflow.**
 
-## Branch Structure
+## 2. Repository Ownership and Access
 
-Use the following structure:
+The repository is private and is owned by the repository owner.
+
+The owner is responsible for:
+- Managing repository access.
+- Maintaining the branch ruleset.
+- Reviewing important project changes.
+- Approving changes according to the team policy.
+- Performing the final merge into `main` under the current team workflow.
+- Protecting the main branch and resolving repository-level issues.
+
+Developers are collaborators and must work through feature branches and pull requests.
+
+### Important access rules
+
+1. Never share GitHub passwords, access tokens, or personal credentials.
+2. Each developer must use their own GitHub account.
+3. Never remove collaborators or change repository settings without authorization.
+4. Never change branch protection rules without the owner's permission.
+5. Never push directly to `main`.
+6. Never use force push on `main`.
+7. Never delete the `main` branch.
+8. Never upload `.env` files, credentials, API keys, database passwords, or private configuration.
+
+## 3. Branch Structure
+
+The project uses `main` as the protected integration branch.
+
+Recommended branch structure:
 
 ```text
 main
-└── develop
-    ├── feature/issue-###-short-description
-    ├── fix/issue-###-short-description
-    ├── docs/short-description
-    ├── chore/short-description
-    └── hotfix/short-description
+ ├── feature/farmer-dashboard
+ ├── feature/marketplace
+ ├── feature/authentication
+ ├── fix/login-validation
+ ├── fix/api-error-handling
+ └── docs/git-workflow
 ```
 
-### `main`
+### Branch responsibilities
 
-`main` represents production-ready code.
+**`main`**
+- Contains the approved project code.
+- Is protected by the GitHub ruleset.
+- Must not be used for direct development.
+- Receives changes through approved pull requests.
 
-Rules:
-- Protected branch
-- No direct pushes
-- Requires pull request approval
-- Requires passing status checks
-- Only release-ready code may be merged here
+**Feature branches**
+- Used to develop new features.
+- Each developer creates a separate branch for their assigned task.
+- Changes are committed and pushed to the developer's branch.
+- The branch is submitted to `main` through a pull request.
 
-### `develop`
+**Fix branches**
+- Used to correct existing bugs.
+- Must follow the same pull request and review process.
 
-`develop` is the integration branch for active development.
+**Documentation branches**
+- Used for documentation-only changes when appropriate.
+- Must also follow the pull request process.
 
-Rules:
-- Protected branch
-- Used for merging feature and fix branches during development
-- Can be used for QA and staging validation before release
-- Feature branches are merged into `develop`, not directly to `main`
+## 4. The Complete Development Workflow
 
-### `feature/*`
-
-Use for new features or enhancements.
-
-Example names:
+Every developer must follow this sequence:
 
 ```text
-feature/issue-12-crop-advisory
-feature/issue-15-weather-dashboard
-feature/issue-25-marketplace-listing
+Open the correct local project
+          |
+          v
+Check Git status
+          |
+          v
+Fetch the latest GitHub information
+          |
+          v
+Update local main
+          |
+          v
+Create a separate feature branch
+          |
+          v
+Make the assigned changes
+          |
+          v
+Test the changes
+          |
+          v
+Review the changes locally
+          |
+          v
+Commit the changes
+          |
+          v
+Push the feature branch to GitHub
+          |
+          v
+Create a pull request targeting main
+          |
+          v
+Owner/reviewer reviews the changes
+          |
+          v
+Address feedback and push corrections
+          |
+          v
+Required approvals and checks are satisfied
+          |
+          v
+Owner performs the final merge
+          |
+          v
+Developers update their local main
 ```
 
-### `fix/*`
+Do not skip steps just to finish a task faster.
 
-Use for bug fixes.
+## 5. Step 1 — Open the Correct Project
 
-Example names:
+Before running any Git command, open the correct RaituSevak360 folder in VS Code.
 
-```text
-fix/issue-27-booking-validation
-fix/issue-33-login-error
-```
+Open the integrated terminal:
 
-### `docs/*`
+**VS Code → Terminal → New Terminal**
 
-Use for documentation-only changes.
-
-Example names:
-
-```text
-docs/update-installation-guide
-docs/add-branching-policy
-```
-
-### `chore/*`
-
-Use for maintenance work such as dependency updates, tooling, build config, or non-feature cleanup.
-
-Example names:
-
-```text
-chore/update-eslint-config
-chore/upgrade-dependencies
-```
-
-### `hotfix/*`
-
-Use for urgent production fixes that must be deployed quickly.
-
-Example names:
-
-```text
-hotfix/issue-89-critical-auth-fix
-hotfix/fix-production-payment-error
-```
-
-## Naming Convention
-
-Branch names should follow this pattern:
-
-```text
-<type>/issue-<number>-<short-description>
-```
-
-Examples:
-
-```text
-feature/issue-12-crop-advisory
-fix/issue-27-booking-validation
-docs/add-branching-policy
-chore/update-dependencies
-hotfix/issue-89-critical-auth-fix
-```
-
-### Rules
-
-- Use lowercase only
-- Use hyphens to separate words
-- Keep the description short and clear
-- Include the issue number when applicable
-- Avoid vague names like `dev`, `misc`, `testing`, `new-branch`, or `john-work`
-
-## Workflow
-
-### 1. Create or identify the task
-
-Every branch should correspond to a GitHub issue, task, or clearly defined improvement.
-
-Examples:
-- Add crop advisory form
-- Fix booking validation bug
-- Improve weather widget layout
-- Update README setup instructions
-
-### 2. Start from the correct base branch
-
-Developers should create new branches from the latest `develop` branch unless the work is a hotfix or release-specific task.
+Run:
 
 ```bash
-git checkout develop
-git pull origin develop
-git checkout -b feature/issue-12-crop-advisory
+git remote -v
+git status
+git branch --show-current
 ```
 
-For a hotfix:
+Verify:
+- The remote URL points to the correct RaituSevak360 repository.
+- The current branch is the expected branch.
+- No unexpected local changes exist.
+
+Do not run Git commands from the VILOOP folder or another project's directory.
+
+If the folder is not a Git repository, stop and confirm the correct folder before proceeding.
+
+## 6. Step 2 — Update Local Main
+
+Before starting a new task, obtain the latest version of `main`.
 
 ```bash
-git checkout main
-git pull origin main
-git checkout -b hotfix/issue-89-critical-auth-fix
+git fetch origin
+git switch main
+git pull --ff-only origin main
 ```
 
-### 3. Keep the work focused
+Explanation:
+- `git fetch origin` downloads the latest remote repository information.
+- `git switch main` switches to the local main branch.
+- `git pull --ff-only origin main` updates local main only when Git can advance it without creating a merge commit.
 
-Each feature branch should focus on one issue or task. Avoid mixing unrelated changes in the same branch.
+If Git refuses to switch branches because of local changes, do not delete or overwrite those changes. Inspect `git status` and preserve the work first.
 
-### 4. Commit regularly with clear messages
+If the pull fails or reports divergence, stop and resolve the issue before continuing.
 
-Use meaningful commit messages.
+## 7. Step 3 — Create a Feature Branch
+
+Never develop a new feature directly on `main`.
+
+After updating local main, create a new branch for the assigned task.
+
+Example:
+
+```bash
+git switch -c feature/farmer-dashboard
+```
+
+Other examples:
+
+```bash
+git switch -c feature/marketplace
+git switch -c feature/authentication
+git switch -c fix/login-validation
+git switch -c docs/git-workflow
+```
+
+### Branch naming rules
+
+Use lowercase names and hyphens.
 
 Recommended prefixes:
+- `feature/` — new functionality
+- `fix/` — bug fixes
+- `docs/` — documentation
+- `refactor/` — internal code restructuring
+- `test/` — testing improvements
+- `chore/` — maintenance and configuration
 
-```text
-feat: new feature
-fix: bug fix
-refactor: code cleanup or restructuring
-test: tests added or updated
-docs: documentation changes
-chore: maintenance or tooling updates
-```
+Every developer must use a unique, task-specific branch name.
 
-Examples:
+Do not use vague names such as `new`, `changes`, `test123`, or `final`.
 
-```bash
-git commit -m "feat: add crop advisory dashboard"
-git commit -m "fix: validate booking date before submission"
-git commit -m "docs: add branching policy document"
-```
+## 8. Step 4 — Work Only on Your Assigned Task
 
-### 5. Push the branch
+Before editing code, inspect the existing implementation.
 
-```bash
-git push -u origin feature/issue-12-crop-advisory
-```
+Developers must:
+1. Understand the existing architecture.
+2. Identify the files relevant to the assigned task.
+3. Avoid unnecessary modifications to unrelated modules.
+4. Preserve existing working functionality.
+5. Follow the existing project structure and technology stack.
+6. Keep changes focused and reviewable.
+7. Test the feature or fix before committing.
 
-### 6. Open a pull request
+Do not rewrite entire modules when a smaller change is sufficient.
 
-Open a pull request from the feature branch to `develop`.
+Do not modify another developer's work without coordination.
 
-PR title should be clear and specific.
+If a task requires changing shared files or another developer's module, communicate with the team before proceeding.
 
-Examples:
+## 9. Step 5 — Check Your Changes
 
-```text
-feat: add crop advisory dashboard
-fix: validate booking date before submission
-docs: add branching policy document
-```
-
-### 7. Review and approve
-
-A pull request should be reviewed by at least one other team member before merge.
-
-Reviewers should check:
-- correctness of the implementation
-- code quality and readability
-- test coverage
-- UI/UX consistency
-- security and data protection concerns
-- whether the change matches the issue requirements
-
-### 8. Merge to the correct branch
-
-- Feature branches merge into `develop`
-- Fix branches merge into `develop`
-- Release-ready work merges from `develop` into `main`
-- Urgent production fixes merge from `hotfix/*` directly into `main` and then back into `develop`
-
-### 9. Delete merged branches
-
-After the branch is merged, delete it to keep the repository clean.
-
-## Release Workflow
-
-For regular production releases:
-
-```text
-develop -> main
-```
-
-This ensures that `main` only contains validated, tested, and approved code.
-
-For urgent hotfixes:
-
-```text
-hotfix/* -> main
-hotfix/* -> develop
-```
-
-## Branch Protection Recommendations
-
-GitHub repository settings should protect these branches:
-
-- `main`
-- `develop`
-
-Recommended protections:
-
-- Require pull request before merging
-- Require at least one approval
-- Require status checks to pass
-- Prevent force pushes
-- Prevent direct pushes
-- Disallow branch deletion
-- Require branches to be up to date before merge
-
-## Developer Responsibilities
-
-Each contributor is responsible for:
-
-- creating branches from the correct base branch
-- naming branches consistently
-- keeping changes small and focused
-- updating documentation when required
-- running validation checks before pushing
-- opening pull requests for review
-- not merging their own code without review when the team policy requires approval
-
-## Team Lead Responsibilities
-
-The team lead is responsible for:
-
-- assigning tasks to team members
-- reviewing pull requests
-- ensuring issue-to-branch alignment
-- approving releases from `develop` to `main`
-- maintaining branch protection rules
-- resolving merge conflicts when necessary
-
-## Example Team Flow
-
-```text
-Issue: #12 - Crop advisory dashboard
-Developer creates: feature/issue-12-crop-advisory
-Developer works on the branch
-Developer pushes and opens PR
-Reviewer checks code and approves
-PR merged into develop
-QA validates in develop
-Release branch or merge to main
-```
-
-## Summary
-
-The recommended policy for this repo is:
-
-- `main` = production
-- `develop` = active integration
-- `feature/*` = new features
-- `fix/*` = bug fixes
-- `docs/*` = docs updates
-- `chore/*` = maintenance
-- `hotfix/*` = urgent production fixes
-
-This workflow supports team collaboration, reduces merge conflicts, keeps code review organized, and makes project releases predictable.
-
-## Related Documents
-
-- `CONTRIBUTING.md`
-- `PR_TEMPLATE.md`
-- issue tracking and task definitions
-
-## Approval
-
-This policy should be agreed upon by the project team and enforced by the repository maintainer and team lead.
-
-
-# RaituSevak360 — Git Commands & Team Workflow
-
-## 1. Purpose
-
-This document contains the Git and GitHub commands required for developing, contributing to, and maintaining the RaituSevak360 PWA project.
-
-Every developer working on RaituSevak360 should understand these commands before contributing to the repository.
-
-The basic workflow is:
-
-```text
-Create / Clone Repository
-        ↓
-Create Feature Branch
-        ↓
-Write Code
-        ↓
-Check Changes
-        ↓
-git add
-        ↓
-git commit
-        ↓
-git push
-        ↓
-Create Pull Request
-        ↓
-Code Review
-        ↓
-Merge into main
-```
-
----
-
-# 2. Git vs GitHub
-
-## Git
-
-Git is the version control system used on your computer to track project changes.
-
-## GitHub
-
-GitHub is the online platform where the RaituSevak360 Git repository is hosted.
-
-```text
-Developer Computer
-       ↓
-      Git
-       ↓
-    GitHub
-       ↓
-RaituSevak360 Repository
-```
-
----
-
-# 3. Install and Check Git
-
-Check whether Git is installed:
-
-```bash
-git --version
-```
-
-Example:
-
-```text
-git version 2.x.x
-```
-
-If a version is displayed, Git is installed.
-
----
-
-# 4. Configure Git
-
-Each developer should configure their Git identity.
-
-Set username:
-
-```bash
-git config --global user.name "Your Name"
-```
-
-Set email:
-
-```bash
-git config --global user.email "your-email@example.com"
-```
-
-Check configuration:
-
-```bash
-git config --global --list
-```
-
-These details are associated with your Git commits.
-
----
-
-# 5. Clone the RaituSevak360 Repository
-
-If the repository already exists on GitHub, new developers should clone it instead of creating a new repository.
-
-```bash
-git clone https://github.com/VINODMAMIDI-05/RaituSevak360_PWA-V-1.0-.git
-```
-
-Move into the project:
-
-```bash
-cd RaituSevak360_PWA-V-1.0-
-```
-
-Check the remote:
-
-```bash
-git remote -v
-```
-
-Expected result:
-
-```text
-origin  https://github.com/VINODMAMIDI-05/RaituSevak360_PWA-V-1.0-.git
-```
-
----
-
-# 6. Initialize Git for a New Local Project
-
-Use this only when Git has not already been initialized.
-
-```bash
-git init
-```
-
-This creates the `.git` directory and turns the project folder into a Git repository.
-
-Check status:
+Before committing, run:
 
 ```bash
 git status
-```
-
----
-
-# 7. Connect Local Project to GitHub
-
-Add the GitHub repository as the remote:
-
-```bash
-git remote add origin https://github.com/VINODMAMIDI-05/RaituSevak360_PWA-V-1.0-.git
-```
-
-Check the remote:
-
-```bash
-git remote -v
-```
-
----
-
-# 8. Main Branch
-
-The main production branch is:
-
-```text
-main
-```
-
-Check the current branch:
-
-```bash
-git branch
-```
-
-Rename the current branch to `main`:
-
-```bash
-git branch -M main
-```
-
-Push the main branch:
-
-```bash
-git push -u origin main
-```
-
-The `-u` option connects the local branch with the remote branch.
-
-After this, you can normally use:
-
-```bash
-git push
-```
-
----
-
-# 9. First Commit
-
-When creating the repository for the first time:
-
-```bash
-git init
-```
-
-Add all project files:
-
-```bash
-git add .
-```
-
-Create the first commit:
-
-```bash
-git commit -m "Initial commit: RaituSevak360 PWA repository structure"
-```
-
-Set the main branch:
-
-```bash
-git branch -M main
-```
-
-Connect GitHub:
-
-```bash
-git remote add origin https://github.com/VINODMAMIDI-05/RaituSevak360_PWA-V-1.0-.git
-```
-
-Push to GitHub:
-
-```bash
-git push -u origin main
-```
-
----
-
-# 10. Check Project Status
-
-Use:
-
-```bash
-git status
-```
-
-This shows:
-
-* Modified files
-* New files
-* Deleted files
-* Staged files
-* Current branch
-
-Use this command frequently.
-
----
-
-# 11. See Changed Files
-
-To see which files have changed:
-
-```bash
-git status
-```
-
-To see the actual changes:
-
-```bash
 git diff
+git diff --check
 ```
 
-To see staged changes:
+Explanation:
+- `git status` shows changed, staged, untracked, and other repository state information.
+- `git diff` displays unstaged code changes.
+- `git diff --check` checks for whitespace errors and certain patch formatting problems.
 
-```bash
-git diff --staged
-```
+Review the output carefully.
 
----
+Confirm that:
+- Only the intended files are changed.
+- No unrelated files are included.
+- No temporary files are included.
+- No `.env` files or credentials are included.
+- No debugging code or accidental changes remain.
 
-# 12. Add Files to Git
+Run the appropriate project checks before pushing, such as the existing lint, type-check, build, unit tests, or backend tests. Use the actual scripts configured in the relevant project directory.
 
-Add one file:
+Do not claim that tests passed if they were not run.
 
-```bash
-git add filename
-```
+## 10. Step 6 — Stage and Commit Changes
+
+Stage only the files related to your task.
 
 Example:
 
 ```bash
-git add frontend/app/page.tsx
+git add frontend/src/components/FarmerDashboard.tsx
 ```
 
-Add multiple files:
+For multiple specific files:
 
 ```bash
-git add frontend/ backend/
+git add frontend/src/components/FarmerDashboard.tsx frontend/src/services/farmerService.ts
 ```
 
-Add all changed files:
+After reviewing the staged changes:
 
 ```bash
-git add .
+git diff --cached
+git commit -m "feat: add farmer dashboard"
 ```
 
-The `.` means the current directory and its contents.
+### Commit message format
 
----
-
-# 13. Commit Changes
-
-After adding files:
-
-```bash
-git commit -m "Add farmer registration page"
-```
-
-A commit is a saved version of your changes.
-
-Good commit messages should explain what was changed.
-
-Examples:
-
-```bash
-git commit -m "Add farmer registration module"
-```
-
-```bash
-git commit -m "Add crop advisory API"
-```
-
-```bash
-git commit -m "Update farmer dashboard UI"
-```
-
-```bash
-git commit -m "Fix authentication validation"
-```
-
-```bash
-git commit -m "Add weather intelligence service"
-```
-
----
-
-# 14. Push Changes to GitHub
-
-After committing:
-
-```bash
-git push
-```
-
-If the branch has not been connected to the remote:
-
-```bash
-git push -u origin branch-name
-```
-
-Example:
-
-```bash
-git push -u origin feature/farmer-registration
-```
-
----
-
-# 15. Pull Latest Changes
-
-Before starting new work, update your local repository.
-
-```bash
-git pull
-```
-
-For the main branch:
-
-```bash
-git checkout main
-git pull origin main
-```
-
-This downloads the latest changes and updates your local branch.
-
----
-
-# 16. Fetch Changes Without Merging
-
-Use:
-
-```bash
-git fetch
-```
-
-This downloads information about changes from GitHub without immediately changing your working files.
-
-Check remote branches:
-
-```bash
-git branch -r
-```
-
----
-
-# 17. Branches
-
-Do not directly develop features on `main`.
-
-Create a separate branch for your work.
-
-Check branches:
-
-```bash
-git branch
-```
-
-Create a branch:
-
-```bash
-git branch feature/farmer-registration
-```
-
-Create and switch to the branch:
-
-```bash
-git checkout -b feature/farmer-registration
-```
-
-Or:
-
-```bash
-git switch -c feature/farmer-registration
-```
-
-Recommended naming:
-
-```text
-feature/
-fix/
-docs/
-refactor/
-security/
-```
+Use a clear prefix and a short description.
 
 Examples:
 
 ```text
-feature/farmer-registration
-feature/crop-advisory
-feature/weather-dashboard
-feature/marketplace
-fix/login-validation
-fix/api-error
-docs/update-readme
-security/authentication-update
+feat: add farmer dashboard
+feat: add marketplace filters
+fix: correct login validation
+fix: handle failed API requests
+docs: update GitHub workflow
+refactor: simplify authentication service
+test: add marketplace validation tests
+chore: update project configuration
 ```
 
----
+A commit should represent a logical unit of work.
 
-# 18. Switch Between Branches
-
-Switch to main:
-
-```bash
-git switch main
-```
-
-Switch to another branch:
-
-```bash
-git switch feature/farmer-registration
-```
-
-Older Git syntax:
-
-```bash
-git checkout main
-```
-
----
-
-# 19. Push a New Feature Branch
-
-After creating a feature branch:
-
-```bash
-git push -u origin feature/farmer-registration
-```
-
-After the first push, simply:
-
-```bash
-git push
-```
-
----
-
-# 20. View All Branches
-
-Local branches:
-
-```bash
-git branch
-```
-
-Remote branches:
-
-```bash
-git branch -r
-```
-
-All branches:
-
-```bash
-git branch -a
-```
-
----
-
-# 21. Update Your Feature Branch
-
-Before continuing development:
-
-```bash
-git switch main
-git pull origin main
-git switch feature/farmer-registration
-```
-
-This makes sure your local main branch has the latest changes.
-
----
-
-# 22. Pull Request Workflow
-
-Developers should not normally push feature work directly into `main`.
-
-The recommended workflow is:
+Avoid vague commit messages such as:
 
 ```text
-main
- ↓
-Create feature branch
- ↓
-Develop
- ↓
-git add
- ↓
-git commit
- ↓
-git push
- ↓
-GitHub Pull Request
- ↓
-Code Review
- ↓
-Approved
- ↓
-Merge into main
+changes
+update
+final
+done
+new code
 ```
+
+Never commit files containing secrets or sensitive information.
+
+## 11. Step 7 — Push Your Feature Branch
+
+Push your branch to GitHub:
+
+```bash
+git push -u origin feature/farmer-dashboard
+```
+
+Replace `feature/farmer-dashboard` with your actual branch name.
+
+The `-u` option sets the upstream branch, making future pushes easier.
+
+For later commits on the same branch, use:
+
+```bash
+git push
+```
+
+**Important:** Push to your feature branch, not to `main`.
+
+If GitHub rejects the push because of permissions, branch rules, or a remote update, read the error carefully. Do not attempt to bypass repository protections.
+
+## 12. Step 8 — Create a Pull Request
+
+After pushing your feature branch:
+
+1. Open the RaituSevak360 repository on GitHub.
+2. Open the **Pull requests** tab.
+3. Select **New pull request**.
+4. Set the base branch to `main`.
+5. Set the compare branch to your feature branch.
+6. Review the changed files and diff.
+7. Create the pull request.
+
+The target must be the protected `main` branch unless the owner explicitly directs otherwise.
+
+### Pull request title examples
+
+```text
+feat: Add farmer dashboard
+fix: Correct login validation
+docs: Update GitHub development workflow
+```
+
+### Pull request description template
+
+```markdown
+## Summary
+Describe what this PR changes.
+
+## Reason
+Explain why this change is needed.
+
+## Changes
+- List the main changes.
+- Mention the affected modules.
+
+## Testing
+- [ ] Relevant tests completed
+- [ ] Build or validation checks completed
+- [ ] Existing functionality checked
+
+## Risks or Notes
+Mention dependencies, limitations, or migration requirements.
+
+## Checklist
+- [ ] Changes are limited to the assigned task
+- [ ] No secrets or .env files included
+- [ ] No unrelated files changed
+- [ ] Documentation updated if needed
+```
+
+Write a meaningful description. Reviewers should understand the change without having to guess its purpose.
+
+## 13. Step 9 — Owner Review and Approval
+
+The intended RaituSevak360 team policy is:
+
+**Developers submit PRs → the owner reviews and approves → the owner performs the final merge.**
+
+The owner may review the following:
+- Correctness of the implementation.
+- Security and access-control implications.
+- Compatibility with existing features.
+- Project architecture and coding conventions.
+- Test coverage and build results.
+- Whether the PR contains unrelated or unnecessary changes.
+
+Developers must not treat an approval from another developer as a replacement for the owner's review under this team policy.
+
+### Important distinction: GitHub enforcement versus team policy
+
+The current ruleset requires one approval, dismisses stale approvals, requires approval of the latest reviewable push, and requires conversation resolution.
+
+However, if the ruleset does not explicitly require code-owner review, GitHub may accept another eligible reviewer's approval. The `.github/CODEOWNERS` file identifies the owner of covered files, but the file alone does not make the owner's approval mandatory.
+
+Therefore:
+- Team members must follow the owner-approval policy.
+- The owner should perform the final merge.
+- Do not assume the current ruleset technically enforces owner-only approval or owner-only merging.
+- Test a sample PR to confirm the actual behavior of the repository settings.
+
+If an owner-specific review requirement is not enforced by the available settings, repository administrators must not describe it as technically enforced.
+
+## 14. Step 10 — Review Feedback and New Commits
+
+If the owner or reviewer requests changes:
+
+1. Read every review comment.
+2. Ask for clarification if the requested change is unclear.
+3. Make the corrections on the same feature branch.
+4. Review the changes again.
+5. Run the appropriate tests.
+6. Commit the corrections.
+7. Push the branch.
+8. Reply to the review comments and resolve conversations when the issue is addressed.
 
 Example:
 
 ```bash
-git switch main
-git pull origin main
-
-git switch -c feature/crop-advisory
+git status
+git add frontend/src/components/FarmerDashboard.tsx
+git commit -m "fix: address farmer dashboard review"
+git push
 ```
 
-Develop your feature.
+When new reviewable commits are pushed, the stale-approval rule dismisses earlier approvals as configured. The updated code must be reviewed again when required.
+
+Do not try to preserve an old approval by hiding or bypassing new changes.
+
+## 15. Step 11 — Merge the Pull Request
+
+Under the current team workflow, the owner performs the final merge after reviewing the changes.
+
+Before merging, verify:
+- The target branch is `main`.
+- The required approval count is satisfied.
+- The latest reviewable push has the required approval.
+- All review conversations are resolved.
+- Required status checks pass, if configured.
+- No unresolved merge conflicts remain.
+- The PR contains only the intended changes.
+
+Use one of the merge methods permitted by the ruleset.
+
+After the merge succeeds, GitHub integrates the approved changes into `main`.
+
+Do not delete a branch while it contains unmerged work. Once the PR is merged, its feature branch can normally be deleted if it is no longer needed.
+
+## 16. Step 12 — Update Local Main After Merging
+
+After the PR is merged, developers should return to local main and update their copy.
+
+First, finish or preserve any remaining local work on the feature branch.
 
 Then:
 
 ```bash
-git add .
-git commit -m "Add crop advisory module"
-git push -u origin feature/crop-advisory
+git switch main
+git fetch origin
+git pull --ff-only origin main
+git status
 ```
 
-Then create a Pull Request on GitHub.
+Verify that the local branch is up to date with `origin/main`.
 
----
+Before starting another task, create a new feature branch from the updated `main`.
 
-# 23. Pull Request Rules
+## 17. Handling Multiple Developers
 
-Before creating a Pull Request:
+Several developers may work simultaneously on different modules.
+
+Example:
+
+```text
+Developer 1 → feature/farmer-dashboard
+Developer 2 → feature/marketplace
+Developer 3 → feature/authentication
+Developer 4 → fix/api-validation
+```
+
+Each developer must:
+- Work on their own branch.
+- Avoid pushing another developer's unfinished changes.
+- Avoid committing unrelated changes.
+- Communicate before modifying shared files.
+- Open a PR with a clear description.
+- Respond to review feedback promptly.
+
+### When developers modify the same file
+
+1. Inform the other developer.
+2. Coordinate which changes should be retained.
+3. Avoid editing or force-pushing over each other's work.
+4. Resolve conflicts carefully.
+5. Run tests after resolving conflicts.
+6. Request a new review if the conflict resolution materially changes the code.
+
+Do not blindly accept all incoming or current changes during a conflict. Understand the difference before choosing.
+
+## 18. Merge Conflict Procedure
+
+If Git reports a merge conflict while updating a feature branch:
+
+1. Stop and read the conflict message.
+2. Run `git status`.
+3. Identify each conflicted file.
+4. Open the files in VS Code.
+5. Review the conflicting sections.
+6. Coordinate with the author of the other change if necessary.
+7. Resolve the conflicts without removing valid functionality.
+8. Run tests.
+9. Stage the resolved files.
+10. Complete the operation that Git reported as incomplete.
+
+For a merge-based conflict resolution:
+
+```bash
+git status
+git diff
+git add path/to/resolved-file
+git diff --cached
+git commit -m "fix: resolve merge conflicts"
+```
+
+Only create the commit if Git indicates a merge commit is required. If the conflict occurred during a rebase, continue the rebase with the appropriate command instead.
+
+If the conflict is unclear, stop and ask for help rather than using destructive commands.
+
+## 19. Local Changes and Stashing
+
+Before switching branches, pulling changes, or performing other Git operations, check:
 
 ```bash
 git status
 ```
 
-Check your changes:
+If unfinished work must be temporarily set aside:
 
 ```bash
-git diff
+git stash push -m "WIP: farmer dashboard"
 ```
 
-Make sure your code is committed:
-
-```bash
-git log --oneline -5
-```
-
-Push your branch:
-
-```bash
-git push
-```
-
-Then create the Pull Request.
-
-The Pull Request should contain:
-
-* What was changed
-* Why it was changed
-* Related feature or issue
-* Testing performed
-* Any known limitations
-
----
-
-# 24. View Commit History
-
-View commits:
-
-```bash
-git log
-```
-
-Short version:
-
-```bash
-git log --oneline
-```
-
-Show recent commits:
-
-```bash
-git log --oneline -10
-```
-
-This shows the last 10 commits.
-
----
-
-# 25. View a Specific Commit
-
-Use:
-
-```bash
-git show COMMIT_ID
-```
-
-Example:
-
-```bash
-git show a1b2c3d
-```
-
----
-
-# 26. Rename a Branch
-
-Rename the current branch:
-
-```bash
-git branch -m new-branch-name
-```
-
-Example:
-
-```bash
-git branch -m feature/farmer-dashboard
-```
-
----
-
-# 27. Delete a Local Branch
-
-After a feature has been merged:
-
-```bash
-git branch -d feature/farmer-registration
-```
-
-Force delete:
-
-```bash
-git branch -D feature/farmer-registration
-```
-
-Use `-D` carefully because it can delete a branch containing unmerged work.
-
----
-
-# 28. Delete a Remote Branch
-
-```bash
-git push origin --delete feature/farmer-registration
-```
-
-Only do this when the remote branch is no longer required.
-
----
-
-# 29. Git Stash
-
-Sometimes you have unfinished work but need to switch branches.
-
-Save your current changes:
-
-```bash
-git stash
-```
-
-Switch branches:
-
-```bash
-git switch main
-```
-
-Return to your feature branch:
-
-```bash
-git switch feature/farmer-registration
-```
-
-Restore the saved changes:
-
-```bash
-git stash pop
-```
-
-View stashed changes:
+To view saved stashes:
 
 ```bash
 git stash list
 ```
 
----
-
-# 30. Undo Unstaged Changes
-
-To discard changes in a specific file:
+To restore the latest stash while keeping it available:
 
 ```bash
-git restore filename
+git stash apply
 ```
 
-Example:
+To restore and remove the latest stash after successful application:
 
 ```bash
-git restore frontend/app/page.tsx
+git stash pop
 ```
 
-To discard all unstaged changes:
+Stashing is temporary storage, not a replacement for regular commits or backups. Check the resulting changes before continuing.
 
-```bash
-git restore .
-```
+## 20. Private Repository and Security Rules
 
-Use this carefully because discarded changes may be difficult to recover.
+The repository is private, so each collaborator must authenticate with an account that has repository access.
 
----
+Mandatory security rules:
+- Never share passwords or personal access tokens.
+- Never commit `.env`, private keys, database credentials, or API secrets.
+- Use `.env.example` for documenting variable names without real secret values.
+- Do not include real user data in test fixtures or screenshots.
+- Do not remove or weaken security controls without owner approval.
+- Report accidentally committed secrets immediately.
+- If a secret is exposed, revoke or rotate it; deleting the file in a later commit is not sufficient.
 
-# 31. Unstage a File
-
-If you accidentally used:
-
-```bash
-git add .
-```
-
-and want to remove a file from staging:
-
-```bash
-git restore --staged filename
-```
-
-Example:
-
-```bash
-git restore --staged frontend/app/page.tsx
-```
-
-Your actual file will not be deleted. It is simply removed from the staging area.
-
----
-
-# 32. Change the Last Commit Message
-
-If you have not pushed the commit yet:
-
-```bash
-git commit --amend -m "Correct commit message"
-```
-
-Avoid changing already-pushed commit history unless you understand the consequences.
-
----
-
-# 33. Merge a Branch
-
-To merge a feature branch into main locally:
-
-```bash
-git switch main
-git pull origin main
-git merge feature/farmer-registration
-```
-
-Then:
-
-```bash
-git push origin main
-```
-
-For the RaituSevak360 team, normal feature development should preferably use the GitHub Pull Request process instead of directly merging feature branches into `main`.
-
----
-
-# 34. Merge Conflict
-
-A conflict can happen when two developers modify the same part of a file.
-
-Git may show:
-
-```text
-CONFLICT
-```
-
-First check:
+Before pushing, check:
 
 ```bash
 git status
+git diff
 ```
 
-Open the conflicting file.
+Review every staged file before committing.
 
-You may see:
+## 21. Ruleset and Main Branch Protection
+
+The current intended `main` protection configuration is:
+
+| Setting | Intended configuration |
+|---|---|
+| Ruleset enforcement | Active |
+| Target branch | `main` |
+| Require a pull request before merging | Enabled |
+| Required approvals | 1 |
+| Dismiss stale approvals | Enabled |
+| Require approval of the most recent reviewable push | Enabled |
+| Require conversation resolution | Enabled |
+| Restrict deletions | Enabled |
+| Block force pushes | Enabled |
+| Status checks | Enable when configured |
+| Signed commits | Not required currently |
+| Required deployments | Not required currently |
+
+The team must not change these settings without the owner's authorization.
+
+### Do not bypass the rules
+
+Never attempt to bypass protections by:
+- Force-pushing to `main`.
+- Pushing directly to the protected branch.
+- Disabling the ruleset to merge unfinished work.
+- Asking another collaborator to bypass required reviews.
+- Deleting or recreating a protected branch to avoid the rules.
+
+The setting **Do not allow bypassing the above settings** should be enabled if the owner wants the rules to apply to administrators and users with bypass permissions as well.
+
+## 22. CODEOWNERS File
+
+The repository contains:
 
 ```text
-<<<<<<< HEAD
-Your changes
-=======
-Other developer changes
->>>>>>> branch-name
+.github/CODEOWNERS
 ```
 
-Manually decide which code should remain.
+Expected content:
 
-Then:
-
-```bash
-git add .
+```text
+* @VINODMAMIDI-05
 ```
 
-Complete the merge:
+This identifies the owner as the code owner for all files covered by the pattern, assuming that GitHub username is correct.
 
-```bash
-git commit
-```
+The file can help route review requests, but it does not independently enforce mandatory owner approval. A supported required-code-owner-review rule must also be active for GitHub to block merging without the code-owner approval.
 
-Then:
+Do not edit the CODEOWNERS file without coordinating with the repository owner.
 
-```bash
-git push
-```
+## 23. Pull Request Checklist
 
-Always communicate with the other developer if the conflict involves shared functionality.
+Before submitting a PR, the developer must confirm:
+
+- [ ] I am working on the correct repository.
+- [ ] I updated my local `main` before creating the feature branch.
+- [ ] I am not working directly on `main`.
+- [ ] My branch name describes the task.
+- [ ] My changes are related to the assigned task.
+- [ ] I reviewed the diff.
+- [ ] I ran the appropriate tests.
+- [ ] I did not commit secrets or `.env` files.
+- [ ] My commit messages are meaningful.
+- [ ] The PR targets `main`.
+- [ ] The PR description explains the change.
+- [ ] I am ready to address review feedback.
+
+## 24. Rules for Safe Development
+
+Every developer must remember:
+
+1. Always check `git status` before important Git operations.
+2. Fetch and update `main` before starting new work.
+3. Create a separate feature branch for every task.
+4. Commit small, logical changes.
+5. Review staged files before committing.
+6. Push only to the developer's feature branch.
+7. Submit a pull request instead of directly changing `main`.
+8. Follow the owner-approval policy.
+9. Never force-push to `main`.
+10. Never use destructive commands without understanding their effects.
+11. Resolve review comments and conflicts carefully.
+12. Update local `main` after approved changes are merged.
+
+If a command fails or produces unexpected results, stop and inspect the error before trying another command.
 
 ---
 
-# 35. Remote Commands
+# 25. Complete Git Command Reference With Explanations
 
-Check remote:
+The following commands are grouped by purpose. Developers should use the commands relevant to their current task rather than running every command blindly.
+
+## A. Check Git Configuration and Repository
+
+### 1. Check the Git version
+
+```bash
+git --version
+```
+
+Displays the installed Git version.
+
+### 2. Check the connected GitHub repository
 
 ```bash
 git remote -v
 ```
 
-Add remote:
+Displays the remote repository URLs for fetching and pushing.
 
-```bash
-git remote add origin REPOSITORY_URL
-```
-
-Change remote URL:
-
-```bash
-git remote set-url origin REPOSITORY_URL
-```
-
-Remove remote:
-
-```bash
-git remote remove origin
-```
-
----
-
-# 36. Git Tags
-
-Tags can be used to identify project versions.
-
-Create a version tag:
-
-```bash
-git tag v1.0.0
-```
-
-Push tag:
-
-```bash
-git push origin v1.0.0
-```
-
-Push all tags:
-
-```bash
-git push --tags
-```
-
-View tags:
-
-```bash
-git tag
-```
-
-Example RaituSevak360 versions:
-
-```text
-v0.1.0
-v0.5.0
-v1.0.0
-v1.1.0
-```
-
----
-
-# 37. Check Current Branch
+### 3. Check the current branch
 
 ```bash
 git branch --show-current
 ```
 
-Example output:
+Displays the branch currently checked out.
 
-```text
-feature/crop-advisory
-```
-
----
-
-# 38. Check Remote Repository
-
-```bash
-git remote -v
-```
-
-Expected:
-
-```text
-origin  https://github.com/VINODMAMIDI-05/RaituSevak360_PWA-V-1.0-.git
-```
-
----
-
-# 39. Compare Branches
-
-Compare current changes:
-
-```bash
-git diff
-```
-
-Compare two branches:
-
-```bash
-git diff main..feature/crop-advisory
-```
-
-This helps developers understand what their feature branch changed compared with `main`.
-
----
-
-# 40. Find Previous Work
-
-Search commit messages:
-
-```bash
-git log --oneline --all --grep="authentication"
-```
-
-Example:
-
-```bash
-git log --oneline --all --grep="crop"
-```
-
----
-
-# 41. Git Ignore
-
-The project must have a `.gitignore` file.
-
-Do not commit:
-
-```text
-node_modules/
-.env
-.env.local
-.next/
-dist/
-build/
-__pycache__/
-*.log
-```
-
-Never commit:
-
-```text
-API keys
-Passwords
-JWT secrets
-Database credentials
-Payment credentials
-Firebase private credentials
-Other sensitive secrets
-```
-
-Use `.env.example` to document required environment variables without exposing actual values.
-
----
-
-# 42. Check What Git Is Tracking
-
-```bash
-git ls-files
-```
-
-This displays files currently tracked by Git.
-
----
-
-# 43. Remove a File from Git Tracking
-
-If a file was accidentally added to Git but should not be tracked:
-
-```bash
-git rm --cached filename
-```
-
-Example:
-
-```bash
-git rm --cached .env
-```
-
-Then add the file to `.gitignore`.
-
-After that:
-
-```bash
-git add .gitignore
-git commit -m "Update gitignore"
-git push
-```
-
-Important: If a secret was already pushed to GitHub, simply removing the file is not enough. The exposed credential should be revoked or rotated.
-
----
-
-# 44. Recommended Daily Workflow
-
-Every developer should follow this workflow.
-
-## Step 1 — Update main
-
-```bash
-git switch main
-git pull origin main
-```
-
-## Step 2 — Create your feature branch
-
-```bash
-git switch -c feature/your-feature-name
-```
-
-Example:
-
-```bash
-git switch -c feature/farmer-registration
-```
-
-## Step 3 — Develop
-
-Write and test your code.
-
-## Step 4 — Check changes
-
-```bash
-git status
-```
-
-```bash
-git diff
-```
-
-## Step 5 — Stage changes
-
-```bash
-git add .
-```
-
-## Step 6 — Commit
-
-```bash
-git commit -m "Add farmer registration module"
-```
-
-## Step 7 — Push
-
-```bash
-git push -u origin feature/farmer-registration
-```
-
-## Step 8 — Create Pull Request
-
-Create a Pull Request on GitHub.
-
-## Step 9 — Code Review
-
-Team members review the changes.
-
-## Step 10 — Merge
-
-After approval and required checks, merge the Pull Request into `main`.
-
----
-
-# 45. Recommended Commit Format
-
-Use:
-
-```text
-<type>: <short description>
-```
-
-Recommended types:
-
-```text
-feat:
-fix:
-docs:
-refactor:
-security:
-test:
-style:
-chore:
-```
-
-Examples:
-
-```bash
-git commit -m "feat: add farmer registration"
-```
-
-```bash
-git commit -m "fix: resolve login validation error"
-```
-
-```bash
-git commit -m "docs: update API documentation"
-```
-
-```bash
-git commit -m "security: improve authentication validation"
-```
-
-```bash
-git commit -m "test: add crop advisory API tests"
-```
-
----
-
-# 46. RaituSevak360 Branch Naming
-
-Use clear branch names.
-
-### Features
-
-```text
-feature/farmer-registration
-feature/farmer-dashboard
-feature/crop-advisory
-feature/weather-intelligence
-feature/marketplace
-feature/labour-booking
-feature/machinery-booking
-```
-
-### Bug Fixes
-
-```text
-fix/login-error
-fix/api-validation
-fix/dashboard-loading
-```
-
-### Documentation
-
-```text
-docs/api-documentation
-docs/project-structure
-docs/contribution-guide
-```
-
-### Security
-
-```text
-security/authentication
-security/api-validation
-```
-
----
-
-# 47. Important Team Rule
-
-Do not work directly on `main` for normal feature development.
-
-Avoid:
-
-```text
-main
- ↓
-Developer writes feature
- ↓
-git add .
- ↓
-git commit
- ↓
-git push
-```
-
-Prefer:
-
-```text
-main
- ↓
-feature branch
- ↓
-development
- ↓
-commit
- ↓
-push
- ↓
-Pull Request
- ↓
-review
- ↓
-merge
- ↓
-main
-```
-
----
-
-# 48. Before Every Push
-
-Run:
-
-```bash
-git status
-```
-
-Check:
-
-```bash
-git diff
-```
-
-Make sure no sensitive files are included.
-
-Then:
-
-```bash
-git add .
-git commit -m "type: description"
-git push
-```
-
----
-
-# 49. Before Starting New Work
-
-Always synchronize with the latest `main`:
-
-```bash
-git switch main
-git pull origin main
-```
-
-Then create a new branch:
-
-```bash
-git switch -c feature/new-feature
-```
-
----
-
-# 50. Quick Command Reference
-
-| Command                   | Purpose                               |
-| ------------------------- | ------------------------------------- |
-| `git init`                | Initialize Git                        |
-| `git clone URL`           | Download repository                   |
-| `git status`              | Check current changes                 |
-| `git add .`               | Stage all changes                     |
-| `git add file`            | Stage specific file                   |
-| `git commit -m "message"` | Save changes                          |
-| `git push`                | Upload changes                        |
-| `git pull`                | Download and integrate latest changes |
-| `git fetch`               | Download remote information           |
-| `git branch`              | View branches                         |
-| `git switch branch`       | Switch branch                         |
-| `git switch -c branch`    | Create and switch branch              |
-| `git merge branch`        | Merge branch                          |
-| `git log --oneline`       | View commit history                   |
-| `git diff`                | View changes                          |
-| `git stash`               | Temporarily save changes              |
-| `git stash pop`           | Restore stashed changes               |
-| `git restore file`        | Discard unstaged changes              |
-| `git remote -v`           | View GitHub remote                    |
-| `git tag`                 | View versions                         |
-| `git tag v1.0.0`          | Create version tag                    |
-
----
-
-# 51. RaituSevak360 Standard Workflow
-
-The standard team workflow is:
-
-```text
-                    GitHub
-                       |
-                    main
-                       |
-             +---------+---------+
-             |         |         |
-             ↓         ↓         ↓
-          Developer Developer Developer
-             |         |         |
-             ↓         ↓         ↓
-         feature/*  feature/*  feature/*
-             |         |         |
-             +---------+---------+
-                       |
-                       ↓
-                 Pull Request
-                       |
-                       ↓
-                  Code Review
-                       |
-                       ↓
-                    Testing
-                       |
-                       ↓
-                     Merge
-                       |
-                       ↓
-                     main
-```
-
----
-
-# 52. Most Important Commands for Developers
-
-If you remember only the essential commands, remember these:
-
-### Start work
-
-```bash
-git switch main
-git pull origin main
-git switch -c feature/your-feature
-```
-
-### During development
-
-```bash
-git status
-git diff
-```
-
-### Save your work
-
-```bash
-git add .
-git commit -m "feat: describe your change"
-```
-
-### Upload your branch
-
-```bash
-git push -u origin feature/your-feature
-```
-
-### After that
-
-Create a Pull Request on GitHub.
-
----
-
-# 53. Golden Rules
-
-1. Do not directly develop features on `main`.
-2. Always create a feature branch.
-3. Pull the latest `main` before starting new work.
-4. Keep commits small and meaningful.
-5. Write clear commit messages.
-6. Never commit `.env` files or secrets.
-7. Never commit `node_modules`.
-8. Check `git status` before committing.
-9. Review your changes before pushing.
-10. Create a Pull Request for feature work.
-11. Resolve conflicts carefully.
-12. Do not force-push shared branches.
-13. Keep documentation updated when project structure changes.
-14. Do not commit unfinished or broken code to `main`.
-15. Coordinate with other developers when modifying shared modules.
-
----
-
-# 54. Emergency: Something Went Wrong
-
-If you are unsure about a Git command, do not randomly execute destructive commands.
-
-First run:
-
-```bash
-git status
-```
-
-Then:
-
-```bash
-git log --oneline -10
-```
-
-And check:
+### 4. View all local branches
 
 ```bash
 git branch
 ```
 
-If the problem involves lost changes, merge conflicts, accidental commits, or accidental deletion, contact the project lead before using commands such as:
+Lists branches stored in the local repository.
+
+### 5. View local and remote branches
 
 ```bash
-git reset --hard
-git push --force
-git branch -D
+git branch -a
 ```
 
-These commands can permanently remove work or affect other developers.
+Displays local branches and remote-tracking branches.
 
----
+### 6. Check repository status
 
-# 55. Final Developer Checklist
-
-Before creating a Pull Request:
-
-```text
-[ ] I am working on the correct feature branch
-[ ] I pulled the latest main branch
-[ ] My code follows the project structure
-[ ] I tested my changes
-[ ] I checked git status
-[ ] I checked git diff
-[ ] No .env or secrets are included
-[ ] No node_modules are included
-[ ] Commit message is clear
-[ ] Changes are pushed to GitHub
-[ ] Pull Request description is complete
-```
-
----
-
-# 56. Final Git Workflow
-
-```text
-Clone Repository
-       ↓
-git switch main
-       ↓
-git pull origin main
-       ↓
-Create Feature Branch
-       ↓
-Develop
-       ↓
-Test
-       ↓
+```bash
 git status
-       ↓
-git diff
-       ↓
-git add .
-       ↓
-git commit
-       ↓
-git push
-       ↓
-Pull Request
-       ↓
-Code Review
-       ↓
-Testing / Checks
-       ↓
-Merge
-       ↓
-main
 ```
 
-This is the standard Git and GitHub workflow for the RaituSevak360 PWA development team.
+Shows the current branch, modified files, staged changes, untracked files, and available status information.
+
+### 7. View recent commits
+
+```bash
+git log --oneline -10
+```
+
+Displays the ten most recent commits in a compact format.
+
+### 8. View commit details
+
+```bash
+git show
+```
+
+Shows the latest commit and its changes.
+
+## B. Download and Update Repository Information
+
+### 9. Fetch updates from GitHub
+
+```bash
+git fetch origin
+```
+
+Downloads remote commits and branch information without merging changes into the current working branch.
+
+### 10. Switch to main
+
+```bash
+git switch main
+```
+
+Switches to the local `main` branch.
+
+### 11. Update main safely
+
+```bash
+git pull --ff-only origin main
+```
+
+Downloads and integrates the remote main branch only when a fast-forward update is possible.
+
+### 12. Compare local main with GitHub main
+
+```bash
+git fetch origin
+git status -sb
+git log --oneline main..origin/main
+```
+
+Shows commits present on remote main but not on local main, after fetching.
+
+### 13. Clone the repository for the first time
+
+```bash
+git clone YOUR-REPOSITORY-URL
+```
+
+Creates a local copy of the repository. Replace the placeholder with the private repository's actual URL.
+
+### 14. Enter the project folder
+
+```bash
+cd YOUR-PROJECT-FOLDER
+```
+
+Changes the terminal's current directory to the project folder.
+
+### 15. Open the current folder in VS Code
+
+```bash
+code .
+```
+
+Opens the current directory in VS Code, if the `code` command is available.
+
+## C. Create and Manage Branches
+
+### 16. Create a new feature branch and switch to it
+
+```bash
+git switch -c feature/your-task-name
+```
+
+Creates a branch from the current commit and switches to it. Run this from the updated `main` branch.
+
+### 17. Switch to an existing branch
+
+```bash
+git switch feature/your-task-name
+```
+
+Changes to an existing local branch.
+
+### 18. List branches
+
+```bash
+git branch
+```
+
+Displays local branches and marks the current branch.
+
+### 19. Rename the current branch
+
+```bash
+git branch -m feature/new-task-name
+```
+
+Renames the current branch. If the old branch has already been pushed, the remote branch must be handled separately.
+
+### 20. Delete a local branch
+
+```bash
+git branch -d feature/your-task-name
+```
+
+Deletes a local branch when Git considers it safely merged.
+
+Do not delete a branch containing unfinished work.
+
+### 21. Delete a remote feature branch
+
+```bash
+git push origin --delete feature/your-task-name
+```
+
+Deletes a remote branch. Only do this after its work is merged and the branch is no longer needed.
+
+Never use this command for `main`.
+
+## D. Review Changes
+
+### 22. View unstaged changes
+
+```bash
+git diff
+```
+
+Displays changes in tracked files that have not been staged.
+
+### 23. View staged changes
+
+```bash
+git diff --cached
+```
+
+Displays changes that are staged and will be included in the next commit.
+
+### 24. Check whitespace errors
+
+```bash
+git diff --check
+```
+
+Checks for whitespace problems in the current diff.
+
+### 25. View differences between two branches
+
+```bash
+git diff main...feature/your-task-name
+```
+
+Displays changes introduced by the feature branch relative to its merge base with `main`.
+
+## E. Stage and Commit Changes
+
+### 26. Stage one file
+
+```bash
+git add path/to/file
+```
+
+Stages a specific file for the next commit.
+
+### 27. Stage several specific files
+
+```bash
+git add path/to/file1 path/to/file2
+```
+
+Stages the listed files.
+
+### 28. Stage all changes
+
+```bash
+git add .
+```
+
+Stages new and modified files under the current directory, subject to Git's ignore rules.
+
+Use this only after checking the repository status and reviewing which files should be included.
+
+### 29. Commit staged changes
+
+```bash
+git commit -m "feat: describe your change"
+```
+
+Creates a commit from staged changes.
+
+### 30. Update the last commit message
+
+```bash
+git commit --amend -m "corrected commit message"
+```
+
+Replaces the most recent commit with an amended version. Avoid amending commits already shared with others unless coordinated, because the commit ID changes.
+
+### 31. Unstage a file without deleting its changes
+
+```bash
+git restore --staged path/to/file
+```
+
+Removes the file from the staging area while keeping its working-tree modifications.
+
+### 32. Discard unstaged changes to a file
+
+```bash
+git restore path/to/file
+```
+
+Restores the file to its last committed state and discards its unstaged modifications.
+
+**Warning:** This can permanently remove local work. Do not run it unless you intentionally want to discard those changes.
+
+## F. Push Changes to GitHub
+
+### 33. Push a feature branch for the first time
+
+```bash
+git push -u origin feature/your-task-name
+```
+
+Uploads the branch to GitHub and sets the upstream tracking branch.
+
+### 34. Push later commits
+
+```bash
+git push
+```
+
+Uploads new commits to the configured upstream branch.
+
+### 35. Check the upstream branch
+
+```bash
+git branch -vv
+```
+
+Displays local branches and their upstream tracking branches.
+
+### 36. Change a remote URL
+
+```bash
+git remote set-url origin YOUR-REPOSITORY-URL
+```
+
+Updates the URL associated with `origin`. Use only when the current URL is incorrect.
+
+### 37. Add a remote if one does not exist
+
+```bash
+git remote add origin YOUR-REPOSITORY-URL
+```
+
+Adds a remote named `origin`. Do not run this if `origin` already exists.
+
+## G. Handle Local Work and Conflicts
+
+### 38. Temporarily stash tracked changes
+
+```bash
+git stash push -m "WIP: description"
+```
+
+Temporarily stores tracked working-tree and staged changes in a stash.
+
+### 39. View stashes
+
+```bash
+git stash list
+```
+
+Lists saved stashes.
+
+### 40. Apply the latest stash without removing it
+
+```bash
+git stash apply
+```
+
+Restores the latest stash while retaining it in the stash list.
+
+### 41. Apply and remove the latest stash
+
+```bash
+git stash pop
+```
+
+Applies the latest stash and normally removes it from the stash list if successful.
+
+### 42. Inspect conflicts and repository state
+
+```bash
+git status
+git diff
+```
+
+Identifies conflicted files and helps inspect unresolved changes.
+
+### 43. Mark a conflict-resolved file as resolved
+
+```bash
+git add path/to/resolved-file
+```
+
+Stages the resolved file. Continue or complete the merge/rebase operation according to the message Git displays.
+
+### 44. Continue a rebase
+
+```bash
+git rebase --continue
+```
+
+Continues a rebase after conflicts have been resolved and staged.
+
+Use only when Git reports that a rebase is in progress.
+
+### 45. Abort a rebase
+
+```bash
+git rebase --abort
+```
+
+Cancels an in-progress rebase and restores the pre-rebase state where possible.
+
+### 46. Abort a merge
+
+```bash
+git merge --abort
+```
+
+Attempts to cancel an in-progress merge and restore the pre-merge state.
+
+Do not run merge or rebase recovery commands unless that operation is actually in progress.
+
+## H. Compare, Inspect, and Find History
+
+### 47. View commits on a branch
+
+```bash
+git log --oneline --decorate
+```
+
+Shows commit history with branch and tag information.
+
+### 48. View commits in a graph
+
+```bash
+git log --oneline --graph --decorate --all
+```
+
+Displays a compact graph of local and remote-tracking branch history.
+
+### 49. Find which files changed in a commit
+
+```bash
+git show --stat COMMIT-ID
+```
+
+Shows the files changed and a summary of the selected commit.
+
+### 50. Compare two commits
+
+```bash
+git diff COMMIT-ID-1 COMMIT-ID-2
+```
+
+Shows differences between two commits.
+
+Replace the placeholders with actual commit IDs.
+
+## I. Tags and Releases
+
+### 51. List tags
+
+```bash
+git tag
+```
+
+Lists tags available in the local repository.
+
+### 52. Create a release tag
+
+```bash
+git tag -a v1.0.0 -m "RaituSevak360 release 1.0.0"
+```
+
+Creates an annotated tag for a release. Use the project's actual release version and follow the owner's release process.
+
+### 53. Push a tag
+
+```bash
+git push origin v1.0.0
+```
+
+Uploads the specified tag to GitHub.
+
+## J. Initialize and Configure Git (Only When Needed)
+
+### 54. Initialize a new Git repository
+
+```bash
+git init
+```
+
+Initializes Git tracking in a directory. Do not run this in the existing RaituSevak360 repository unless the owner specifically instructs you to do so.
+
+### 55. Configure your commit name
+
+```bash
+git config --global user.name "Your Name"
+```
+
+Sets the name recorded in your Git commits.
+
+### 56. Configure your commit email
+
+```bash
+git config --global user.email "your-email@example.com"
+```
+
+Sets the email recorded in your Git commits. Use the email you want associated with your GitHub commits.
+
+### 57. View Git configuration
+
+```bash
+git config --list
+```
+
+Displays Git configuration values.
+
+## K. Final Daily Workflow — Copy and Use
+
+For a new task:
+
+```bash
+git status
+git fetch origin
+git switch main
+git pull --ff-only origin main
+git switch -c feature/your-task-name
+```
+
+After completing the task:
+
+```bash
+git status
+git diff
+git diff --check
+git add path/to/changed-file
+git diff --cached
+git commit -m "feat: describe your change"
+git push -u origin feature/your-task-name
+```
+
+Then create a pull request on GitHub with:
+- Base: `main`
+- Compare: your feature branch
+- A clear title and description
+- Testing details
+- Relevant review requests
+
+After the owner reviews and merges the PR:
+
+```bash
+git switch main
+git fetch origin
+git pull --ff-only origin main
+git status
+```
+
+Before starting another task, create a new feature branch from the updated `main`.
+
+---
+
+# 26. Final Team Rule
+
+**No developer should directly modify or push changes to `main` as part of normal development.**
+
+All changes must be developed in separate branches, committed with meaningful messages, pushed to GitHub, reviewed through pull requests, and merged only after the required reviews and checks are satisfied.
+
+The owner is responsible for the final review and merge under the current team policy.
+
+When in doubt, stop and ask the repository owner rather than using commands that could overwrite, delete, or bypass existing work.
