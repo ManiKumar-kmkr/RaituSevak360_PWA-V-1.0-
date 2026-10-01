@@ -1,6 +1,10 @@
 import { Router, Request, Response } from 'express';
+import authRoutes from './auth.routes';
 
 const router = Router();
+
+// Mount authentication routes
+router.use('/auth', authRoutes);
 
 // Health check endpoint
 router.get('/health', (_req: Request, res: Response) => {
