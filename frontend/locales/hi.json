@@ -198,6 +198,14 @@
     "labourTileDesc": "सत्यापित कृषि मजदूरों की बुकिंग करें",
     "soilTile": "मृदा परीक्षण",
     "soilTileDesc": "एनपीके संतुलन और मिट्टी स्वास्थ्य कार्ड",
+    "equipmentTile": "कृषि उपकरण",
+    "equipmentTileDesc": "ट्रैक्टर किराया और आधुनिक कृषि मशीनरी",
+    "landTile": "कृषि भूमि",
+    "landTileDesc": "खेत की सीमाएं, रकबा और मृदा रिकॉर्ड",
+    "aiCropTile": "एआई फसल सलाहकार",
+    "aiCropTileDesc": "एआई फसल इनपुट और सटीक अनुशंसाएं",
+    "marketPricesTile": "मंडी भाव",
+    "marketPricesTileDesc": "दैनिक मंडी भाव और कमोडिटी रुझान",
     "defaultUser": "उपयोगकर्ता"
   },
   "forgotPassword": {

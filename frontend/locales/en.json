@@ -198,6 +198,14 @@
     "labourTileDesc": "Book verified agricultural labour & harvest crews",
     "soilTile": "Soil Diagnostics",
     "soilTileDesc": "NPK fertility indices, organic carbon & pH health",
+    "equipmentTile": "Farm Equipment",
+    "equipmentTileDesc": "Tractor rentals, implements & CHC machinery",
+    "landTile": "Farm Land",
+    "landTileDesc": "Plot boundaries, acreage & soil records",
+    "aiCropTile": "AI Crop Advisor",
+    "aiCropTileDesc": "AI crop input & smart recommendations",
+    "marketPricesTile": "Market Prices",
+    "marketPricesTileDesc": "Daily market rates & commodity price trends",
     "defaultUser": "User"
   },
   "forgotPassword": {

@@ -198,6 +198,14 @@
     "labourTileDesc": "ధృవీకరించబడిన వ్యవసాయ కూలీలను బుక్ చేసుకోండి",
     "soilTile": "నేల పరీక్షలు",
     "soilTileDesc": "ఎన్పీకే పోషకాలు మరియు నేల ఆరోగ్య నివేదిక",
+    "equipmentTile": "వ్యవసాయ యంత్రాలు",
+    "equipmentTileDesc": "ట్రాక్టర్లు, పరికరాల అద్దె మరియు యంత్రాలు",
+    "landTile": "వ్యవసాయ భూమి",
+    "landTileDesc": "భూమి సరిహద్దులు, విస్తీర్ణం మరియు రికార్డులు",
+    "aiCropTile": "ఏఐ పంట సలహాదారు",
+    "aiCropTileDesc": "ఏఐ పంట సూచనలు మరియు సిఫార్సులు",
+    "marketPricesTile": "మార్కెట్ ధరలు",
+    "marketPricesTileDesc": "రోజువారీ మార్కెట్ ధరల సమాచారం",
     "defaultUser": "వినియోగదారు"
   },
   "forgotPassword": {

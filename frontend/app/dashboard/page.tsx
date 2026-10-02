@@ -25,6 +25,8 @@ import {
   UsersRound,
   TestTube,
   FileSpreadsheet,
+  Tractor,
+  Trees,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth-store";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -209,13 +211,43 @@ export default function DashboardPage() {
         ];
       case "farmer":
       default:
+        // Approved Figma Farmer Quick Services:
+        // Weather, AI Crop, Market Prices, Marketplace, Equipment, Labour, Land, Government Schemes
         return [
           {
-            title: t("dashboard.cropsTile"),
-            desc: t("dashboard.cropsTileDesc"),
-            icon: <Sprout size={22} className="text-[#24833A]" />,
-            badge: t("dashboard.badgeHealthy"),
-            href: "/dashboard/crops",
+            title: t("dashboard.weatherTile"),
+            desc: t("dashboard.weatherTileDesc"),
+            icon: <CloudSun size={22} className="text-[#24833A]" />,
+            badge: "28°C",
+            href: "/dashboard/weather",
+          },
+          {
+            title: t("dashboard.aiCropTile"),
+            desc: t("dashboard.aiCropTileDesc"),
+            icon: <Bot size={22} className="text-[#24833A]" />,
+            badge: "AI 24/7",
+            href: "/dashboard/ai-advisor",
+          },
+          {
+            title: t("dashboard.marketPricesTile"),
+            desc: t("dashboard.marketPricesTileDesc"),
+            icon: <TrendingUp size={22} className="text-gray-400" />,
+            badge: t("dashboard.badgeComingSoon"),
+            disabled: true,
+          },
+          {
+            title: t("dashboard.marketplaceTile"),
+            desc: t("dashboard.marketplaceTileDesc"),
+            icon: <Store size={22} className="text-[#24833A]" />,
+            badge: t("dashboard.badgeLive"),
+            href: "/dashboard/marketplace",
+          },
+          {
+            title: t("dashboard.equipmentTile"),
+            desc: t("dashboard.equipmentTileDesc"),
+            icon: <Tractor size={22} className="text-[#24833A]" />,
+            badge: t("dashboard.badgeActive"),
+            href: "/dashboard/machinery",
           },
           {
             title: t("dashboard.labourTile"),
@@ -225,25 +257,18 @@ export default function DashboardPage() {
             href: "/dashboard/labour",
           },
           {
-            title: t("dashboard.weatherTile"),
-            desc: t("dashboard.weatherTileDesc"),
-            icon: <CloudSun size={22} className="text-[#24833A]" />,
-            badge: "28°C",
-            href: "/dashboard/weather",
+            title: t("dashboard.landTile"),
+            desc: t("dashboard.landTileDesc"),
+            icon: <Trees size={22} className="text-[#24833A]" />,
+            badge: t("dashboard.badgeVerified"),
+            href: "/dashboard/farm",
           },
           {
-            title: t("dashboard.advisorTile"),
-            desc: t("dashboard.advisorTileDesc"),
-            icon: <Bot size={22} className="text-[#24833A]" />,
-            badge: "AI 24/7",
-            href: "/dashboard/ai-advisor",
-          },
-          {
-            title: t("dashboard.mandiTile"),
-            desc: t("dashboard.mandiTileDesc"),
-            icon: <TrendingUp size={22} className="text-gray-400" />,
-            badge: t("dashboard.badgeComingSoon"),
-            disabled: true,
+            title: t("dashboard.schemesTile"),
+            desc: t("dashboard.schemesTileDesc"),
+            icon: <Landmark size={22} className="text-[#24833A]" />,
+            badge: t("dashboard.badgeActive"),
+            href: "/dashboard/schemes",
           },
         ];
     }
@@ -269,7 +294,11 @@ export default function DashboardPage() {
         </div>
 
         {/* Real-time Weather / Micro-climate Summary Pill */}
-        <div className="flex items-center gap-2.5 rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-md self-start sm:self-auto border border-white/10">
+        <Link
+          href="/dashboard/weather"
+          className="flex items-center gap-2.5 rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-md self-start sm:self-auto border border-white/10 transition hover:bg-white/25 active:scale-95 cursor-pointer"
+          title="View detailed weather forecast"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400 text-amber-950 shadow-xs">
             <Sun size={20} className="animate-spin-slow" />
           </div>
@@ -279,7 +308,7 @@ export default function DashboardPage() {
               <MapPin size={10} /> Amaravati, AP
             </span>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* User Account & Role Card */}
