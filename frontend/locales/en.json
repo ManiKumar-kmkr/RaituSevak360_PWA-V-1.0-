@@ -284,6 +284,136 @@
     "support": "Help & Support",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy"
+  },
+  "weather": {
+    "title": "Weather & Climate Intelligence",
+    "subtitle": "Micro-climate insights, 7-day agricultural forecasts & severe alerts",
+    "tabs": {
+      "overview": "Overview",
+      "forecast": "7-Day Forecast",
+      "alerts": "Severe Alerts"
+    },
+    "overview": {
+      "backToDashboard": "Back to Dashboard",
+      "currentSummary": "Clear sunlight with mild breeze • Ideal for field operations",
+      "updated": "Updated",
+      "feelsLike": "Feels like",
+      "todayRange": "Today's Range",
+      "viewFullForecast": "View 7-Day Agricultural Forecast",
+      "viewAlertDetails": "View Alert & Action Guide",
+      "activeAlertBanner": "Active Weather Alert for this area",
+      "fieldworkFavorable": "Favorable for Farming",
+      "refresh": "Refresh Weather"
+    },
+    "metrics": {
+      "humidity": "Humidity",
+      "wind": "Wind",
+      "precipitation": "Rain Chance",
+      "rainfall": "Rainfall",
+      "uvIndex": "UV Index",
+      "uvModerate": "6 (Moderate)",
+      "pressure": "Pressure",
+      "dewPoint": "Dew Point",
+      "visibility": "Visibility",
+      "sunrise": "Sunrise",
+      "sunset": "Sunset"
+    },
+    "hourly": {
+      "title": "24-Hour Forecast Timeline",
+      "now": "Now"
+    },
+    "fieldwork": {
+      "title": "Agricultural Fieldwork Advisory",
+      "favorableToday": "Favorable for Farming Operations Today",
+      "spraying": "Spraying Window",
+      "sprayOptimal": "Optimal between 07:00 AM - 11:00 AM. Wind speed is under 15 km/h.",
+      "irrigation": "Irrigation Planning",
+      "irrigateModerate": "Provide moderate irrigation for cotton and chillies. Hold flood irrigation as showers are likely over the weekend.",
+      "harvesting": "Harvesting Window",
+      "harvestSafe": "Good sunshine window today. Accelerate pending crop picking or drying."
+    },
+    "forecast": {
+      "title": "7-Day Agricultural Weather Forecast",
+      "subtitle": "Plan sowing, spraying, irrigation and harvest with daily weather trends",
+      "backToOverview": "Back to Overview",
+      "rainfallAccumulation": "Rainfall",
+      "windSpeed": "Wind Speed",
+      "sprayingFavorable": "Safe for Spraying",
+      "sprayingModerate": "Caution: Wind/Clouds",
+      "sprayingUnfavorable": "Avoid Spraying",
+      "dayPartBreakdown": "Day-Part Breakdown",
+      "recDay1": "Ideal sunshine for field scouting, light weeding, and foliar spray application.",
+      "recDay2": "Increasing cloud cover by afternoon. Complete morning chemical sprays before 11 AM.",
+      "recDay3": "Severe thunderstorm risk. Suspend all spraying and open drainage channels immediately.",
+      "recDay4": "Heavy downpours expected. Postpone irrigation and protect stacked harvest bags.",
+      "recDay5": "Light scattered showers clearing up by late evening. Check waterlogging in low spots.",
+      "recDay6": "Bright sunshine returning. Safe to resume field operations and soil drying.",
+      "recDay7": "Favorable weather for normal irrigation cycles, fertilizer top-dressing, and harvest."
+    },
+    "alert": {
+      "title": "Severe Weather Warnings & Advisories",
+      "subtitle": "Official meteorological bulletins & actionable farm disaster mitigation",
+      "backToOverview": "Back to Overview",
+      "critical": "Critical Warning",
+      "warning": "Weather Alert",
+      "advisory": "Advisory",
+      "issuedBy": "Issued by",
+      "validPeriod": "Validity Period",
+      "affectedAreas": "Affected Districts & Mandals",
+      "cropImpactTitle": "Vulnerability Assessment on Standing Crops",
+      "actionChecklistTitle": "Farmer Mitigation Action Checklist",
+      "dontsTitle": "Crucial Don'ts / Avoid Actions",
+      "emergencyContactsTitle": "Emergency Helplines & Department Support",
+      "heavyRainThunderstorm": "Heavy Rainfall & Thunderstorm Warning",
+      "imdHeadline": "IMD Red Alert: Squall and heavy downpours expected across coastal and central Andhra Pradesh",
+      "sourceImd": "India Meteorological Department (IMD) Amaravati",
+      "descriptionText": "An active low-pressure depression over the Bay of Bengal is predicted to cause widespread thunderstorms with squally winds (45-55 km/h) and heavy precipitation (65-115 mm) over the next 48 hours. Farmers are advised to take precautionary safeguards for standing crops and irrigation infrastructure.",
+      "paddyImpact": "Water stagnation risk in flowering stage and lodging risk due to gusty winds.",
+      "paddyAdvisory": "Clear bund outlets and open field drainage trenches to drain excess water within 12 hours.",
+      "cottonImpact": "Square and boll shedding hazard due to prolonged waterlogging and root asphyxiation.",
+      "cottonAdvisory": "Create sub-surface trenches across slopes; do not spray pesticides during rainfall.",
+      "chilliImpact": "Anthracnose fruit rot development risk and wilt caused by water-saturated soil.",
+      "chilliAdvisory": "Spray copper oxychloride (3g/L) immediately after rain subsides; avoid water accumulation.",
+      "action1": "Inspect and clean field drainage channels immediately to prevent waterlogging.",
+      "action2": "Move harvested produce and bags to elevated, watertight indoor storage or tarpaulin sheds.",
+      "action3": "Anchor temporary farm machinery, sprayers, and nursery shade nets against squalls.",
+      "action4": "Shift livestock away from low-lying pastures and high-tension electrical lines.",
+      "dont1": "Do not apply chemical fertilizers or pesticides during or immediately prior to rain.",
+      "dont2": "Do not seek shelter under isolated trees, metal structures, or near power poles during lightning.",
+      "dont3": "Do not leave irrigation motors or electric pumps connected in flood-prone farm plots.",
+      "contactKisan": "Kisan Call Center (Toll-Free 24/7)",
+      "contactDisaster": "State Disaster Management Authority (APSDMA)",
+      "contactDistrictAgri": "District Agriculture Office Helpline"
+    },
+    "crops": {
+      "paddy": "Paddy (Rice)",
+      "cotton": "Cotton",
+      "chilli": "Chilli"
+    },
+    "conditions": {
+      "sunny": "Clear Sunlight",
+      "partlyCloudy": "Partly Cloudy",
+      "cloudy": "Overcast",
+      "rainLight": "Light Showers",
+      "rainHeavy": "Heavy Rain",
+      "thunderstorm": "Severe Thunderstorm",
+      "windy": "High Winds"
+    },
+    "days": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday"
+    },
+    "parts": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "night": "Night"
+    }
   }
 }
 
