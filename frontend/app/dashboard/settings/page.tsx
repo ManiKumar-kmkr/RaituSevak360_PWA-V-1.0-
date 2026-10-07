@@ -2,22 +2,29 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Settings,
   Globe,
-  Shield,
   Info,
   LogOut,
   ArrowLeftRight,
-  ChevronRight,
-  Smartphone,
-  ExternalLink,
+  ArrowLeft,
+  Store,
+  CreditCard,
+  Package,
+  ShieldCheck,
+  CheckCircle2,
+  Bell,
+  Clock,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth-store";
+import { useSellerStore } from "@/store/seller-store";
 import { useTranslation } from "@/hooks/useTranslation";
 import { UserRole } from "@/types";
 import authService from "@/services/auth";
 import RoleSwitchModal from "@/components/layout/RoleSwitchModal";
+import BackButton from "@/components/ui/BackButton";
 
 const LANGUAGES = [
   { code: "te", label: "తెలుగు" },
@@ -32,7 +39,15 @@ export default function SettingsPage() {
   const selectedRole = useAuthStore((state) => state.selectedRole);
   const logout = useAuthStore((state) => state.logout);
 
+  // Seller store data for seller-specific settings
+  const onboardingData = useSellerStore((state) => state.onboardingData);
+  const verificationStatus = useSellerStore((state) => state.verificationStatus);
+  const products = useSellerStore((state) => state.products);
+
   const [isSwitchModalOpen, setIsSwitchModalOpen] = useState(false);
+  const [orderAlerts, setOrderAlerts] = useState(true);
+  const [leadAlerts, setLeadAlerts] = useState(true);
+  const [payoutAlerts, setPayoutAlerts] = useState(true);
 
   const activeRole = ((user?.role || selectedRole || "farmer").toLowerCase() as UserRole);
   const normalizedKey = activeRole === "government" ? "govt" : activeRole;
@@ -55,22 +70,214 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-5">
-      {/* Header */}
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-5 pb-16">
+      {/* Top Breadcrumb Back Navigation */}
+      <div className="flex items-center justify-between">
+        <BackButton
+          id="settings-back-link"
+          href="/dashboard"
+          label={t("common.backToDashboard") || "Back to Dashboard"}
+        />
+      </div>
+
+      {/* Header — Role specific */}
       <div className="flex items-center gap-3.5 rounded-3xl bg-white p-5 border border-gray-200 shadow-2xs">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A] shadow-2xs">
-          <Settings size={24} strokeWidth={2.4} />
+          {activeRole === "seller" ? (
+            <Store size={24} strokeWidth={2.4} />
+          ) : (
+            <Settings size={24} strokeWidth={2.4} />
+          )}
         </div>
         <div>
           <h1 className="text-lg font-bold text-gray-900">
-            {t("settings.title")}
+            {activeRole === "seller"
+              ? t("seller.settings.title")
+              : t("settings.title")}
           </h1>
           <p className="text-xs text-gray-500 font-medium">
-            {t("settings.subtitle")}
+            {activeRole === "seller"
+              ? t("seller.settings.subtitle")
+              : t("settings.subtitle")}
           </p>
         </div>
       </div>
 
+      {/* ================= SELLER-SPECIFIC SETTINGS SECTIONS ================= */}
+      {activeRole === "seller" && (
+        <>
+          {/* Business Store & KYC Preferences */}
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Store size={18} className="text-[#24833A]" />
+                <h2 className="text-sm font-bold text-gray-900">
+                  {t("seller.settings.businessStore")}
+                </h2>
+              </div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#24833A]">
+                <ShieldCheck size={12} />
+                {verificationStatus === "verified"
+                  ? t("seller.settings.statusVerified")
+                  : t("seller.settings.statusPending")}
+              </span>
+            </div>
+            <p className="text-xs text-gray-500">
+              {t("seller.settings.businessStoreDesc")}
+            </p>
+
+            <div className="rounded-2xl bg-gray-50 p-3.5 flex flex-col gap-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-500 font-medium">Store Name:</span>
+                <span className="font-bold text-gray-800">
+                  {onboardingData.businessName || "Kisan Agro Supplies & Seeds"}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-500 font-medium">Trade Category:</span>
+                <span className="font-semibold text-gray-700">
+                  {onboardingData.businessCategories.length > 0
+                    ? onboardingData.businessCategories.join(", ")
+                    : "Seeds & Fertilizers, Equipment"}
+                </span>
+              </div>
+            </div>
+
+            <Link
+              id="settings-link-manage-store"
+              href="/dashboard/seller/onboarding"
+              className="inline-flex items-center justify-center rounded-xl border border-[#24833A]/30 bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#174D25] hover:bg-[#E4F0DD] transition active:scale-98"
+            >
+              {t("seller.settings.manageStore")} →
+            </Link>
+          </div>
+
+          {/* Payments & Bank Settlements Preferences */}
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CreditCard size={18} className="text-[#24833A]" />
+                <h2 className="text-sm font-bold text-gray-900">
+                  {t("seller.settings.settlements")}
+                </h2>
+              </div>
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
+                <CheckCircle2 size={12} /> Active
+              </span>
+            </div>
+            <p className="text-xs text-gray-500">
+              {t("seller.settings.settlementsDesc")}
+            </p>
+
+            <div className="rounded-2xl bg-gray-50 p-3.5 flex flex-col gap-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-500 font-medium">Primary Settlement:</span>
+                <span className="font-mono font-bold text-gray-800">
+                  {onboardingData.bankDetails?.accountNumber
+                    ? `••••${onboardingData.bankDetails.accountNumber.slice(-4)} (${onboardingData.bankDetails.ifscCode})`
+                    : "HDFC Bank ••••4829 (HDFC0001024)"}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-500 font-medium">Payout Cycle:</span>
+                <span className="inline-flex items-center gap-1 font-semibold text-gray-700">
+                  <Clock size={12} className="text-gray-400" /> Daily Auto-Settlement (T+1)
+                </span>
+              </div>
+            </div>
+
+            <Link
+              id="settings-link-view-settlements"
+              href="/dashboard/seller/payments"
+              className="inline-flex items-center justify-center rounded-xl border border-[#24833A]/30 bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#174D25] hover:bg-[#E4F0DD] transition active:scale-98"
+            >
+              {t("seller.settings.viewSettlements")} →
+            </Link>
+          </div>
+
+          {/* Product Catalog Preferences */}
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Package size={18} className="text-[#24833A]" />
+                <h2 className="text-sm font-bold text-gray-900">
+                  {t("seller.settings.catalogPrefs")}
+                </h2>
+              </div>
+              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#174D25]">
+                {products.length} Active Listings
+              </span>
+            </div>
+            <p className="text-xs text-gray-500">
+              {t("seller.settings.catalogPrefsDesc")}
+            </p>
+
+            <Link
+              id="settings-link-manage-catalog"
+              href="/dashboard/seller/products"
+              className="inline-flex items-center justify-center rounded-xl border border-[#24833A]/30 bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#174D25] hover:bg-[#E4F0DD] transition active:scale-98"
+            >
+              {t("seller.settings.manageCatalog")} →
+            </Link>
+          </div>
+
+          {/* Seller Order & Lead Notifications */}
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <Bell size={18} className="text-[#24833A]" />
+              <h2 className="text-sm font-bold text-gray-900">
+                {t("seller.settings.sellerNotifications")}
+              </h2>
+            </div>
+            <p className="text-xs text-gray-500">
+              {t("seller.settings.sellerNotificationsDesc")}
+            </p>
+
+            <div className="flex flex-col divide-y divide-gray-100 text-xs">
+              <div className="flex items-center justify-between py-2.5">
+                <div>
+                  <p className="font-bold text-gray-800">Farmer Buy Leads & Quotes</p>
+                  <p className="text-[11px] text-gray-500">Instant SMS & alert on new harvest inquiries</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={leadAlerts}
+                  onChange={(e) => setLeadAlerts(e.target.checked)}
+                  className="h-4 w-4 rounded accent-[#24833A] cursor-pointer"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-2.5">
+                <div>
+                  <p className="font-bold text-gray-800">Customer Purchases & Orders</p>
+                  <p className="text-[11px] text-gray-500">Dispatch alerts and buyer confirmations</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={orderAlerts}
+                  onChange={(e) => setOrderAlerts(e.target.checked)}
+                  className="h-4 w-4 rounded accent-[#24833A] cursor-pointer"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-2.5">
+                <div>
+                  <p className="font-bold text-gray-800">Payout & Settlement Confirmation</p>
+                  <p className="text-[11px] text-gray-500">Bank credit alerts when funds transfer</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={payoutAlerts}
+                  onChange={(e) => setPayoutAlerts(e.target.checked)}
+                  className="h-4 w-4 rounded accent-[#24833A] cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* ================= SHARED ACCOUNT SETTINGS ================= */}
       {/* Language Selector Section */}
       <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
         <div className="flex items-center gap-2 mb-1.5">
@@ -87,9 +294,10 @@ export default function SettingsPage() {
           {LANGUAGES.map((lang) => (
             <button
               key={lang.code}
+              id={`settings-lang-${lang.code}`}
               type="button"
               onClick={() => setLanguage(lang.code)}
-              className={`rounded-xl py-2.5 px-3 text-center text-xs font-semibold transition active:scale-95 ${
+              className={`rounded-xl py-2.5 px-3 text-center text-xs font-semibold transition active:scale-95 cursor-pointer ${
                 language === lang.code
                   ? "bg-[#24833A] text-white shadow-xs"
                   : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
@@ -114,9 +322,10 @@ export default function SettingsPage() {
           </div>
 
           <button
+            id="settings-btn-role-switch"
             type="button"
             onClick={() => setIsSwitchModalOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#24833A] px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#1e6e30] active:scale-95"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#24833A] px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#1e6e30] active:scale-95 cursor-pointer"
           >
             <ArrowLeftRight size={13} strokeWidth={2.4} />
             <span>{switchActionLabel}</span>
@@ -157,9 +366,10 @@ export default function SettingsPage() {
 
       {/* Logout Action */}
       <button
+        id="settings-btn-logout"
         type="button"
         onClick={handleLogout}
-        className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-red-200 bg-white text-sm font-bold text-red-600 shadow-2xs transition hover:bg-red-50 active:scale-98"
+        className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-red-200 bg-white text-sm font-bold text-red-600 shadow-2xs transition hover:bg-red-50 active:scale-98 cursor-pointer"
       >
         <LogOut size={16} />
         <span>{t("common.logout")}</span>

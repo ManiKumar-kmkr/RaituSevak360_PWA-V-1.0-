@@ -15,6 +15,7 @@ import weatherService from "@/services/weather";
 import WeatherOverview from "@/components/weather/WeatherOverview";
 import WeatherForecastDetail from "@/components/weather/WeatherForecastDetail";
 import SevereWeatherAlert from "@/components/weather/SevereWeatherAlert";
+import BackButton from "@/components/ui/BackButton";
 
 type WeatherView = "overview" | "forecast" | "alerts";
 
@@ -25,6 +26,13 @@ export default function WeatherPage() {
   // Active view state (defaults to 'overview', respects query param if provided)
   const initialView = (searchParams.get("view") as WeatherView) || "overview";
   const [activeView, setActiveView] = useState<WeatherView>(initialView);
+
+  useEffect(() => {
+    const viewParam = searchParams.get("view") as WeatherView | null;
+    if (viewParam && (viewParam === "overview" || viewParam === "forecast" || viewParam === "alerts")) {
+      setActiveView(viewParam);
+    }
+  }, [searchParams]);
 
   // Weather bundle state
   const [weatherData, setWeatherData] = useState<WeatherDataBundle | null>(null);
@@ -106,21 +114,20 @@ export default function WeatherPage() {
       {/* 1. TOP BREADCRUMB & SUB-NAVIGATION TABS */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         {/* Back to Farmer Dashboard link */}
-        <Link
+        <BackButton
+          id="btn-weather-back-dashboard"
           href="/dashboard"
-          className="inline-flex items-center gap-2 text-xs font-bold text-[#5F6F64] transition hover:text-[#174D25] self-start"
-        >
-          <ArrowLeft size={16} />
-          <span>{t("weather.overview.backToDashboard")}</span>
-        </Link>
+          label={t("weather.overview.backToDashboard")}
+        />
 
         {/* Three Figma Screen Tabs (Overview, 7-Day Forecast, Severe Alerts) */}
         <div className="inline-flex items-center rounded-2xl bg-[#F3F6F3] p-1.5 border border-[#DCE7DD] shadow-2xs self-start sm:self-auto w-full sm:w-auto">
           {/* Tab 1: Overview */}
           <button
+            id="tab-weather-overview"
             type="button"
             onClick={() => setActiveView("overview")}
-            className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition ${
+            className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition cursor-pointer ${
               activeView === "overview"
                 ? "bg-white text-[#174D25] shadow-xs"
                 : "text-[#5F6F64] hover:text-[#17321F]"
@@ -132,9 +139,10 @@ export default function WeatherPage() {
 
           {/* Tab 2: 7-Day Forecast */}
           <button
+            id="tab-weather-forecast"
             type="button"
             onClick={() => setActiveView("forecast")}
-            className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition ${
+            className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition cursor-pointer ${
               activeView === "forecast"
                 ? "bg-white text-[#174D25] shadow-xs"
                 : "text-[#5F6F64] hover:text-[#17321F]"
@@ -146,9 +154,10 @@ export default function WeatherPage() {
 
           {/* Tab 3: Severe Alerts */}
           <button
+            id="tab-weather-alerts"
             type="button"
             onClick={() => setActiveView("alerts")}
-            className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition ${
+            className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition cursor-pointer ${
               activeView === "alerts"
                 ? "bg-white text-[#991B1B] shadow-xs"
                 : "text-[#5F6F64] hover:text-[#991B1B]"

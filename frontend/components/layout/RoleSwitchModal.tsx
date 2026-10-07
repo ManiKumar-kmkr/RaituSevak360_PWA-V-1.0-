@@ -6,6 +6,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useAuthStore } from "@/store/auth-store";
 import authService from "@/services/auth";
 import { UserRole } from "@/types";
+import Button from "@/components/ui/Button";
 
 interface RoleSwitchModalProps {
   isOpen: boolean;
@@ -95,23 +96,26 @@ export default function RoleSwitchModal({ isOpen, onClose, onSuccess }: RoleSwit
         )}
 
         <div className="mt-6 flex items-center gap-3">
-          <button
-            type="button"
+          <Button
+            variant="secondary"
+            size="md"
+            fullWidth
             onClick={onClose}
             disabled={isSwitching}
-            className="flex-1 rounded-xl border border-gray-300 bg-white py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 disabled:opacity-50"
           >
             {t("dashboard.cancel")}
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            variant="primary"
+            size="md"
+            fullWidth
             onClick={handleConfirmSwitch}
             disabled={isSwitching}
-            className="flex-1 rounded-xl bg-[#24833A] py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1e6e30] disabled:opacity-50 active:scale-95"
+            isLoading={isSwitching}
           >
             {isSwitching ? t("dashboard.switching") : t("dashboard.confirm")}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
 import { DailyForecastItem } from '../../types/weather';
 import { useTranslation } from '../../hooks/useTranslation';
 import { getWeatherConditionIcon } from './WeatherOverview';
+import BackButton from '@/components/ui/BackButton';
 
 interface WeatherForecastDetailProps {
   daily: DailyForecastItem[];
@@ -61,17 +62,13 @@ export default function WeatherForecastDetail({
   };
 
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div id="weather-view-forecast" className="flex flex-col gap-5 w-full">
       {/* Header bar with Back button */}
       <div className="flex items-center justify-between">
-        <button
-          type="button"
+        <BackButton
           onClick={onBackToOverview}
-          className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs font-bold text-[#17321F] border border-[#DCE7DD] shadow-2xs transition hover:bg-[#F3F6F3] active:scale-95 cursor-pointer"
-        >
-          <ArrowLeft size={15} />
-          <span>{t('weather.forecast.backToOverview')}</span>
-        </button>
+          label={t('weather.forecast.backToOverview')}
+        />
 
         <div className="inline-flex items-center gap-1.5 rounded-full bg-[#EAF7EE] px-3 py-1 text-xs font-bold text-[#16803A] border border-[#86EFAC]">
           <Calendar size={13} />

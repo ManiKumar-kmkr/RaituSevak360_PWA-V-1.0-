@@ -20,7 +20,7 @@ export default function MobileBottomNav() {
     <nav
       aria-label="Mobile Navigation"
       className="
-        fixed bottom-0 left-0 right-0 z-40
+        fixed bottom-0 left-0 right-0 z-50
         border-t border-gray-200/90 bg-white/95 backdrop-blur-lg
         shadow-[0_-4px_16px_rgba(0,0,0,0.06)]
         md:hidden
@@ -41,6 +41,7 @@ export default function MobileBottomNav() {
           return (
             <Link
               key={item.id}
+              id={`bottom-nav-${item.id}`}
               href={item.href}
               className={`
                 relative flex flex-1 flex-col items-center justify-center py-1 transition-all duration-150 min-h-[48px]

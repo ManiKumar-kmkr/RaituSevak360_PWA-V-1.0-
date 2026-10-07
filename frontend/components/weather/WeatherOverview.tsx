@@ -70,7 +70,7 @@ export default function WeatherOverview({
   const activeAlert = alerts && alerts.length > 0 ? alerts[0] : null;
 
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div id="weather-view-overview" className="flex flex-col gap-5 w-full">
       {/* 1. SEVERE WEATHER ALERT BANNER (Amber Warning Card with Dark Amber Text) */}
       {activeAlert && (
         <div

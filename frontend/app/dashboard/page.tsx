@@ -27,8 +27,13 @@ import {
   FileSpreadsheet,
   Tractor,
   Trees,
+  Users,
+  CreditCard,
 } from "lucide-react";
+
 import { useAuthStore } from "@/store/auth-store";
+import { useSellerStore } from "@/store/seller-store";
+import { deriveSellerNotifications, getSellerUnreadCount } from "@/services/seller-notifications";
 import { useTranslation } from "@/hooks/useTranslation";
 import { UserRole } from "@/types";
 import RoleSwitchModal from "@/components/layout/RoleSwitchModal";
@@ -47,9 +52,41 @@ export default function DashboardPage() {
   const user = useAuthStore((state) => state.user);
   const selectedRole = useAuthStore((state) => state.selectedRole);
 
+  const sellerProducts = useSellerStore((state) => state.products);
+  const sellerOrders = useSellerStore((state) => state.orders);
+  const sellerQuotations = useSellerStore((state) => state.quotations);
+  const sellerBookings = useSellerStore((state) => state.bookings);
+  const sellerVerificationStatus = useSellerStore((state) => state.verificationStatus);
+  const lastRegistrationResult = useSellerStore((state) => state.lastRegistrationResult);
+  const sellerReadNotificationIds = useSellerStore((state) => state.readNotificationIds);
+  const buyLeads = useSellerStore((state) => state.buyLeads);
+
   const [isSwitchModalOpen, setIsSwitchModalOpen] = useState(false);
 
   const activeRole = ((user?.role || selectedRole || "farmer").toLowerCase() as UserRole);
+
+  const sellerUnreadCount = React.useMemo(() => {
+    if (activeRole !== "seller") return 0;
+    const list = deriveSellerNotifications({
+      orders: sellerOrders,
+      quotations: sellerQuotations,
+      bookings: sellerBookings,
+      products: sellerProducts,
+      verificationStatus: sellerVerificationStatus,
+      lastRegistrationResult,
+      readNotificationIds: sellerReadNotificationIds,
+    });
+    return getSellerUnreadCount(list);
+  }, [
+    activeRole,
+    sellerOrders,
+    sellerQuotations,
+    sellerBookings,
+    sellerProducts,
+    sellerVerificationStatus,
+    lastRegistrationResult,
+    sellerReadNotificationIds,
+  ]);
   const normalizedKey = activeRole === "government" ? "govt" : activeRole;
   const roleTranslated = t(`roles.${normalizedKey}.title`);
   const displayName = user?.name || `${t("dashboard.defaultUser")} ${user?.mobile?.slice(-4) || ""}`;
@@ -87,32 +124,60 @@ export default function DashboardPage() {
       case "seller":
         return [
           {
-            title: t("dashboard.marketplaceTile"),
-            desc: t("dashboard.marketplaceTileDesc"),
-            icon: <Store size={22} className="text-[#24833A]" />,
-            badge: t("dashboard.badgeLive"),
-            href: "/dashboard/marketplace",
+            title: t("seller.myProducts"),
+            desc: t("seller.myProductsDesc"),
+            icon: <Package size={22} className="text-[#24833A]" />,
+            badge: `${sellerProducts.filter((p) => p.status === "active").length} Active`,
+            href: "/dashboard/seller/products",
           },
           {
-            title: t("dashboard.ordersTile"),
-            desc: t("dashboard.ordersTileDesc"),
+            title: t("seller.buyLeads"),
+            desc: t("seller.buyLeadsDesc"),
+            icon: <TrendingUp size={22} className="text-[#24833A]" />,
+            badge: `${buyLeads.length} Leads`,
+            href: "/dashboard/seller/leads",
+          },
+          {
+            title: t("seller.equipmentRental"),
+            desc: t("seller.equipmentRentalDesc"),
+            icon: <Tractor size={22} className="text-[#24833A]" />,
+            badge: "Fleet Live",
+            href: "/dashboard/seller/equipment",
+          },
+          {
+            title: t("seller.customerOrders"),
+            desc: t("seller.customerOrdersDesc"),
             icon: <ShoppingBag size={22} className="text-[#24833A]" />,
-            badge: t("dashboard.badgeActive"),
+            badge: "3 Pending",
             href: "/dashboard/orders",
           },
           {
-            title: t("dashboard.productsTile"),
-            desc: t("dashboard.productsTileDesc"),
-            icon: <Package size={22} className="text-gray-400" />,
-            badge: t("dashboard.badgeComingSoon"),
-            disabled: true,
+            title: t("seller.payments"),
+            desc: t("seller.paymentsDesc"),
+            icon: <CreditCard size={22} className="text-[#24833A]" />,
+            badge: "₹1.48L",
+            href: "/dashboard/seller/payments",
           },
           {
-            title: t("dashboard.mandiTile"),
-            desc: t("dashboard.mandiTileDesc"),
-            icon: <TrendingUp size={22} className="text-gray-400" />,
-            badge: t("dashboard.badgeComingSoon"),
-            disabled: true,
+            title: t("seller.customers") || "Customer Profiles",
+            desc: t("seller.customersDesc") || "Farmer buyer directory & order history",
+            icon: <Users size={22} className="text-[#24833A]" />,
+            badge: "Buyer CRM",
+            href: "/dashboard/seller/customers",
+          },
+          {
+            title: t("notifications.sellerTitle") || t("nav.notifications") || "Seller Notifications",
+            desc: t("notifications.sellerSubtitle") || "Orders, buy leads & fleet rental alerts",
+            icon: <Bell size={22} className="text-[#24833A]" />,
+            badge: sellerUnreadCount > 0 ? `${sellerUnreadCount} New` : "All Read",
+            href: "/dashboard/notifications",
+          },
+          {
+            title: t("seller.onboarding.title") || t("seller.onboarding"),
+            desc: t("seller.onboarding.desc") || t("seller.onboardingDesc"),
+            icon: <ShieldCheck size={22} className="text-[#24833A]" />,
+            badge: "KYC Verified",
+            href: "/dashboard/seller/onboarding",
           },
         ];
       case "expert":
@@ -231,9 +296,9 @@ export default function DashboardPage() {
           {
             title: t("dashboard.marketPricesTile"),
             desc: t("dashboard.marketPricesTileDesc"),
-            icon: <TrendingUp size={22} className="text-gray-400" />,
-            badge: t("dashboard.badgeComingSoon"),
-            disabled: true,
+            icon: <TrendingUp size={22} className="text-[#24833A]" />,
+            badge: t("dashboard.badgeLive"),
+            href: "/dashboard/market-prices",
           },
           {
             title: t("dashboard.marketplaceTile"),
@@ -270,7 +335,15 @@ export default function DashboardPage() {
             badge: t("dashboard.badgeActive"),
             href: "/dashboard/schemes",
           },
+          {
+            title: t("dashboard.communityTile"),
+            desc: t("dashboard.communityTileDesc"),
+            icon: <Users size={22} className="text-[#24833A]" />,
+            badge: t("dashboard.badgeLive"),
+            href: "/dashboard/community",
+          },
         ];
+
     }
   };
 
@@ -289,26 +362,46 @@ export default function DashboardPage() {
             {t("dashboard.welcome")} {displayName}
           </h1>
           <p className="text-xs text-white/80 font-medium">
-            RaituSevak360 Smart Agriculture Ecosystem
+            {activeRole === "seller"
+              ? "Agricultural Supply & Commercial Procurement Hub"
+              : "RaituSevak360 Smart Agriculture Ecosystem"}
           </p>
         </div>
 
-        {/* Real-time Weather / Micro-climate Summary Pill */}
-        <Link
-          href="/dashboard/weather"
-          className="flex items-center gap-2.5 rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-md self-start sm:self-auto border border-white/10 transition hover:bg-white/25 active:scale-95 cursor-pointer"
-          title="View detailed weather forecast"
-        >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400 text-amber-950 shadow-xs">
-            <Sun size={20} className="animate-spin-slow" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold leading-tight">28°C • Sunny</span>
-            <span className="inline-flex items-center gap-1 text-[10px] text-white/80 font-medium">
-              <MapPin size={10} /> Amaravati, AP
-            </span>
-          </div>
-        </Link>
+        {/* Dynamic Top Banner Pill: Store Active for Seller, Micro-climate for Farmer */}
+        {activeRole === "seller" ? (
+          <Link
+            href="/dashboard/seller/onboarding"
+            className="flex items-center gap-2.5 rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-md self-start sm:self-auto border border-white/10 transition hover:bg-white/25 active:scale-95 cursor-pointer"
+            title="View business registration details"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400 text-emerald-950 shadow-xs">
+              <Store size={20} />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold leading-tight">Store Active</span>
+              <span className="inline-flex items-center gap-1 text-[10px] text-white/80 font-medium">
+                <MapPin size={10} /> Warangal Yard
+              </span>
+            </div>
+          </Link>
+        ) : (
+          <Link
+            href="/dashboard/weather"
+            className="flex items-center gap-2.5 rounded-2xl bg-white/15 px-3.5 py-2 backdrop-blur-md self-start sm:self-auto border border-white/10 transition hover:bg-white/25 active:scale-95 cursor-pointer"
+            title="View detailed weather forecast"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400 text-amber-950 shadow-xs">
+              <Sun size={20} className="animate-spin-slow" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold leading-tight">28°C • Sunny</span>
+              <span className="inline-flex items-center gap-1 text-[10px] text-white/80 font-medium">
+                <MapPin size={10} /> Amaravati, AP
+              </span>
+            </div>
+          </Link>
+        )}
       </div>
 
       {/* User Account & Role Card */}
@@ -364,6 +457,80 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+
+      {/* Seller Business Summary & Verification Alert */}
+      {activeRole === "seller" && (
+        <div className="flex flex-col gap-3">
+          {/* Verification Status Banner */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-2xl bg-[#F4FBF5] border border-[#24833A]/30 p-3.5">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A]">
+                <ShieldCheck size={20} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xs font-bold text-[#174D25]">
+                    Business Application: Under Verification
+                  </h3>
+                  <span className="rounded-md bg-emerald-100 px-1.5 py-0.2 text-[9px] font-mono font-bold text-[#174D25]">
+                    {lastRegistrationResult?.registrationId || "RS360-VND-849201"}
+                  </span>
+                </div>
+                <p className="text-[11px] text-gray-500">
+                  Store active in preview mode • Verified badges will be awarded within 24-48h.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/dashboard/seller/onboarding"
+              className="inline-flex items-center justify-center rounded-xl bg-white border border-[#24833A]/30 px-3 py-1.5 text-xs font-bold text-[#174D25] shadow-2xs hover:bg-[#E4F0DD] transition self-start sm:self-auto"
+            >
+              Track KYC
+            </Link>
+          </div>
+
+          {/* 4 Performance Metric Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+            <Link
+              href="/dashboard/seller/products"
+              className="flex flex-col rounded-2xl border border-gray-200 bg-white p-3.5 shadow-2xs hover:border-[#24833A]/60 transition"
+            >
+              <span className="text-[11px] font-medium text-gray-500">{t("seller.activeProducts")}</span>
+              <span className="text-lg font-black text-[#174D25] mt-0.5">
+                {sellerProducts.filter((p) => p.status === "active").length}
+              </span>
+              <span className="text-[10px] text-emerald-600 font-bold mt-1">Live in store</span>
+            </Link>
+
+            <Link
+              href="/dashboard/orders"
+              className="flex flex-col rounded-2xl border border-gray-200 bg-white p-3.5 shadow-2xs hover:border-[#24833A]/60 transition"
+            >
+              <span className="text-[11px] font-medium text-gray-500">{t("seller.pendingOrders")}</span>
+              <span className="text-lg font-black text-[#174D25] mt-0.5">3</span>
+              <span className="text-[10px] text-amber-600 font-bold mt-1">Ready to dispatch</span>
+            </Link>
+
+            <Link
+              href="/dashboard/seller/payments"
+              className="flex flex-col rounded-2xl border border-gray-200 bg-white p-3.5 shadow-2xs hover:border-[#24833A]/60 transition"
+            >
+              <span className="text-[11px] font-medium text-gray-500">{t("seller.totalEarnings")}</span>
+              <span className="text-lg font-black text-[#24833A] mt-0.5">₹1.48L</span>
+              <span className="text-[10px] text-emerald-600 font-bold mt-1">+18.4% this month</span>
+            </Link>
+
+            <Link
+              href="/dashboard/seller/leads"
+              className="flex flex-col rounded-2xl border border-gray-200 bg-white p-3.5 shadow-2xs hover:border-[#24833A]/60 transition"
+            >
+              <span className="text-[11px] font-medium text-gray-500">{t("seller.availableLeads")}</span>
+              <span className="text-lg font-black text-[#174D25] mt-0.5">{buyLeads.length}</span>
+              <span className="text-[10px] text-[#24833A] font-bold mt-1">Ready for quote</span>
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Role-Specific Feature Tiles Grid */}
       <div className="flex flex-col gap-3">

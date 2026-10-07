@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { SevereWeatherAlertData } from '../../types/weather';
 import { useTranslation } from '../../hooks/useTranslation';
+import BackButton from '@/components/ui/BackButton';
 
 interface SevereWeatherAlertProps {
   alerts: SevereWeatherAlertData[];
@@ -48,17 +49,13 @@ export default function SevereWeatherAlert({
   }
 
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div id="weather-view-alerts" className="flex flex-col gap-5 w-full">
       {/* Header bar with Back button */}
       <div className="flex items-center justify-between">
-        <button
-          type="button"
+        <BackButton
           onClick={onBackToOverview}
-          className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs font-bold text-[#17321F] border border-[#DCE7DD] shadow-2xs transition hover:bg-[#F3F6F3] active:scale-95 cursor-pointer"
-        >
-          <ArrowLeft size={15} />
-          <span>{t('weather.alert.backToOverview')}</span>
-        </button>
+          label={t('weather.alert.backToOverview')}
+        />
 
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FEE2E2] px-3 py-1 text-xs font-bold text-[#B91C1C] border border-[#FECACA]">
           <AlertTriangle size={13} className="text-[#DC2626] animate-pulse" />
