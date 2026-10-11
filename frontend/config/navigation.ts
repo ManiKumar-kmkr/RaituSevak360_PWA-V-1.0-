@@ -12,6 +12,7 @@ import {
   FileText,
   Landmark,
   FileSpreadsheet,
+  CreditCard,
   LucideIcon,
 } from 'lucide-react';
 import { UserRole } from '../types/index';
@@ -28,9 +29,9 @@ export interface NavItem {
 /**
  * Centralized Role-Based Navigation Configuration
  * 
- * Strict specifications for Phase 2:
- * 1. FARMER: Home, Labour, Marketplace, Notifications, Profile (AI Advisor REMOVED from bottom nav, Labour ADDED with UsersRound icon)
- * 2. SELLER: Home, Marketplace, Orders, Notifications, Profile (Products REMOVED from bottom nav, Notifications ADDED)
+ * Specifications:
+ * 1. FARMER: Home, Labour, Marketplace, Notifications, Profile (FROZEN)
+ * 2. SELLER: Home, Orders, Products, Payments, Profile (Figma direction)
  * 3. EXPERT: Home, Advisory, Consultations, Notifications, Profile
  * 4. STUDENT: Home, Learning, Resources, Notifications, Profile
  * 5. GOVERNMENT: Home, Schemes, Reports, Notifications, Profile
@@ -46,9 +47,9 @@ export const navigationConfig: Record<string, NavItem[]> = {
   ],
   seller: [
     { id: 'home', labelKey: 'nav.home', href: '/dashboard', icon: Home, exact: true },
-    { id: 'marketplace', labelKey: 'nav.marketplace', href: '/dashboard/marketplace', icon: Store },
     { id: 'orders', labelKey: 'nav.orders', href: '/dashboard/orders', icon: Package },
-    { id: 'notifications', labelKey: 'nav.notifications', href: '/dashboard/notifications', icon: Bell },
+    { id: 'products', labelKey: 'nav.products', href: '/dashboard/seller/products', icon: Store },
+    { id: 'payments', labelKey: 'nav.payments', href: '/dashboard/seller/payments', icon: CreditCard },
     { id: 'profile', labelKey: 'nav.profile', href: '/dashboard/profile', icon: UserRound },
   ],
   expert: [

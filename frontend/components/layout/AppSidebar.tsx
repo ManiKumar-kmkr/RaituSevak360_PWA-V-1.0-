@@ -64,7 +64,8 @@ export default function AppSidebar() {
     <>
       <aside
         aria-label="Desktop Navigation Sidebar"
-        className="hidden md:flex flex-col w-64 shrink-0 border-r border-gray-200 bg-white min-h-[calc(100vh-4rem)] p-4 justify-between"
+        style={{ zIndex: 45 }}
+        className="hidden md:flex flex-col w-64 shrink-0 border-r border-gray-200 bg-white sticky top-16 h-[calc(100vh-4rem)] p-4 justify-between overflow-y-auto z-[45]"
       >
         <div>
           {/* User Account Card */}
@@ -92,9 +93,10 @@ export default function AppSidebar() {
             {/* Role Switch Action inside Sidebar */}
             {canSwitchRole && (
               <button
+                id="sidebar-btn-role-switch"
                 type="button"
                 onClick={() => setIsRoleModalOpen(true)}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-xl bg-white border border-[#24833A]/30 py-1.5 text-xs font-semibold text-[#174D25] shadow-2xs transition hover:bg-[#E4F0DD] active:scale-95"
+                className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-xl bg-white border border-[#24833A]/30 py-1.5 text-xs font-semibold text-[#174D25] shadow-2xs transition hover:bg-[#E4F0DD] active:scale-95 cursor-pointer"
               >
                 <ArrowLeftRight size={13} strokeWidth={2.4} className="text-[#24833A]" />
                 <span className="truncate">{switchActionLabel}</span>
@@ -119,9 +121,10 @@ export default function AppSidebar() {
               return (
                 <Link
                   key={item.id}
+                  id={`sidebar-nav-${item.id}`}
                   href={item.href}
                   className={`
-                    flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition
+                    flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition cursor-pointer
                     ${
                       isActive
                         ? "bg-[#E4F0DD] font-bold text-[#174D25] shadow-2xs"
@@ -143,9 +146,10 @@ export default function AppSidebar() {
             {/* Settings Link */}
             <div className="pt-3 mt-3 border-t border-gray-100">
               <Link
+                id="sidebar-nav-settings"
                 href="/dashboard/settings"
                 className={`
-                  flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition
+                  flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition cursor-pointer
                   ${
                     pathname.startsWith("/dashboard/settings")
                       ? "bg-[#E4F0DD] font-bold text-[#174D25] shadow-2xs"
@@ -157,7 +161,7 @@ export default function AppSidebar() {
                   size={19}
                   className={pathname.startsWith("/dashboard/settings") ? "text-[#24833A]" : "text-gray-500"}
                 />
-                <span className="flex-1 truncate">{t("nav.settings")}</span>
+                <span className="flex-1 truncate">{t("nav.settings") || "Settings"}</span>
               </Link>
             </div>
           </nav>
@@ -168,9 +172,10 @@ export default function AppSidebar() {
           {/* Language Switcher Button in Sidebar */}
           <div className="relative">
             <button
+              id="sidebar-btn-language"
               type="button"
               onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-              className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 shadow-2xs hover:bg-gray-50 transition"
+              className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 shadow-2xs hover:bg-gray-50 transition cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <Globe size={15} className="text-[#24833A]" />
@@ -195,7 +200,7 @@ export default function AppSidebar() {
                       setLanguage(lang.code);
                       setIsLangMenuOpen(false);
                     }}
-                    className={`flex w-full items-center justify-between px-3 py-2 text-xs font-medium transition ${
+                    className={`flex w-full items-center justify-between px-3 py-2 text-xs font-medium transition cursor-pointer ${
                       language === lang.code
                         ? "bg-[#E4F0DD] font-bold text-[#174D25]"
                         : "text-gray-700 hover:bg-gray-50"
@@ -213,9 +218,10 @@ export default function AppSidebar() {
 
           {/* Logout Button */}
           <button
+            id="sidebar-btn-logout"
             type="button"
             onClick={handleLogout}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-white py-2 text-xs font-semibold text-red-600 shadow-2xs hover:bg-red-50 transition active:scale-95"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-white py-2 text-xs font-semibold text-red-600 shadow-2xs hover:bg-red-50 transition active:scale-95 cursor-pointer"
           >
             <LogOut size={15} />
             <span>{t("common.logout")}</span>

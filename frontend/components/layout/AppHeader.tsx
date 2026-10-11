@@ -15,6 +15,8 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth-store";
+import { useSellerStore } from "@/store/seller-store";
+import { deriveSellerNotifications, getSellerUnreadCount } from "@/services/seller-notifications";
 import { useTranslation } from "@/hooks/useTranslation";
 import { UserRole } from "@/types";
 import authService from "@/services/auth";
@@ -55,6 +57,82 @@ export default function AppHeader({}: AppHeaderProps) {
 
   const displayName = user?.name || `${t("dashboard.defaultUser")} ${user?.mobile?.slice(-4) || ""}`;
 
+  const sellerOrders = useSellerStore((state) => state.orders);
+  const sellerQuotations = useSellerStore((state) => state.quotations);
+  const sellerBookings = useSellerStore((state) => state.bookings);
+  const sellerProducts = useSellerStore((state) => state.products);
+  const sellerVerification = useSellerStore((state) => state.verificationStatus);
+  const sellerLastReg = useSellerStore((state) => state.lastRegistrationResult);
+  const sellerReadIds = useSellerStore((state) => state.readNotificationIds);
+
+  const sellerUnreadCount = React.useMemo(() => {
+    if (activeRole !== "seller") return 0;
+    const list = deriveSellerNotifications({
+      orders: sellerOrders,
+      quotations: sellerQuotations,
+      bookings: sellerBookings,
+      products: sellerProducts,
+      verificationStatus: sellerVerification,
+      lastRegistrationResult: sellerLastReg,
+      readNotificationIds: sellerReadIds,
+    });
+    return getSellerUnreadCount(list);
+  }, [
+    activeRole,
+    sellerOrders,
+    sellerQuotations,
+    sellerBookings,
+    sellerProducts,
+    sellerVerification,
+    sellerLastReg,
+    sellerReadIds,
+  ]);
+
+  const handleHeaderBack = () => {
+    if (
+      pathname === "/dashboard/ai-advisor" ||
+      pathname === "/dashboard/weather" ||
+      pathname === "/dashboard/community" ||
+      pathname === "/dashboard/notifications" ||
+      pathname === "/dashboard/settings" ||
+      pathname === "/dashboard/profile" ||
+      pathname === "/dashboard/labour" ||
+      pathname === "/dashboard/farm" ||
+      pathname === "/dashboard/schemes" ||
+      pathname === "/dashboard/orders" ||
+      pathname === "/dashboard/consultations" ||
+      pathname === "/dashboard/crops" ||
+      pathname === "/dashboard/soil" ||
+      pathname === "/dashboard/expert/onboarding" ||
+      pathname === "/dashboard/announcements" ||
+      pathname === "/dashboard/reports" ||
+      pathname === "/dashboard/government/onboarding" ||
+      pathname === "/dashboard/government/verification" ||
+      pathname === "/dashboard/government/farmers" ||
+      pathname.startsWith("/dashboard/seller")
+    ) {
+      router.push("/dashboard");
+    } else if (pathname === "/dashboard/market-prices") {
+      if (typeof window !== "undefined" && window.location.search.includes("crop=")) {
+        router.push("/dashboard/market-prices");
+      } else {
+        router.push("/dashboard");
+      }
+    } else if (pathname.startsWith("/dashboard/schemes/")) {
+      router.push("/dashboard/schemes");
+    } else if (pathname === "/dashboard/marketplace/payment") {
+      router.push("/dashboard/marketplace/cart");
+    } else if (pathname === "/dashboard/marketplace/cart" || pathname.startsWith("/dashboard/marketplace/")) {
+      router.push("/dashboard/marketplace");
+    } else if (pathname === "/dashboard/bookings") {
+      router.push("/dashboard/machinery");
+    } else if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await authService.logoutUser();
@@ -65,17 +143,37 @@ export default function AppHeader({}: AppHeaderProps) {
     router.replace("/login");
   };
 
+  // Ensure exactly ONE back control: if the page already renders an inline BackButton, suppress duplicate header arrow
+  const pageHasInlineBack =
+    (activeRole === "expert" &&
+      (pathname === "/dashboard/crops" ||
+        pathname === "/dashboard/soil" ||
+        pathname === "/dashboard/ai-advisor" ||
+        pathname === "/dashboard/consultations" ||
+        pathname === "/dashboard/expert/onboarding")) ||
+    ((activeRole === "government" || activeRole === "govt") &&
+      (pathname === "/dashboard/announcements" ||
+        pathname === "/dashboard/reports" ||
+        pathname === "/dashboard/schemes" ||
+        pathname === "/dashboard/crops" ||
+        pathname === "/dashboard/government/onboarding" ||
+        pathname === "/dashboard/government/verification" ||
+        pathname === "/dashboard/government/farmers"));
+
+  const showHeaderBack = isSubPage && !pageHasInlineBack;
+
   return (
     <>
-      <header className="sticky top-0 z-30 w-full border-b border-gray-200/80 bg-white/95 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200/80 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Left: Brand Logo & Title with contextual Back navigation */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {isSubPage && (
+            {showHeaderBack && (
               <button
+                id="btn-header-back"
                 type="button"
-                onClick={() => router.back()}
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-[#174D25] shadow-2xs hover:bg-[#E4F0DD] transition active:scale-95"
+                onClick={handleHeaderBack}
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-[#174D25] shadow-2xs hover:bg-[#E4F0DD] transition active:scale-95 cursor-pointer"
                 aria-label={t("common.back")}
                 title={t("common.back")}
               >
@@ -84,6 +182,7 @@ export default function AppHeader({}: AppHeaderProps) {
             )}
 
             <Link
+              id="header-brand-logo"
               href="/dashboard"
               className="flex items-center gap-2.5 transition active:scale-95"
               aria-label="RaituSevak360 Home"
@@ -113,9 +212,10 @@ export default function AppHeader({}: AppHeaderProps) {
             {/* Role Switcher Pill for Farmer <-> Seller */}
             {canSwitchRole && (
               <button
+                id="btn-header-role-switch"
                 type="button"
                 onClick={() => setIsRoleModalOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-[#24833A]/30 bg-[#F4FBF5] px-3 py-1.5 text-xs font-semibold text-[#174D25] transition hover:bg-[#E4F0DD] active:scale-95"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-[#24833A]/30 bg-[#F4FBF5] px-3 py-1.5 text-xs font-semibold text-[#174D25] transition hover:bg-[#E4F0DD] active:scale-95 cursor-pointer"
                 title={switchActionLabel}
               >
                 <ArrowLeftRight size={13} strokeWidth={2.2} className="text-[#24833A]" />
@@ -126,9 +226,10 @@ export default function AppHeader({}: AppHeaderProps) {
             {/* Language Switcher Dropdown */}
             <div className="relative">
               <button
+                id="btn-header-language"
                 type="button"
                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 shadow-2xs hover:bg-gray-50 transition active:scale-95"
+                className="flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 shadow-2xs hover:bg-gray-50 transition active:scale-95 cursor-pointer"
                 aria-label="Change Language"
                 aria-expanded={isLangMenuOpen}
               >
@@ -168,16 +269,26 @@ export default function AppHeader({}: AppHeaderProps) {
 
             {/* Notifications Button */}
             <Link
+              id="btn-header-notifications"
               href="/dashboard/notifications"
               className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-600 shadow-2xs transition hover:bg-gray-50 hover:text-[#24833A] active:scale-95"
               aria-label="Notifications"
             >
               <Bell size={16} />
-              <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#24833A] ring-2 ring-white" />
+              {activeRole === "seller" ? (
+                sellerUnreadCount > 0 ? (
+                  <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#24833A] px-1 text-[9px] font-bold text-white shadow-2xs ring-2 ring-white">
+                    {sellerUnreadCount}
+                  </span>
+                ) : null
+              ) : (
+                <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#24833A] ring-2 ring-white" />
+              )}
             </Link>
 
             {/* Profile Avatar / Name Link */}
             <Link
+              id="btn-header-profile"
               href="/dashboard/profile"
               className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 shadow-2xs hover:bg-gray-50 transition active:scale-95"
               aria-label="User Profile"
@@ -192,9 +303,10 @@ export default function AppHeader({}: AppHeaderProps) {
 
             {/* Logout Button */}
             <button
+              id="btn-header-logout"
               type="button"
               onClick={handleLogout}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-red-200 bg-white text-red-600 shadow-2xs transition hover:bg-red-50 active:scale-95"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-red-200 bg-white text-red-600 shadow-2xs transition hover:bg-red-50 active:scale-95 cursor-pointer"
               title={t("common.logout")}
               aria-label="Log Out"
             >

@@ -38,7 +38,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -65,3 +65,5 @@ Thumbs.db
 
 # PWA / Service Worker temporary files
 sw.js.map
+
+*.tsbuildinfo

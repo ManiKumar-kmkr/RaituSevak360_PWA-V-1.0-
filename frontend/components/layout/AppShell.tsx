@@ -19,10 +19,23 @@ export default function AppShell({ children }: AppShellProps) {
   const user = useAuthStore((state) => state.user);
   const selectedRole = useAuthStore((state) => state.selectedRole);
 
-  const [isClient, setIsClient] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    if (useAuthStore.persist.hasHydrated()) {
+      setHasHydrated(true);
+    } else {
+      const unsub = useAuthStore.persist.onFinishHydration(() => {
+        setHasHydrated(true);
+      });
+      return () => {
+        unsub();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydrated) return;
 
     // Route Protection: Unauthenticated user -> redirect to /login
     if (!token && !isAuthenticated) {
@@ -35,10 +48,10 @@ export default function AppShell({ children }: AppShellProps) {
       router.replace("/role-selection");
       return;
     }
-  }, [token, isAuthenticated, user, selectedRole, router]);
+  }, [hasHydrated, token, isAuthenticated, user, selectedRole, router]);
 
   // Loading indicator with explicit visible brand elements
-  if (!isClient) {
+  if (!hasHydrated) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F4F8EE] p-4 text-center">
         <div className="flex flex-col items-center gap-3">
@@ -96,7 +109,7 @@ export default function AppShell({ children }: AppShellProps) {
       <div className="flex flex-1 w-full max-w-7xl mx-auto">
         <AppSidebar />
 
-        <main className="flex-1 w-full max-w-full px-3 py-4 sm:px-6 sm:py-6 lg:px-8 pb-24 md:pb-8 overflow-x-hidden">
+        <main className="flex-1 w-full max-w-full px-3 py-4 sm:px-6 sm:py-6 lg:px-8 pb-28 md:pb-12 min-w-0">
           {children}
         </main>
       </div>
