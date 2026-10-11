@@ -36,7 +36,7 @@ export default function SellerPaymentsPage() {
       amount: "₹5,000",
       status: "Processing",
       type: "Sale",
-      badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
+      badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
     },
     {
       id: "TXN-8994",
@@ -46,7 +46,7 @@ export default function SellerPaymentsPage() {
       amount: "₹2,400",
       status: "Settled",
       type: "Payout",
-      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200",
     },
     {
       id: "TXN-8941",
@@ -56,7 +56,7 @@ export default function SellerPaymentsPage() {
       amount: "₹3,100",
       status: "Settled",
       type: "Equipment Rental",
-      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200",
     },
     {
       id: "TXN-8812",
@@ -66,7 +66,7 @@ export default function SellerPaymentsPage() {
       amount: "₹8,650",
       status: "Settled",
       type: "Sale",
-      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200",
     },
   ];
 
@@ -192,7 +192,7 @@ export default function SellerPaymentsPage() {
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-gray-900">{txn.customer}</span>
                     <span
-                      className={`rounded-md border px-1.5 py-0.2 text-[9px] font-bold ${txn.badgeColor}`}
+                      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold whitespace-nowrap ${txn.badgeColor}`}
                     >
                       {txn.status}
                     </span>

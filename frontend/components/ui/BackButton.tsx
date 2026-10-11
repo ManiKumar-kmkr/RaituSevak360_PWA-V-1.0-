@@ -29,7 +29,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
   const displayLabel = label ?? t("common.backToDashboard");
   const effectiveAriaLabel = ariaLabel ?? displayLabel;
 
-  const standardClasses = `inline-flex items-center gap-1.5 py-1 text-xs font-bold text-[#5F6F64] transition hover:text-[#174D25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24833A]/40 rounded-sm cursor-pointer select-none ${className}`;
+  const standardClasses = `inline-flex items-center gap-1.5 py-1 text-xs font-bold text-[#5F6F64] transition hover:text-[#24833A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24833A]/40 rounded-sm cursor-pointer select-none ${className}`;
 
   if (href) {
     return (

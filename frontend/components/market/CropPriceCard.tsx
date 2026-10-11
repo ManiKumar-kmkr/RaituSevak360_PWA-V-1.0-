@@ -29,7 +29,7 @@ export default function CropPriceCard({ crop, onSelectCrop }: CropPriceCardProps
         }
       }}
       className="
-        group relative flex flex-col justify-between rounded-3xl border border-[#DCE7DD] bg-white p-4 sm:p-5
+        group relative flex flex-col justify-between rounded-2xl border border-[#DCE7DD] bg-white p-4 sm:p-5
         shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[#24833A] hover:shadow-md
         cursor-pointer text-left
       "
@@ -37,14 +37,14 @@ export default function CropPriceCard({ crop, onSelectCrop }: CropPriceCardProps
       <div>
         {/* Top: Category Tag & Movement Badge */}
         <div className="flex items-center justify-between gap-2 mb-2.5">
-          <span className="inline-flex items-center gap-1 rounded-full bg-[#EAF7EE] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#174D25]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#EAF7EE] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#174D25]">
             <Sprout size={11} className="text-[#24833A]" />
             <span>{t(`marketPrices.categories.${crop.category}`)}</span>
           </span>
 
           <div
             className={`
-              inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold
+              inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold
               ${
                 crop.isPositive
                   ? "bg-[#DCFCE7] text-[#166534]"
@@ -66,7 +66,7 @@ export default function CropPriceCard({ crop, onSelectCrop }: CropPriceCardProps
 
         {/* Title & Variety */}
         <div>
-          <h3 className="text-base sm:text-lg font-black text-[#17321F] tracking-tight group-hover:text-[#24833A] transition">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight group-hover:text-[#24833A] transition">
             {crop.name}
           </h3>
           <p className="text-[11px] sm:text-xs font-medium text-[#5F6F64] mt-0.5 line-clamp-1">
@@ -85,7 +85,7 @@ export default function CropPriceCard({ crop, onSelectCrop }: CropPriceCardProps
         </div>
 
         {/* Today's Range & MSP comparison */}
-        <div className="mt-3 space-y-1.5 rounded-2xl bg-[#F7F9F6] p-2.5 text-[11px]">
+        <div className="mt-3 space-y-1.5 rounded-xl bg-[#F7F9F6] p-2.5 text-[11px]">
           <div className="flex items-center justify-between text-[#5F6F64]">
             <span className="font-semibold">{t("marketPrices.todayRange")}:</span>
             <span className="font-bold text-[#17321F]">

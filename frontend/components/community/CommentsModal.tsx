@@ -47,14 +47,14 @@ export default function CommentsModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="comments-modal-title"
     >
       <div
-        className="w-full max-w-lg rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6 flex flex-col max-h-[85vh]"
+        className="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6 flex flex-col max-h-[85vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -79,7 +79,7 @@ export default function CommentsModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition cursor-pointer"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
             aria-label={t("community.close") || "Close"}
           >
             <X size={18} />
@@ -87,7 +87,7 @@ export default function CommentsModal({
         </div>
 
         {/* Original Post Excerpt Box */}
-        <div className="mt-3.5 rounded-2xl bg-gray-50 p-3 border border-gray-100 text-xs text-gray-700 line-clamp-2 italic leading-relaxed">
+        <div className="mt-3.5 rounded-xl bg-gray-50 p-3 border border-gray-100 text-xs text-gray-700 line-clamp-2 italic leading-relaxed">
           &ldquo;{post.content}&rdquo;
         </div>
 
@@ -105,7 +105,7 @@ export default function CommentsModal({
             post.comments.map((comm) => (
               <div
                 key={comm.id}
-                className="flex items-start gap-2.5 rounded-2xl bg-[#F8FAF7] p-3 border border-gray-100/80"
+                className="flex items-start gap-2.5 rounded-xl bg-[#F8FAF7] p-3 border border-gray-100/80"
               >
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#E4F0DD] text-xs font-bold text-[#174D25]">
                   {comm.authorAvatar || comm.authorName.slice(0, 2).toUpperCase()}
@@ -147,14 +147,14 @@ export default function CommentsModal({
               placeholder={
                 t("community.writeComment") || "Write a comment or advice..."
               }
-              className="flex-1 rounded-2xl border border-gray-200 bg-white py-2.5 px-3.5 text-xs text-gray-900 shadow-2xs focus:border-[#24833A] focus:outline-hidden focus:ring-1 focus:ring-[#24833A]"
+              className="h-11 flex-1 rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-900 shadow-2xs placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
               maxLength={280}
               aria-label="Comment text"
             />
             <button
               type="submit"
               disabled={!commentText.trim()}
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[#24833A] text-white hover:bg-[#1e6f31] disabled:bg-gray-200 disabled:text-gray-400 transition cursor-pointer shadow-xs active:scale-95"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#24833A] text-white hover:bg-[#1e6f31] disabled:bg-gray-200 disabled:text-gray-400 transition cursor-pointer shadow-xs active:scale-95"
               aria-label={t("community.sendComment") || "Send comment"}
             >
               <Send size={15} />

@@ -19,7 +19,7 @@ export default function LabourCard({
   const isAvailable = worker.availability === "available";
 
   return (
-    <div className="flex flex-col justify-between rounded-3xl border border-gray-200 bg-white p-4.5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs">
+    <div className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-4 sm:p-4.5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs">
       {/* Top Section: Avatar, Name, Rating & Status */}
       <div>
         <div className="flex items-start justify-between gap-3">

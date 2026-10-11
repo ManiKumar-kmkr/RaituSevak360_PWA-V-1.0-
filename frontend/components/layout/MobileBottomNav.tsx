@@ -67,7 +67,7 @@ export default function MobileBottomNav() {
               {/* Navigation Label */}
               <span
                 className={`
-                  mt-0.5 text-[10px] tracking-tight truncate max-w-[64px]
+                  mt-0.5 text-[10px] tracking-tight truncate max-w-full text-center px-0.5 leading-tight
                   ${isActive ? "font-bold text-[#174D25]" : "font-medium text-gray-500"}
                 `}
               >

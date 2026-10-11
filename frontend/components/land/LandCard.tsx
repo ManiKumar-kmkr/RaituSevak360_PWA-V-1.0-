@@ -27,7 +27,7 @@ export default function LandCard({
   const isAvailable = land.availability === "available";
 
   return (
-    <div className="flex flex-col justify-between overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs">
+    <div className="flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs">
       {/* Visual Thumbnail */}
       <div className="p-3 pb-0">
         <LandThumbnail soilType={land.soilType} title={land.title} className="h-36 w-full" />
@@ -50,16 +50,16 @@ export default function LandCard({
 
             {/* Availability Pill */}
             <div className="flex flex-col items-end gap-1 flex-shrink-0">
-              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-[#24833A]">
+              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#174D25] border border-emerald-200/80">
                 For Lease
               </span>
               {land.isMyListing && (
-                <span className="rounded-full bg-blue-50 px-2 py-0.2 text-[9px] font-extrabold text-blue-700 border border-blue-200">
+                <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold text-blue-800 border border-blue-200">
                   Your Listing
                 </span>
               )}
               {land.verificationStatus === "pending_verification" && (
-                <span className="rounded-full bg-amber-50 px-2 py-0.2 text-[9px] font-bold text-amber-800 border border-amber-200">
+                <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-[10px] font-bold text-amber-800 border border-amber-200">
                   Pending Verification
                 </span>
               )}

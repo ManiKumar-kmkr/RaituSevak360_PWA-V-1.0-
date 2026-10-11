@@ -66,12 +66,12 @@ export default function RoleSwitchModal({ isOpen, onClose, onSuccess }: RoleSwit
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
     >
-      <div className="relative w-full max-w-[380px] rounded-3xl bg-white p-6 shadow-2xl transition-all border border-[#24833A]/20">
+      <div className="relative w-full max-w-[380px] rounded-2xl bg-white p-6 shadow-2xl transition-all border border-[#24833A]/20">
         <button
           type="button"
           onClick={onClose}
           disabled={isSwitching}
-          className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition"
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
           aria-label="Close"
         >
           <X size={18} />

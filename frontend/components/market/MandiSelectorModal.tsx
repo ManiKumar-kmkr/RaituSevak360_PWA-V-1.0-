@@ -40,30 +40,30 @@ export default function MandiSelectorModal({
     <div
       id="modal-mandi-selector"
       style={{ zIndex: 35 }}
-      className="fixed inset-0 z-30 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="mandi-modal-title"
     >
       <div
-        className="w-full max-w-lg rounded-3xl border border-[#DCE7DD] bg-white p-5 sm:p-6 shadow-xl animate-in zoom-in-95 duration-150"
+        className="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-[#DCE7DD] pb-4">
+        <div className="flex items-start justify-between border-b border-gray-100 pb-3.5">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#EAF7EE] text-[#174D25]">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A]">
               <MapPin size={22} className="text-[#24833A]" />
             </div>
             <div>
               <h3
                 id="mandi-modal-title"
-                className="text-base sm:text-lg font-bold text-[#17321F]"
+                className="text-base sm:text-lg font-bold text-gray-900"
               >
                 {t("marketPrices.selectMandiTitle")}
               </h3>
-              <p className="text-xs text-[#5F6F64] font-medium">
+              <p className="text-xs text-gray-500 font-medium">
                 {t("marketPrices.selectMandiDesc")}
               </p>
             </div>
@@ -72,7 +72,7 @@ export default function MandiSelectorModal({
             id="btn-close-mandi-modal"
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-[#5F6F64] hover:bg-[#F7F9F6] hover:text-[#17321F] transition cursor-pointer"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition cursor-pointer"
             aria-label={t("marketPrices.close")}
           >
             <X size={18} />
@@ -93,7 +93,7 @@ export default function MandiSelectorModal({
                   onClose();
                 }}
                 className={`
-                  flex w-full items-center justify-between rounded-2xl border p-3.5 sm:p-4 text-left transition cursor-pointer
+                  flex w-full items-center justify-between rounded-xl border p-3.5 sm:p-4 text-left transition cursor-pointer
                   ${
                     isSelected
                       ? "border-[#24833A] bg-[#EAF7EE]/60 shadow-2xs"
@@ -144,11 +144,11 @@ export default function MandiSelectorModal({
         </div>
 
         {/* Footer */}
-        <div className="mt-5 border-t border-[#DCE7DD] pt-4 flex justify-end">
+        <div className="mt-5 border-t border-gray-100 pt-3.5 flex justify-end">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl border border-[#DCE7DD] bg-[#F7F9F6] px-4 py-2 text-xs font-bold text-[#17321F] hover:bg-[#EAF7EE] transition cursor-pointer"
+            className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-2 text-xs font-bold text-gray-700 hover:bg-gray-100 transition cursor-pointer"
           >
             {t("marketPrices.close")}
           </button>

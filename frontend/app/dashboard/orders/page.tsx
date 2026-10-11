@@ -25,7 +25,7 @@ import { useAuthStore } from "@/store/auth-store";
 import { useCartStore } from "@/store/cart-store";
 import { useSellerStore } from "@/store/seller-store";
 import { MarketplaceOrder } from "@/types/marketplace";
-import { SellerOrder } from "@/types/seller";
+import { SellerOrder, SellerFulfillmentStatus } from "@/types/seller";
 import { INITIAL_SELLER_ORDERS } from "@/services/seller";
 import { UserRole } from "@/types";
 import BackButton from "@/components/ui/BackButton";
@@ -64,31 +64,31 @@ export default function OrdersPage() {
       case "placed":
         return {
           label: "Order Placed",
-          color: "bg-emerald-50 text-[#24833A] border-emerald-200",
+          color: "bg-emerald-50 text-[#174D25] border-emerald-200",
           icon: <Clock size={12} />,
         };
       case "packed":
         return {
           label: "Packed",
-          color: "bg-blue-50 text-blue-700 border-blue-200",
+          color: "bg-blue-50 text-blue-800 border-blue-200",
           icon: <Package size={12} />,
         };
       case "shipped":
         return {
           label: "In Transit",
-          color: "bg-amber-50 text-amber-700 border-amber-200",
+          color: "bg-amber-50 text-amber-800 border-amber-200",
           icon: <Truck size={12} />,
         };
       case "delivered":
         return {
           label: "Delivered",
-          color: "bg-teal-50 text-teal-700 border-teal-200",
+          color: "bg-emerald-50 text-emerald-800 border-emerald-200",
           icon: <CheckCircle2 size={12} />,
         };
       default:
         return {
           label: "Confirmed",
-          color: "bg-emerald-50 text-[#24833A] border-emerald-200",
+          color: "bg-emerald-50 text-[#174D25] border-emerald-200",
           icon: <Check size={12} />,
         };
     }
@@ -142,33 +142,33 @@ export default function OrdersPage() {
       case "Ready for Dispatch":
         return {
           label: "Ready for Dispatch",
-          color: "bg-amber-50 text-amber-700 border-amber-200",
+          color: "bg-amber-50 text-amber-800 border-amber-200",
         };
       case "Packed":
         return {
           label: "Packed",
-          color: "bg-indigo-50 text-indigo-700 border-indigo-200",
+          color: "bg-blue-50 text-blue-800 border-blue-200",
         };
       case "Dispatched":
       case "In Transit":
         return {
           label: status === "In Transit" ? "In Transit" : "Dispatched",
-          color: "bg-blue-50 text-blue-700 border-blue-200",
+          color: "bg-blue-50 text-blue-800 border-blue-200",
         };
       case "Delivered":
         return {
           label: "Delivered",
-          color: "bg-emerald-50 text-emerald-700 border-emerald-200",
+          color: "bg-emerald-50 text-emerald-800 border-emerald-200",
         };
       case "Cancelled":
         return {
           label: "Cancelled",
-          color: "bg-rose-50 text-rose-700 border-rose-200",
+          color: "bg-rose-50 text-rose-800 border-rose-200",
         };
       default:
         return {
           label: status,
-          color: "bg-gray-50 text-gray-700 border-gray-200",
+          color: "bg-gray-100 text-gray-700 border-gray-200",
         };
     }
   };
@@ -209,9 +209,9 @@ export default function OrdersPage() {
       </div>
 
       {/* Screen Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-3xl bg-white p-5 border border-gray-200 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl bg-white p-5 border border-gray-200 shadow-2xs">
         <div className="flex items-center gap-3.5">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A] shadow-xs">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A] shadow-xs">
             <ShoppingBag size={26} strokeWidth={2.4} />
           </div>
           <div>
@@ -233,7 +233,7 @@ export default function OrdersPage() {
 
         {/* Total Orders Metric Badge */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <div className="rounded-2xl border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-center">
+          <div className="rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-center">
             <span className="text-[10px] uppercase font-bold text-gray-400">Total Orders</span>
             <p className="text-sm font-extrabold text-[#174D25]">
               {activeTab === "farmer" ? orders.length : sellerOrders.length}
@@ -244,11 +244,11 @@ export default function OrdersPage() {
 
       {/* Role Switcher Tabs (If Dual Role Farmer/Seller) */}
       {(activeRole === "seller" || activeRole === "farmer") && (
-        <div className="flex items-center gap-2 rounded-2xl bg-gray-100/80 p-1.5 w-fit">
+        <div className="flex items-center gap-2 rounded-xl bg-gray-100/80 p-1.5 w-full sm:w-fit overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab("farmer")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition active:scale-95 cursor-pointer ${
+            className={`flex-1 sm:flex-none rounded-lg px-4 py-2 text-xs font-bold transition active:scale-95 cursor-pointer whitespace-nowrap text-center ${
               activeTab === "farmer"
                 ? "bg-white text-[#174D25] shadow-xs"
                 : "text-gray-500 hover:text-gray-900"
@@ -261,7 +261,7 @@ export default function OrdersPage() {
             <button
               type="button"
               onClick={() => setActiveTab("seller")}
-              className={`rounded-xl px-4 py-2 text-xs font-bold transition active:scale-95 cursor-pointer ${
+              className={`flex-1 sm:flex-none rounded-lg px-4 py-2 text-xs font-bold transition active:scale-95 cursor-pointer whitespace-nowrap text-center ${
                 activeTab === "seller"
                   ? "bg-white text-[#174D25] shadow-xs"
                   : "text-gray-500 hover:text-gray-900"
@@ -277,8 +277,8 @@ export default function OrdersPage() {
       {activeTab === "farmer" && (
         <>
           {orders.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200/90 bg-white p-10 text-center shadow-2xs">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A]">
+            <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 text-center shadow-2xs">
+              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A]">
                 <ShoppingBag size={32} />
               </div>
               <div className="max-w-xs">
@@ -290,7 +290,7 @@ export default function OrdersPage() {
               </div>
               <Link
                 href="/dashboard/marketplace"
-                className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-[#24833A] px-5 py-3 text-xs font-bold text-white shadow-xs hover:bg-[#1e6e30] transition active:scale-95 cursor-pointer"
+                className="mt-2 inline-flex items-center gap-2 rounded-xl bg-[#24833A] px-5 py-3 text-xs font-bold text-white shadow-xs hover:bg-[#1e6e30] transition active:scale-95 cursor-pointer"
               >
                 <span>Start Shopping</span>
                 <ArrowRight size={15} />
@@ -309,7 +309,7 @@ export default function OrdersPage() {
                 return (
                   <div
                     key={ord.id}
-                    className="flex flex-col justify-between rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs transition-all hover:border-[#24833A]/40"
+                    className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/40"
                   >
                     {/* Header Row: ID, Date & Status */}
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
@@ -403,7 +403,7 @@ export default function OrdersPage() {
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-gray-900">{ord.id}</span>
                       <span
-                        className={`rounded-full border px-2 py-0.5 text-[10px] font-bold ${badge.color}`}
+                        className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold whitespace-nowrap ${badge.color}`}
                       >
                         {badge.label}
                       </span>
@@ -437,7 +437,7 @@ export default function OrdersPage() {
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto"
+            className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
@@ -450,7 +450,7 @@ export default function OrdersPage() {
               <button
                 type="button"
                 onClick={() => setSelectedOrder(null)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -459,7 +459,7 @@ export default function OrdersPage() {
 
             <div className="mt-4 flex flex-col gap-4 text-xs text-gray-700">
               {/* Delivery Destination */}
-              <div className="rounded-2xl bg-gray-50 p-3.5">
+              <div className="rounded-xl bg-gray-50 p-3.5 border border-gray-100">
                 <span className="font-bold text-gray-900 block mb-1">
                   Delivery Destination
                 </span>
@@ -495,7 +495,7 @@ export default function OrdersPage() {
               </div>
 
               {/* Payment & Totals */}
-              <div className="rounded-2xl border border-gray-100 p-3.5 flex flex-col gap-1.5">
+              <div className="rounded-xl border border-gray-100 p-3.5 flex flex-col gap-1.5">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Payment Method:</span>
                   <span className="font-semibold">{selectedOrder.paymentMethodLabel}</span>
@@ -558,7 +558,7 @@ export default function OrdersPage() {
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150"
+            className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
@@ -571,7 +571,7 @@ export default function OrdersPage() {
               <button
                 type="button"
                 onClick={() => setTrackingOrder(null)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -676,7 +676,7 @@ export default function OrdersPage() {
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 shadow-xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto"
+            className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -687,7 +687,7 @@ export default function OrdersPage() {
                   {(() => {
                     const badge = getSellerBadge(selectedSellerOrder.status);
                     return (
-                      <span className={`rounded-full border px-2 py-0.5 text-[10px] font-bold ${badge.color}`}>
+                      <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold whitespace-nowrap ${badge.color}`}>
                         {badge.label}
                       </span>
                     );
@@ -700,7 +700,7 @@ export default function OrdersPage() {
               <button
                 type="button"
                 onClick={() => setSelectedSellerOrder(null)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -709,7 +709,7 @@ export default function OrdersPage() {
 
             <div className="mt-4 flex flex-col gap-4 text-xs text-gray-700">
               {/* Buyer / Farmer Info */}
-              <div className="rounded-2xl bg-gray-50 p-3.5">
+              <div className="rounded-xl bg-gray-50 p-3.5 border border-gray-100">
                 <span className="font-bold text-gray-900 block mb-1">
                   Buyer / Farmer Information
                 </span>
@@ -726,7 +726,7 @@ export default function OrdersPage() {
 
               {/* Delivery Address */}
               {selectedSellerOrder.deliveryAddress && (
-                <div className="rounded-2xl bg-gray-50 p-3.5">
+                <div className="rounded-xl bg-gray-50 p-3.5 border border-gray-100">
                   <span className="font-bold text-gray-900 block mb-1">
                     Delivery Destination
                   </span>
@@ -745,7 +745,7 @@ export default function OrdersPage() {
               )}
 
               {/* Fulfillment Progress Timeline */}
-              <div className="rounded-2xl border border-gray-200/80 bg-gray-50/70 p-4">
+              <div className="rounded-xl border border-gray-200/80 bg-gray-50/70 p-4">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500 block mb-3">
                   Fulfillment Lifecycle
                 </span>

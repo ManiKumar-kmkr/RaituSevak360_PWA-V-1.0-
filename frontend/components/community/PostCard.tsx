@@ -67,13 +67,13 @@ export default function PostCard({
 
   return (
     <article
-      className="flex flex-col rounded-3xl border border-gray-200 bg-white p-4.5 sm:p-5 shadow-2xs transition-all duration-200 hover:border-[#24833A]/30 hover:shadow-xs"
+      className="flex flex-col rounded-2xl border border-gray-200 bg-white p-4.5 sm:p-5 shadow-2xs transition-all duration-200 hover:border-[#24833A]/30 hover:shadow-xs"
       data-testid={`community-post-${post.id}`}
     >
       {/* Post Header: Avatar, Name, Location/Time & Badges */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#E4F0DD] font-bold text-sm text-[#174D25] shadow-xs">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E4F0DD] font-bold text-sm text-[#174D25] shadow-xs">
             {post.authorAvatar || post.authorName.slice(0, 2).toUpperCase()}
           </div>
           <div>
@@ -131,7 +131,7 @@ export default function PostCard({
 
       {/* Delete Confirmation Dialogue */}
       {showDeleteConfirm && (
-        <div className="mt-3 rounded-2xl bg-red-50 p-3 border border-red-200 flex items-center justify-between gap-3 text-xs">
+        <div className="mt-3 rounded-xl bg-red-50 p-3 border border-red-200 flex items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 text-red-800 font-medium">
             <AlertCircle size={15} className="shrink-0 text-red-600" />
             <span>{t("community.confirmDelete") || "Delete this discussion post?"}</span>
@@ -165,7 +165,7 @@ export default function PostCard({
 
       {/* Optional Post Image */}
       {post.imageUrl && (
-        <div className="mt-3.5 overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 max-h-72 w-full">
+        <div className="mt-3.5 overflow-hidden rounded-xl border border-gray-200 bg-gray-50 max-h-72 w-full">
           <img
             src={post.imageUrl}
             alt="Farm discussion photo"

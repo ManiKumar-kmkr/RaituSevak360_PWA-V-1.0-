@@ -23,17 +23,42 @@ import { useTranslation } from "@/hooks/useTranslation";
 import SchemeCard from "@/components/schemes/SchemeCard";
 import SchemeDetailView from "@/components/schemes/SchemeDetailView";
 import BackButton from "@/components/ui/BackButton";
+import { useAuthStore } from "@/store/auth-store";
+import { UserRole } from "@/types";
+import GovtSchemesHub from "@/components/government/GovtSchemesHub";
 
 function SchemesContent() {
-  const { t } = useTranslation();
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const selectedRole = useAuthStore((state) => state.selectedRole);
+  const activeRole = ((user?.role || selectedRole || "farmer").toLowerCase() as UserRole);
+
+  useEffect(() => {
+    if (activeRole === "student") {
+      router.replace("/dashboard");
+    }
+  }, [activeRole, router]);
+
+  if (activeRole === "student") {
+    return null;
+  }
+
+  if (activeRole === "government" || activeRole === "govt") {
+    return <GovtSchemesHub />;
+  }
+
+  return <FarmerSchemesContent />;
+}
+
+function FarmerSchemesContent() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const schemeIdParam = searchParams.get("id");
 
   const [schemes, setSchemes] = useState<GovernmentScheme[]>(VERIFIED_GOVERNMENT_SCHEMES);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<SchemeFilterType>("all");
@@ -123,17 +148,17 @@ function SchemesContent() {
       </div>
 
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-3xl bg-white p-5 border border-gray-200 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl bg-white p-5 border border-gray-200 shadow-2xs">
         <div className="flex items-center gap-3.5">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A] shadow-xs">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A] shadow-xs">
             <Landmark size={26} strokeWidth={2.4} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 {t("schemes.title") || "Government Schemes"}
               </h1>
-              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#24833A] border border-emerald-200">
+              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#174D25] border border-emerald-200">
                 Verified Discovery
               </span>
             </div>
@@ -147,9 +172,7 @@ function SchemesContent() {
 
       {/* Search Input Bar (Figma specification) */}
       <div className="relative w-full">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
-          <Search size={18} />
-        </div>
+        <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
         <input
           type="text"
           value={searchQuery}
@@ -157,23 +180,23 @@ function SchemesContent() {
           placeholder={
             t("schemes.searchPlaceholder") || "Search schemes by ministry or crop..."
           }
-          className="w-full rounded-2xl border border-gray-200 bg-white py-3.5 pl-10 pr-10 text-xs sm:text-sm text-gray-900 shadow-2xs placeholder:text-gray-400 focus:border-[#24833A] focus:outline-hidden focus:ring-1 focus:ring-[#24833A] transition"
+          className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-10 text-xs sm:text-sm text-gray-900 shadow-2xs placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
           aria-label="Search schemes"
         />
         {searchQuery && (
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition cursor-pointer"
+            className="absolute right-3 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-700 transition cursor-pointer"
             aria-label={t("schemes.clearSearch") || "Clear search"}
           >
-            <X size={16} />
+            <X size={12} />
           </button>
         )}
       </div>
 
       {/* Filter Chips Bar (Figma: All, Active, Upcoming, Central, State) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 max-w-full no-scrollbar">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full no-scrollbar">
         {FILTER_CHIPS.map((chip) => {
           const isSelected = activeFilter === chip.id;
           return (
@@ -181,7 +204,7 @@ function SchemesContent() {
               key={chip.id}
               type="button"
               onClick={() => setActiveFilter(chip.id)}
-              className={`inline-flex shrink-0 items-center justify-center rounded-2xl px-4 py-2 text-xs font-bold transition-all duration-150 cursor-pointer ${
+              className={`inline-flex shrink-0 items-center justify-center rounded-full px-3.5 py-1.5 sm:px-4 text-xs font-bold transition-all duration-150 cursor-pointer ${
                 isSelected
                   ? "bg-[#24833A] text-white shadow-2xs"
                   : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
@@ -195,7 +218,7 @@ function SchemesContent() {
       </div>
 
       {/* Informational Eligibility Banner (Figma warning/information card) */}
-      <div className="rounded-3xl border border-[#24833A]/25 bg-gradient-to-r from-[#F4F9F2] via-[#EAF4E8] to-[#F4F9F2] p-4.5 shadow-2xs">
+      <div className="rounded-2xl border border-[#24833A]/25 bg-gradient-to-r from-[#F4F9F2] via-[#EAF4E8] to-[#F4F9F2] p-4.5 shadow-2xs">
         <div className="flex items-start gap-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#24833A] text-white shadow-2xs">
             <Sparkles size={18} />
@@ -234,7 +257,7 @@ function SchemesContent() {
 
       {/* Error State */}
       {!isLoading && error && (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-red-200 bg-red-50/50 p-8 text-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-200 bg-red-50/50 p-8 text-center">
           <AlertCircle size={32} className="text-red-500 mb-2" />
           <h2 className="text-sm font-bold text-gray-900">{error}</h2>
           <p className="text-xs text-gray-500 mt-1 max-w-sm">
@@ -254,7 +277,7 @@ function SchemesContent() {
 
       {/* Empty State */}
       {!isLoading && !error && schemes.length === 0 && (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-300 bg-white p-10 text-center shadow-2xs">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center shadow-2xs">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400 mb-3">
             <Landmark size={24} />
           </div>

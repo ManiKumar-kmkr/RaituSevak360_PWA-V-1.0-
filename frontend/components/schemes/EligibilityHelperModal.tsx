@@ -34,18 +34,18 @@ export default function EligibilityHelperModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="eligibility-modal-title"
     >
       <div
-        className="w-full max-w-lg rounded-3xl border border-gray-200 bg-white p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6"
+        className="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-gray-100 pb-4">
+        <div className="flex items-start justify-between border-b border-gray-100 pb-3.5">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A] shadow-2xs">
               <ShieldCheck size={24} strokeWidth={2.4} />
@@ -66,7 +66,7 @@ export default function EligibilityHelperModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition cursor-pointer"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
             aria-label="Close"
           >
             <X size={18} />

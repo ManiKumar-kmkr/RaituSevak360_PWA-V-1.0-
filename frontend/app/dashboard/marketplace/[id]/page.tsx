@@ -142,7 +142,7 @@ export default function ProductDetailPage() {
 
         <Link
           href="/dashboard/marketplace/cart"
-          className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-gray-200 bg-white text-gray-700 shadow-2xs transition hover:border-[#24833A] hover:bg-[#E4F0DD] active:scale-95 cursor-pointer"
+          className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 shadow-2xs transition hover:border-[#24833A] hover:bg-[#E4F0DD] active:scale-95 cursor-pointer"
           aria-label="View Shopping Cart"
         >
           <ShoppingCart size={18} />
@@ -155,14 +155,14 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Main Product Card Container */}
-      <div className="overflow-hidden rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-6 shadow-2xs">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 shadow-2xs">
         {/* Large Product Visual */}
         <ProductThumbnail product={product} size="lg" />
 
         {/* Product Badges & Category */}
         <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-[#24833A]">
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-xs font-bold text-[#174D25]">
               <ShieldCheck size={13} />
               <span>{product.badge}</span>
             </span>
@@ -181,7 +181,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Product Title */}
-        <h1 className="mt-3 text-lg sm:text-2xl font-extrabold text-gray-900 leading-tight">
+        <h1 className="mt-3 text-xl sm:text-2xl font-bold text-gray-900 leading-tight">
           {product.name}
         </h1>
 
@@ -212,7 +212,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Seller Info Card */}
-        <div className="mt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-gray-200/80 bg-[#F7F9F6] p-4">
+        <div className="mt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-gray-200 bg-[#F7F9F6] p-4">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-[#24833A] shadow-xs border border-gray-100">
               <Building2 size={22} />
@@ -269,7 +269,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Quantity Controls & Dynamic Price Breakdown */}
-        <div className="mt-6 rounded-2xl border border-emerald-200/80 bg-[#E4F0DD]/30 p-4">
+        <div className="mt-6 rounded-xl border border-emerald-200/80 bg-[#E4F0DD]/30 p-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <span className="text-xs font-bold text-gray-800">Select Quantity</span>
@@ -320,7 +320,7 @@ export default function ProductDetailPage() {
           <button
             type="button"
             onClick={handleAddToCart}
-            className={`flex items-center justify-center gap-2 rounded-2xl border py-3 text-xs sm:text-sm font-bold transition active:scale-95 cursor-pointer ${
+            className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-xs sm:text-sm font-bold transition active:scale-95 cursor-pointer ${
               isAdded
                 ? "border-emerald-500 bg-emerald-50 text-emerald-700"
                 : "border-[#24833A] bg-white text-[#24833A] hover:bg-[#E4F0DD]"
@@ -342,7 +342,7 @@ export default function ProductDetailPage() {
           <button
             type="button"
             onClick={handleBuyNow}
-            className="flex items-center justify-center gap-2 rounded-2xl bg-[#24833A] py-3 text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-[#1e6e30] active:scale-95 cursor-pointer"
+            className="flex items-center justify-center gap-2 rounded-xl bg-[#24833A] py-3 text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-[#1e6e30] active:scale-95 cursor-pointer"
           >
             <Zap size={18} className="fill-white" />
             <span>Buy Now • ₹{computedSubtotal.toLocaleString("en-IN")}</span>
@@ -359,7 +359,7 @@ export default function ProductDetailPage() {
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150"
+            className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
@@ -372,7 +372,7 @@ export default function ProductDetailPage() {
               <button
                 type="button"
                 onClick={() => setIsInquiryOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -391,7 +391,7 @@ export default function ProductDetailPage() {
               </div>
             ) : (
               <form onSubmit={handleSendInquiry} className="mt-4 flex flex-col gap-3.5">
-                <div className="rounded-xl bg-gray-50 p-3 text-xs flex justify-between items-center">
+                <div className="rounded-xl bg-gray-50 p-3 text-xs flex justify-between items-center border border-gray-100">
                   <span className="font-bold text-gray-700">Listed Price:</span>
                   <span className="font-extrabold text-[#174D25]">
                     ₹{product.price} / {product.unit}
@@ -399,13 +399,13 @@ export default function ProductDetailPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Your Requirements & Delivery Location
                   </label>
                   <textarea
                     rows={3}
                     defaultValue={`Hello ${product.seller}, I am interested in purchasing ${quantity} ${product.unit} of ${product.name}. Please confirm dispatch timeline.`}
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                    className="w-full rounded-xl border border-gray-200 bg-white p-3 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                     required
                   />
                 </div>

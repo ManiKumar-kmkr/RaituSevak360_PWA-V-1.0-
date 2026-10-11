@@ -89,7 +89,28 @@ export default function AppHeader({}: AppHeaderProps) {
   ]);
 
   const handleHeaderBack = () => {
-    if (pathname === "/dashboard/ai-advisor" || pathname === "/dashboard/weather" || pathname === "/dashboard/community" || pathname === "/dashboard/notifications" || pathname === "/dashboard/settings" || pathname === "/dashboard/profile" || pathname === "/dashboard/labour" || pathname === "/dashboard/farm" || pathname === "/dashboard/schemes" || pathname === "/dashboard/orders" || pathname.startsWith("/dashboard/seller")) {
+    if (
+      pathname === "/dashboard/ai-advisor" ||
+      pathname === "/dashboard/weather" ||
+      pathname === "/dashboard/community" ||
+      pathname === "/dashboard/notifications" ||
+      pathname === "/dashboard/settings" ||
+      pathname === "/dashboard/profile" ||
+      pathname === "/dashboard/labour" ||
+      pathname === "/dashboard/farm" ||
+      pathname === "/dashboard/schemes" ||
+      pathname === "/dashboard/orders" ||
+      pathname === "/dashboard/consultations" ||
+      pathname === "/dashboard/crops" ||
+      pathname === "/dashboard/soil" ||
+      pathname === "/dashboard/expert/onboarding" ||
+      pathname === "/dashboard/announcements" ||
+      pathname === "/dashboard/reports" ||
+      pathname === "/dashboard/government/onboarding" ||
+      pathname === "/dashboard/government/verification" ||
+      pathname === "/dashboard/government/farmers" ||
+      pathname.startsWith("/dashboard/seller")
+    ) {
       router.push("/dashboard");
     } else if (pathname === "/dashboard/market-prices") {
       if (typeof window !== "undefined" && window.location.search.includes("crop=")) {
@@ -122,13 +143,32 @@ export default function AppHeader({}: AppHeaderProps) {
     router.replace("/login");
   };
 
+  // Ensure exactly ONE back control: if the page already renders an inline BackButton, suppress duplicate header arrow
+  const pageHasInlineBack =
+    (activeRole === "expert" &&
+      (pathname === "/dashboard/crops" ||
+        pathname === "/dashboard/soil" ||
+        pathname === "/dashboard/ai-advisor" ||
+        pathname === "/dashboard/consultations" ||
+        pathname === "/dashboard/expert/onboarding")) ||
+    ((activeRole === "government" || activeRole === "govt") &&
+      (pathname === "/dashboard/announcements" ||
+        pathname === "/dashboard/reports" ||
+        pathname === "/dashboard/schemes" ||
+        pathname === "/dashboard/crops" ||
+        pathname === "/dashboard/government/onboarding" ||
+        pathname === "/dashboard/government/verification" ||
+        pathname === "/dashboard/government/farmers"));
+
+  const showHeaderBack = isSubPage && !pageHasInlineBack;
+
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-gray-200/80 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Left: Brand Logo & Title with contextual Back navigation */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {isSubPage && (
+            {showHeaderBack && (
               <button
                 id="btn-header-back"
                 type="button"

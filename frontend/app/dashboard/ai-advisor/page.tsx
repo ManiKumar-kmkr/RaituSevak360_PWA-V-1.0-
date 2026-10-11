@@ -277,10 +277,10 @@ export default function AIAdvisorPage() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base sm:text-xl font-black text-[#17321F]">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 {t("aiAdvisor.title")}
               </h1>
-              <span className="rounded-full bg-[#EAF7EE] border border-[#86EFAC] px-2.5 py-0.5 text-[10px] font-bold text-[#16803A]">
+              <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[10px] font-bold text-[#174D25]">
                 {t("aiAdvisor.liveBadge")}
               </span>
             </div>

@@ -27,7 +27,7 @@ export default function SchemeCard({ scheme, onViewDetails }: SchemeCardProps) {
 
   return (
     <div
-      className="flex flex-col justify-between rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs transition-all duration-200 hover:border-[#24833A]/40 hover:shadow-xs"
+      className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs transition-all duration-200 hover:border-[#24833A]/40 hover:shadow-xs"
       data-testid={`scheme-card-${scheme.id}`}
     >
       <div>
@@ -101,7 +101,7 @@ export default function SchemeCard({ scheme, onViewDetails }: SchemeCardProps) {
         </p>
 
         {/* Verified Financial Benefit Highlight Box */}
-        <div className="mt-3.5 rounded-2xl bg-[#F4F9F2] p-3 border border-[#24833A]/15">
+        <div className="mt-3.5 rounded-xl bg-[#F4F9F2] p-3 border border-[#24833A]/15">
           <div className="flex items-center justify-between gap-2">
             <span className="text-[11px] font-bold text-[#174D25] uppercase tracking-wide">
               {t("schemes.financialBenefit") || "Financial Benefit"}

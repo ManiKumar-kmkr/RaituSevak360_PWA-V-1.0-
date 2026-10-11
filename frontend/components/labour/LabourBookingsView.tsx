@@ -32,28 +32,28 @@ export default function LabourBookingsView({
     switch (status) {
       case "confirmed":
         return (
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#24833A]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#24833A] shrink-0">
             <CheckCircle2 size={11} />
             Confirmed
           </span>
         );
       case "in_progress":
         return (
-          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold text-blue-700">
+          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold text-blue-700 shrink-0">
             <Clock size={11} />
             In Progress
           </span>
         );
       case "completed":
         return (
-          <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-[10px] font-bold text-gray-700">
+          <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-[10px] font-bold text-gray-700 shrink-0">
             <CheckCircle2 size={11} />
             Completed
           </span>
         );
       case "cancelled":
         return (
-          <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2.5 py-0.5 text-[10px] font-bold text-rose-700">
+          <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2.5 py-0.5 text-[10px] font-bold text-rose-700 shrink-0">
             <XCircle size={11} />
             Cancelled
           </span>
@@ -88,21 +88,21 @@ export default function LabourBookingsView({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full h-auto min-h-0">
       {labourBookings.map((booking) => (
         <div
           key={booking.id}
-          className="flex flex-col justify-between rounded-3xl border border-gray-200 bg-white p-4.5 shadow-2xs transition hover:border-[#24833A]/40"
+          className="w-full h-auto min-h-0 flex flex-col justify-between rounded-3xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/40 overflow-hidden"
         >
-          {/* Header Row */}
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-extrabold text-[#174D25]">
+          {/* Header Row: ID, Date, Name, Work Type, Status Badge */}
+          <div className="flex items-start justify-between gap-3 min-w-0">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-extrabold text-[#174D25] shrink-0">
                   {booking.id}
                 </span>
-                <span className="text-gray-300">•</span>
-                <span className="text-[11px] text-gray-400">
+                <span className="text-gray-300 shrink-0">•</span>
+                <span className="text-[11px] text-gray-400 shrink-0">
                   {new Date(booking.createdAt).toLocaleDateString("en-IN", {
                     month: "short",
                     day: "numeric",
@@ -110,35 +110,44 @@ export default function LabourBookingsView({
                   })}
                 </span>
               </div>
-              <h3 className="text-sm font-bold text-gray-900 mt-1">
+              <h3 className="text-sm font-bold text-gray-900 mt-1 break-words">
                 {booking.workerName}
               </h3>
-              <p className="text-xs font-medium text-gray-500">
+              {booking.farmerName && booking.farmerName !== booking.workerName && (
+                <p className="text-[11px] font-medium text-gray-500 break-words">
+                  Farmer: <span className="text-gray-700 font-semibold">{booking.farmerName}</span>
+                </p>
+              )}
+              <p className="text-xs font-medium text-gray-500 break-words">
                 {booking.workType}
               </p>
             </div>
 
-            {getStatusBadge(booking.status)}
+            <div className="shrink-0 self-start">
+              {getStatusBadge(booking.status)}
+            </div>
           </div>
 
           {/* Schedule & Location */}
-          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 rounded-2xl bg-gray-50 p-3 text-xs text-gray-600 border border-gray-100">
-            <div className="flex items-center gap-2">
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 rounded-2xl bg-gray-50 p-3 text-xs text-gray-600 border border-gray-100 min-w-0">
+            <div className="flex items-center gap-2 min-w-0">
               <Calendar size={14} className="text-[#24833A] flex-shrink-0" />
-              <span>
-                Date: <strong>{booking.startDate}</strong> ({booking.durationDays} days)
+              <span className="break-words">
+                Date: <strong>{booking.startDate}</strong> ({booking.durationDays} {booking.durationDays === 1 ? "day" : "days"})
               </span>
             </div>
 
-            <div className="flex items-center gap-2 truncate">
+            <div className="flex items-center gap-2 min-w-0">
               <MapPin size={14} className="text-[#24833A] flex-shrink-0" />
-              <span className="truncate">{booking.farmLocation}</span>
+              <span className="truncate" title={booking.farmLocation}>
+                {booking.farmLocation}
+              </span>
             </div>
           </div>
 
           {/* Footer: Amount & View Action */}
-          <div className="mt-3.5 flex items-center justify-between border-t border-gray-100 pt-3">
-            <div>
+          <div className="mt-3.5 flex items-center justify-between border-t border-gray-100 pt-3 flex-wrap gap-2">
+            <div className="min-w-0">
               <span className="text-[10px] text-gray-400 font-medium block">
                 Total Wage
               </span>
@@ -150,7 +159,7 @@ export default function LabourBookingsView({
             <button
               type="button"
               onClick={() => setSelectedBooking(booking)}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3.5 py-1.5 text-xs font-bold text-gray-700 hover:bg-gray-50 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3.5 py-1.5 text-xs font-bold text-gray-700 hover:bg-gray-50 active:scale-95 cursor-pointer shrink-0"
             >
               <Eye size={13} />
               <span>View Details</span>
@@ -162,13 +171,13 @@ export default function LabourBookingsView({
       {/* Booking Details Modal */}
       {selectedBooking && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-in fade-in duration-150"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
           onClick={() => setSelectedBooking(null)}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150"
+            className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
@@ -183,7 +192,7 @@ export default function LabourBookingsView({
               <button
                 type="button"
                 onClick={() => setSelectedBooking(null)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />

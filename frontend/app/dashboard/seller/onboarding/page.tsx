@@ -244,11 +244,11 @@ export default function SellerOnboardingPage() {
       <div className="flex items-center justify-between">
         <BackButton onClick={handleBack} label={t("common.back") || "Back"} />
         <div className="flex flex-col items-center">
-          <h1 className="text-base font-bold text-[#174D25]">
+          <h1 className="text-base sm:text-lg font-bold text-[#174D25]">
             {step === 6 ? "Registration Successful" : "Seller Onboarding"}
           </h1>
           {step <= 5 && (
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#24833A]">
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#24833A]">
               Step {step} of 5
             </span>
           )}
@@ -286,7 +286,7 @@ export default function SellerOnboardingPage() {
 
       {/* ================= STEP 1: REGISTER YOUR BUSINESS ================= */}
       {step === 1 && (
-        <div className="flex flex-col gap-5 rounded-3xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
+        <div className="flex flex-col gap-5 rounded-2xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-[#E4F0DD] px-3 py-1 text-xs font-bold text-[#174D25] mb-2">
               <Store size={14} className="text-[#24833A]" />
@@ -301,7 +301,7 @@ export default function SellerOnboardingPage() {
           <div className="flex flex-col gap-4">
             {/* Business Name */}
             <div>
-              <label htmlFor="businessName" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="businessName" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Business / Store Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -310,7 +310,7 @@ export default function SellerOnboardingPage() {
                 value={formData.businessName}
                 onChange={(e) => updateField("businessName", e.target.value)}
                 placeholder="e.g. Sri Lakshmi Venkateswara Agro Traders"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.businessName ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -321,7 +321,7 @@ export default function SellerOnboardingPage() {
 
             {/* Owner Name */}
             <div>
-              <label htmlFor="ownerName" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="ownerName" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Owner / Proprietor Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -330,7 +330,7 @@ export default function SellerOnboardingPage() {
                 value={formData.ownerName}
                 onChange={(e) => updateField("ownerName", e.target.value)}
                 placeholder="e.g. Mani Kumar Reddy"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.ownerName ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -341,8 +341,8 @@ export default function SellerOnboardingPage() {
 
             {/* Mobile Number with Verified Status */}
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label htmlFor="mobile" className="block text-xs font-bold text-gray-700">
+              <div className="flex items-center justify-between mb-1.5">
+                <label htmlFor="mobile" className="block text-xs font-semibold text-gray-700">
                   Mobile Number <span className="text-red-500">*</span>
                 </label>
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-[#24833A]">
@@ -350,7 +350,7 @@ export default function SellerOnboardingPage() {
                 </span>
               </div>
               <div className="relative flex items-center">
-                <span className="absolute left-3 text-xs font-bold text-gray-500">+91</span>
+                <span className="absolute left-3.5 text-xs font-bold text-gray-500">+91</span>
                 <input
                   id="mobile"
                   type="tel"
@@ -358,7 +358,7 @@ export default function SellerOnboardingPage() {
                   value={formData.mobile}
                   onChange={(e) => updateField("mobile", e.target.value.replace(/\D/g, ""))}
                   placeholder="9849012345"
-                  className={`w-full rounded-xl border pl-11 pr-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                  className={`h-11 w-full rounded-xl border pl-11 pr-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                     errors.mobile ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                   }`}
                 />
@@ -370,7 +370,7 @@ export default function SellerOnboardingPage() {
 
             {/* Email ID (Optional) */}
             <div>
-              <label htmlFor="email" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Email ID <span className="text-gray-400 font-normal">(Optional)</span>
               </label>
               <input
@@ -379,7 +379,7 @@ export default function SellerOnboardingPage() {
                 value={formData.email || ""}
                 onChange={(e) => updateField("email", e.target.value)}
                 placeholder="e.g. info@lakshmiagro.in"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.email ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -403,7 +403,7 @@ export default function SellerOnboardingPage() {
 
       {/* ================= STEP 2: BUSINESS LOCATION & TYPE ================= */}
       {step === 2 && (
-        <div className="flex flex-col gap-5 rounded-3xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
+        <div className="flex flex-col gap-5 rounded-2xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-[#E4F0DD] px-3 py-1 text-xs font-bold text-[#174D25] mb-2">
               <MapPin size={14} className="text-[#24833A]" />
@@ -416,7 +416,7 @@ export default function SellerOnboardingPage() {
           </div>
 
           {/* GPS Verified Badge */}
-          <div className="flex items-center justify-between rounded-2xl bg-[#F4FBF5] border border-[#24833A]/30 p-3.5">
+          <div className="flex items-center justify-between rounded-xl bg-[#F4FBF5] border border-[#24833A]/30 p-3.5">
             <div className="flex items-center gap-2.5">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A]">
                 <MapPin size={18} />
@@ -436,7 +436,7 @@ export default function SellerOnboardingPage() {
           <div className="flex flex-col gap-4">
             {/* PIN Code */}
             <div>
-              <label htmlFor="pinCode" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="pinCode" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 PIN Code <span className="text-red-500">*</span>
               </label>
               <input
@@ -446,7 +446,7 @@ export default function SellerOnboardingPage() {
                 value={formData.pinCode}
                 onChange={(e) => updateField("pinCode", e.target.value.replace(/\D/g, ""))}
                 placeholder="506002"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.pinCode ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -457,7 +457,7 @@ export default function SellerOnboardingPage() {
 
             {/* Store Address */}
             <div>
-              <label htmlFor="storeAddress" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="storeAddress" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Store / Warehouse Address <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -477,7 +477,7 @@ export default function SellerOnboardingPage() {
 
             {/* Categories — Multiple selection */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 mb-2">
+              <label className="block text-xs font-semibold text-gray-700 mb-2">
                 Business Categories <span className="text-red-500">*</span>{" "}
                 <span className="text-gray-400 font-normal">(Select multiple)</span>
               </label>
@@ -540,7 +540,7 @@ export default function SellerOnboardingPage() {
 
       {/* ================= STEP 3: WHAT DO YOU SELL? ================= */}
       {step === 3 && (
-        <div className="flex flex-col gap-5 rounded-3xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
+        <div className="flex flex-col gap-5 rounded-2xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-[#E4F0DD] px-3 py-1 text-xs font-bold text-[#174D25] mb-2">
               <Sparkles size={14} className="text-[#24833A]" />
@@ -554,7 +554,7 @@ export default function SellerOnboardingPage() {
 
           {/* Product Catalog Cards Grid */}
           <div>
-            <label className="block text-xs font-bold text-gray-700 mb-2">
+            <label className="block text-xs font-semibold text-gray-700 mb-2">
               Product Catalog Items <span className="text-red-500">*</span>
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -565,7 +565,7 @@ export default function SellerOnboardingPage() {
                     key={item.name}
                     type="button"
                     onClick={() => toggleProductCategory(item.name)}
-                    className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border p-3.5 transition active:scale-95 cursor-pointer text-center ${
+                    className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 transition active:scale-95 cursor-pointer text-center ${
                       isSelected
                         ? "border-[#24833A] bg-[#E4F0DD]/60 shadow-2xs ring-1 ring-[#24833A]"
                         : "border-gray-200 bg-white hover:border-gray-300"
@@ -596,7 +596,7 @@ export default function SellerOnboardingPage() {
           </div>
 
           {/* Equipment Rental Toggle */}
-          <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-gray-50/70 p-4">
+          <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50/70 p-4">
             <div className="flex flex-col">
               <span className="text-xs font-bold text-gray-800">
                 Do you rent equipment?
@@ -645,7 +645,7 @@ export default function SellerOnboardingPage() {
 
       {/* ================= STEP 4: VERIFY YOUR BUSINESS ================= */}
       {step === 4 && (
-        <div className="flex flex-col gap-5 rounded-3xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
+        <div className="flex flex-col gap-5 rounded-2xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-[#E4F0DD] px-3 py-1 text-xs font-bold text-[#174D25] mb-2">
               <ShieldCheck size={14} className="text-[#24833A]" />
@@ -659,7 +659,7 @@ export default function SellerOnboardingPage() {
 
           <div className="flex flex-col gap-3.5">
             {/* Aadhaar Card */}
-            <div className="rounded-2xl border border-gray-200 p-3.5 bg-white">
+            <div className="rounded-xl border border-gray-200 p-3.5 bg-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-[#24833A]">
@@ -689,7 +689,7 @@ export default function SellerOnboardingPage() {
                   <button
                     type="button"
                     onClick={() => handleRemoveDoc("aadhaar")}
-                    className="text-red-500 hover:text-red-700 text-[11px] font-bold"
+                    className="text-red-500 hover:text-red-700 text-[11px] font-bold cursor-pointer"
                   >
                     Remove
                   </button>
@@ -698,7 +698,7 @@ export default function SellerOnboardingPage() {
                 <button
                   type="button"
                   onClick={() => handleMockDocUpload("aadhaar")}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#24833A] bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#24833A] hover:bg-[#E4F0DD] active:scale-95 transition"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#24833A] bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#24833A] hover:bg-[#E4F0DD] active:scale-95 transition cursor-pointer"
                 >
                   <Upload size={14} /> Upload Aadhaar Card
                 </button>
@@ -709,7 +709,7 @@ export default function SellerOnboardingPage() {
             </div>
 
             {/* GST Certificate / License */}
-            <div className="rounded-2xl border border-gray-200 p-3.5 bg-white">
+            <div className="rounded-xl border border-gray-200 p-3.5 bg-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-[#24833A]">
@@ -739,7 +739,7 @@ export default function SellerOnboardingPage() {
                   <button
                     type="button"
                     onClick={() => handleRemoveDoc("gst")}
-                    className="text-red-500 hover:text-red-700 text-[11px] font-bold"
+                    className="text-red-500 hover:text-red-700 text-[11px] font-bold cursor-pointer"
                   >
                     Remove
                   </button>
@@ -748,7 +748,7 @@ export default function SellerOnboardingPage() {
                 <button
                   type="button"
                   onClick={() => handleMockDocUpload("gst")}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#24833A] bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#24833A] hover:bg-[#E4F0DD] active:scale-95 transition"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#24833A] bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#24833A] hover:bg-[#E4F0DD] active:scale-95 transition cursor-pointer"
                 >
                   <Upload size={14} /> Upload GST / License
                 </button>
@@ -759,7 +759,7 @@ export default function SellerOnboardingPage() {
             </div>
 
             {/* Shop Front Photo */}
-            <div className="rounded-2xl border border-gray-200 p-3.5 bg-white">
+            <div className="rounded-xl border border-gray-200 p-3.5 bg-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-[#24833A]">
@@ -789,7 +789,7 @@ export default function SellerOnboardingPage() {
                   <button
                     type="button"
                     onClick={() => handleRemoveDoc("shopPhoto")}
-                    className="text-red-500 hover:text-red-700 text-[11px] font-bold"
+                    className="text-red-500 hover:text-red-700 text-[11px] font-bold cursor-pointer"
                   >
                     Remove
                   </button>
@@ -798,7 +798,7 @@ export default function SellerOnboardingPage() {
                 <button
                   type="button"
                   onClick={() => handleMockDocUpload("shopPhoto")}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#24833A] bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#24833A] hover:bg-[#E4F0DD] active:scale-95 transition"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#24833A] bg-[#F4FBF5] py-2.5 text-xs font-bold text-[#24833A] hover:bg-[#E4F0DD] active:scale-95 transition cursor-pointer"
                 >
                   <Camera size={14} /> Capture / Upload Store Photo
                 </button>
@@ -832,7 +832,7 @@ export default function SellerOnboardingPage() {
 
       {/* ================= STEP 5: PAYMENT SETUP ================= */}
       {step === 5 && (
-        <div className="flex flex-col gap-5 rounded-3xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
+        <div className="flex flex-col gap-5 rounded-2xl border border-[#24833A]/20 bg-white p-5 sm:p-6 shadow-2xs">
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-[#E4F0DD] px-3 py-1 text-xs font-bold text-[#174D25] mb-2">
               <CreditCard size={14} className="text-[#24833A]" />
@@ -847,7 +847,7 @@ export default function SellerOnboardingPage() {
           <div className="flex flex-col gap-4">
             {/* Account Holder Name */}
             <div>
-              <label htmlFor="accountHolderName" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="accountHolderName" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Account Holder Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -861,7 +861,7 @@ export default function SellerOnboardingPage() {
                   })
                 }
                 placeholder="e.g. Sri Lakshmi Venkateswara Agro"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.accountHolderName ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -872,7 +872,7 @@ export default function SellerOnboardingPage() {
 
             {/* Account Number */}
             <div>
-              <label htmlFor="accountNumber" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="accountNumber" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Bank Account Number <span className="text-red-500">*</span>
               </label>
               <input
@@ -886,7 +886,7 @@ export default function SellerOnboardingPage() {
                   })
                 }
                 placeholder="50200012345678"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.accountNumber ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -897,7 +897,7 @@ export default function SellerOnboardingPage() {
 
             {/* IFSC Code */}
             <div>
-              <label htmlFor="ifscCode" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="ifscCode" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 IFSC Code <span className="text-red-500">*</span>
               </label>
               <input
@@ -912,7 +912,7 @@ export default function SellerOnboardingPage() {
                   })
                 }
                 placeholder="HDFC0000421"
-                className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                className={`h-11 w-full rounded-xl border px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                   errors.ifscCode ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                 }`}
               />
@@ -923,7 +923,7 @@ export default function SellerOnboardingPage() {
 
             {/* UPI ID (Optional) */}
             <div>
-              <label htmlFor="upiId" className="block text-xs font-bold text-gray-700 mb-1">
+              <label htmlFor="upiId" className="block text-xs font-semibold text-gray-700 mb-1.5">
                 UPI ID <span className="text-gray-400 font-normal">(Optional)</span>
               </label>
               <input
@@ -937,12 +937,12 @@ export default function SellerOnboardingPage() {
                   })
                 }
                 placeholder="lakshmiagro@okhdfcbank"
-                className="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
+                className="h-11 w-full rounded-xl border border-gray-200 px-3.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
               />
             </div>
 
             {/* Accept COD Toggle */}
-            <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-gray-50/70 p-3.5">
+            <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50/70 p-3.5">
               <div className="flex flex-col">
                 <span className="text-xs font-bold text-gray-800">
                   Accept Cash on Delivery (COD)
@@ -1010,7 +1010,7 @@ export default function SellerOnboardingPage() {
 
       {/* ================= STEP 6: REGISTRATION SUCCESS ================= */}
       {step === 6 && (
-        <div className="flex flex-col items-center gap-5 rounded-3xl border border-[#24833A]/20 bg-white p-6 sm:p-8 text-center shadow-md animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex flex-col items-center gap-5 rounded-2xl border border-[#24833A]/20 bg-white p-6 sm:p-8 text-center shadow-md animate-in fade-in zoom-in-95 duration-200">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#E4F0DD] text-[#24833A] shadow-inner">
             <CheckCircle2 size={48} strokeWidth={2.4} />
           </div>
@@ -1028,7 +1028,7 @@ export default function SellerOnboardingPage() {
           </div>
 
           {/* Registration Summary Card */}
-          <div className="w-full rounded-2xl border border-[#24833A]/30 bg-[#F4FBF5] p-4 text-left">
+          <div className="w-full rounded-xl border border-[#24833A]/30 bg-[#F4FBF5] p-4 text-left">
             <div className="flex items-center justify-between border-b border-[#24833A]/10 pb-2.5 mb-2.5">
               <span className="text-xs text-gray-500 font-medium">Registration ID</span>
               <span className="text-xs font-mono font-bold text-[#174D25]">
@@ -1084,7 +1084,7 @@ export default function SellerOnboardingPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl border border-[#24833A]/20">
+          <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-[#24833A]/20">
             <button
               type="button"
               onClick={() => setShowStatusModal(false)}

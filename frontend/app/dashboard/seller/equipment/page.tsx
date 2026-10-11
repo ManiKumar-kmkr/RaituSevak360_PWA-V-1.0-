@@ -293,8 +293,8 @@ export default function SellerEquipmentPage() {
       default:
         return {
           label: t("seller.fleet.statusCancelled") || "Cancelled",
-          className: "bg-gray-100 text-gray-600 border-gray-200",
-          icon: <XCircle size={12} className="text-gray-500" />,
+          className: "bg-rose-50 text-rose-800 border-rose-200",
+          icon: <XCircle size={12} className="text-rose-600" />,
         };
     }
   };
@@ -313,7 +313,7 @@ export default function SellerEquipmentPage() {
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold tracking-wide text-emerald-100 backdrop-blur-xs">
               <Tractor size={13} /> Fleet Owner Command Hub
             </span>
-            <h1 className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-white">
+            <h1 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-white">
               {t("seller.fleet.title") || "Equipment Fleet Management"}
             </h1>
             <p className="mt-1 text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
@@ -382,13 +382,13 @@ export default function SellerEquipmentPage() {
           {/* Controls: Search & Add Equipment Button */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search equipment by name or location..."
-                className="w-full rounded-2xl border border-gray-200 bg-white pl-9 pr-4 py-2.5 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
+                className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
               />
             </div>
 
@@ -439,8 +439,8 @@ export default function SellerEquipmentPage() {
           {/* Equipment Cards Grid */}
           <div className="flex flex-col gap-3">
             {filteredEquipment.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-white p-8 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-[#24833A] mb-2">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-[#24833A] mb-2">
                   <Tractor size={24} />
                 </div>
                 <h3 className="text-sm font-bold text-gray-800">
@@ -467,7 +467,7 @@ export default function SellerEquipmentPage() {
                 return (
                   <div
                     key={item.id}
-                    className={`flex flex-col gap-3 rounded-3xl border p-4 sm:p-5 shadow-2xs transition ${
+                    className={`flex flex-col gap-3 rounded-2xl border p-4 sm:p-5 shadow-2xs transition ${
                       isActive
                         ? "border-gray-200 bg-white hover:border-[#24833A]/50 hover:shadow-xs"
                         : "border-gray-200 bg-gray-50/60 opacity-90"
@@ -475,7 +475,7 @@ export default function SellerEquipmentPage() {
                   >
                     <div className="flex flex-col sm:flex-row items-start gap-4">
                       {/* Thumbnail Image */}
-                      <div className="relative h-28 w-full sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-2xl bg-gray-100">
+                      <div className="relative h-28 w-full sm:h-24 sm:w-28 shrink-0 overflow-hidden rounded-xl bg-gray-100">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={item.imageUrl || PRESET_IMAGES[0].url}
@@ -662,7 +662,7 @@ export default function SellerEquipmentPage() {
                 return (
                   <div
                     key={booking.id}
-                    className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs"
+                    className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs"
                   >
                     {/* Header: ID, Equipment name & status */}
                     <div className="flex items-start justify-between gap-2">
@@ -694,7 +694,7 @@ export default function SellerEquipmentPage() {
                     </div>
 
                     {/* Booking Schedule & Financials */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-2xl bg-[#F4FBF5] p-3 text-xs">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-xl bg-[#F4FBF5] p-3 text-xs">
                       <div>
                         <span className="text-[10px] text-gray-500 font-medium">Date & Time</span>
                         <p className="font-bold text-gray-900">{booking.bookingDate}</p>
@@ -817,14 +817,14 @@ export default function SellerEquipmentPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => {
                 setIsFormModalOpen(false);
                 setEditingItem(null);
               }}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10 cursor-pointer"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition z-10 cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />
@@ -853,7 +853,7 @@ export default function SellerEquipmentPage() {
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
                   placeholder="e.g. Mahindra 575 DI Tractor (47 HP)"
-                  className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20"
+                  className="mt-1 h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                 />
                 {formErrors.name && <p className="text-[10px] text-red-500 mt-0.5">{formErrors.name}</p>}
               </div>
@@ -867,7 +867,7 @@ export default function SellerEquipmentPage() {
                   <select
                     value={formCategory}
                     onChange={(e) => setFormCategory(e.target.value as EquipmentCategory)}
-                    className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-3 py-2.5 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="mt-1 h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   >
                     {EQUIPMENT_CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -884,7 +884,7 @@ export default function SellerEquipmentPage() {
                   <select
                     value={formStatus}
                     onChange={(e) => setFormStatus(e.target.value as "active" | "inactive")}
-                    className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-3 py-2.5 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="mt-1 h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   >
                     <option value="active">Active (Available for Rent)</option>
                     <option value="inactive">Inactive (Maintenance / Busy)</option>
@@ -902,7 +902,7 @@ export default function SellerEquipmentPage() {
                   value={formLocation}
                   onChange={(e) => setFormLocation(e.target.value)}
                   placeholder="e.g. Warangal Bypass Road, Warangal"
-                  className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20"
+                  className="mt-1 h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                 />
                 {formErrors.location && (
                   <p className="text-[10px] text-red-500 mt-0.5">{formErrors.location}</p>
@@ -923,7 +923,7 @@ export default function SellerEquipmentPage() {
                       setFormPricePerHour(e.target.value === "" ? "" : Number(e.target.value))
                     }
                     placeholder="e.g. 650"
-                    className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20"
+                    className="mt-1 h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                   {formErrors.price && (
                     <p className="text-[10px] text-red-500 mt-0.5">{formErrors.price}</p>
@@ -942,7 +942,7 @@ export default function SellerEquipmentPage() {
                       setFormSecurityDeposit(e.target.value === "" ? "" : Number(e.target.value))
                     }
                     placeholder="e.g. 2000"
-                    className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20"
+                    className="mt-1 h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                   {formErrors.deposit && (
                     <p className="text-[10px] text-red-500 mt-0.5">{formErrors.deposit}</p>
@@ -951,7 +951,7 @@ export default function SellerEquipmentPage() {
               </div>
 
               {/* Specifications: HP, Fuel, Model, Capacity */}
-              <div className="rounded-2xl border border-gray-200 bg-gray-50/70 p-3.5">
+              <div className="rounded-xl border border-gray-200 bg-gray-50/70 p-3.5">
                 <span className="text-[11px] font-bold uppercase text-gray-500 tracking-wider">
                   Technical Specifications
                 </span>

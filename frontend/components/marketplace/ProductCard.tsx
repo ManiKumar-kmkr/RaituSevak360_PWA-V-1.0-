@@ -39,7 +39,7 @@ export default function ProductCard({ product, onQuickInquire }: ProductCardProp
   return (
     <div
       onClick={() => router.push(`/dashboard/marketplace/${product.id}`)}
-      className="group flex flex-col justify-between rounded-3xl border border-gray-200/90 bg-white p-3.5 sm:p-4 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[#24833A]/40 hover:shadow-md cursor-pointer"
+      className="group flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-3.5 sm:p-4 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[#24833A]/40 hover:shadow-md cursor-pointer"
     >
       <div>
         {/* Product Visual Illustration */}
@@ -47,11 +47,11 @@ export default function ProductCard({ product, onQuickInquire }: ProductCardProp
 
         {/* Badges & Meta */}
         <div className="mt-3 flex items-center justify-between gap-1.5 text-[11px]">
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 font-bold text-[#24833A]">
+          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200/80 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-bold text-[#174D25]">
             <ShieldCheck size={11} />
             <span>{product.badge}</span>
           </span>
-          <div className="flex items-center gap-1 font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
+          <div className="flex items-center gap-1 font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full text-[10px]">
             <Star size={11} className="fill-amber-400 text-amber-500" />
             <span>{product.rating}</span>
             <span className="text-gray-400 font-normal text-[10px]">({product.reviewCount})</span>

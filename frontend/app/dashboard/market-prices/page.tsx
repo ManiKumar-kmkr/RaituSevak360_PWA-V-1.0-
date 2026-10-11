@@ -114,19 +114,19 @@ export default function MarketPricesPage() {
       </div>
 
       {/* 1. Header & Location Bar */}
-      <div className="rounded-3xl border border-[#DCE7DD] bg-white p-5 sm:p-7 shadow-2xs">
+      <div className="rounded-2xl border border-[#DCE7DD] bg-white p-5 sm:p-7 shadow-2xs">
         {/* Top: Title & Mandi Location */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#DCE7DD] pb-5">
           <div className="flex items-center gap-3.5">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A] shadow-xs">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A] shadow-xs">
               <TrendingUp size={24} strokeWidth={2.4} />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-black text-[#17321F] tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
                   {t("marketPrices.title")}
                 </h1>
-                <span className="rounded-full bg-[#DCFCE7] px-2.5 py-0.5 text-[11px] font-black text-[#166534]">
+                <span className="rounded-full bg-[#DCFCE7] px-2.5 py-0.5 text-[11px] font-bold text-[#166534]">
                   {t("dashboard.badgeLive")}
                 </span>
               </div>
@@ -137,7 +137,7 @@ export default function MarketPricesPage() {
           </div>
 
           {/* Mandi Location Section */}
-          <div className="flex items-center gap-2 rounded-2xl border border-[#DCE7DD] bg-[#F7F9F6] p-2 pl-3">
+          <div className="flex items-center gap-2 rounded-xl border border-[#DCE7DD] bg-[#F7F9F6] p-2 pl-3">
             <div className="flex items-center gap-1.5 min-w-0">
               <MapPin size={16} className="text-[#24833A] shrink-0" />
               <span className="text-xs font-bold text-[#17321F] truncate max-w-[170px] sm:max-w-[200px]">
@@ -169,22 +169,22 @@ export default function MarketPricesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t("marketPrices.searchPlaceholder")}
-              className="w-full rounded-2xl border border-[#DCE7DD] bg-[#F7F9F6] py-3 pl-10 pr-10 text-xs sm:text-sm font-semibold text-[#17321F] placeholder-gray-400 focus:border-[#24833A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
+              className="h-11 w-full rounded-xl border border-[#DCE7DD] bg-white pl-10 pr-10 text-xs sm:text-sm font-semibold text-[#17321F] placeholder-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-700 transition cursor-pointer"
                 aria-label={t("marketPrices.clearSearch")}
               >
-                <X size={13} />
+                <X size={12} />
               </button>
             )}
           </div>
 
           {/* Category Filter Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
             <span className="hidden sm:flex items-center gap-1 text-xs font-bold text-[#5F6F64] mr-1">
               <SlidersHorizontal size={14} />
             </span>
@@ -197,11 +197,11 @@ export default function MarketPricesPage() {
                   type="button"
                   onClick={() => setActiveCategory(cat)}
                   className={`
-                    shrink-0 rounded-2xl px-4 py-2 text-xs font-bold transition active:scale-95 cursor-pointer
+                    shrink-0 rounded-full px-3.5 py-1.5 sm:px-4 text-xs font-bold transition active:scale-95 cursor-pointer
                     ${
                       isActive
-                        ? "bg-[#174D25] text-white shadow-xs"
-                        : "border border-[#DCE7DD] bg-[#F7F9F6] text-[#17321F] hover:bg-[#EAF7EE] hover:border-[#24833A]"
+                        ? "bg-[#24833A] text-white shadow-2xs"
+                        : "border border-[#DCE7DD] bg-white text-gray-700 hover:bg-[#EAF7EE] hover:border-[#24833A]"
                     }
                   `}
                 >
@@ -219,19 +219,19 @@ export default function MarketPricesPage() {
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <div
               key={i}
-              className="h-56 animate-pulse rounded-3xl border border-[#DCE7DD] bg-white p-5 shadow-2xs"
+              className="h-56 animate-pulse rounded-2xl border border-[#DCE7DD] bg-white p-5 shadow-2xs"
             >
               <div className="h-4 w-24 bg-gray-200 rounded-full mb-3" />
               <div className="h-6 w-44 bg-gray-200 rounded-lg mb-2" />
               <div className="h-3 w-32 bg-gray-100 rounded mb-6" />
               <div className="h-8 w-28 bg-gray-200 rounded mb-4" />
-              <div className="h-10 w-full bg-gray-100 rounded-2xl" />
+              <div className="h-10 w-full bg-gray-100 rounded-xl" />
             </div>
           ))}
         </div>
       ) : hasError ? (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-[#DCE7DD] bg-white p-8 sm:p-12 text-center shadow-2xs">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 mb-3">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-[#DCE7DD] bg-white p-8 sm:p-12 text-center shadow-2xs">
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-red-50 text-red-600 mb-3">
             <AlertCircle size={28} />
           </div>
           <h3 className="text-base sm:text-lg font-bold text-[#17321F]">
@@ -243,7 +243,7 @@ export default function MarketPricesPage() {
           <button
             type="button"
             onClick={fetchPrices}
-            className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-[#174D25] px-5 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#24833A] transition cursor-pointer"
+            className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#174D25] px-5 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#24833A] transition cursor-pointer"
           >
             <RefreshCw size={14} />
             <span>{t("marketPrices.retry")}</span>
@@ -251,8 +251,8 @@ export default function MarketPricesPage() {
         </div>
       ) : crops.length === 0 ? (
         /* Empty State */
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-[#DCE7DD] bg-white p-8 sm:p-14 text-center shadow-2xs">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAF7EE] text-[#174D25] mb-3">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-[#DCE7DD] bg-white p-8 sm:p-14 text-center shadow-2xs">
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#EAF7EE] text-[#174D25] mb-3">
             <Search size={26} className="text-[#24833A]" />
           </div>
           <h3 className="text-base sm:text-lg font-bold text-[#17321F]">
@@ -269,7 +269,7 @@ export default function MarketPricesPage() {
                 setSearchQuery("");
                 setActiveCategory("all");
               }}
-              className="mt-5 rounded-2xl border border-[#24833A] bg-white px-4 py-2 text-xs font-bold text-[#174D25] hover:bg-[#EAF7EE] transition cursor-pointer"
+              className="mt-5 rounded-xl border border-[#24833A] bg-white px-4 py-2 text-xs font-bold text-[#174D25] hover:bg-[#EAF7EE] transition cursor-pointer"
             >
               {t("marketPrices.clearSearch")}
             </button>

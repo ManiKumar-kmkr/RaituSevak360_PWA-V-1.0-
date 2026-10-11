@@ -219,7 +219,7 @@ export default function CropRecommendations({
           aria-modal="true"
         >
           <div
-            className="w-full max-w-lg rounded-3xl border border-[#DCE7DD] bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150"
+            className="w-full max-w-lg rounded-2xl border border-[#DCE7DD] bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -241,7 +241,7 @@ export default function CropRecommendations({
                 id="btn-close-details-x"
                 type="button"
                 onClick={() => setSelectedCropDetails(null)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-[#5F6F64] hover:bg-[#F7F9F6] hover:text-[#17321F] cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-[#5F6F64] hover:bg-[#F7F9F6] hover:text-[#17321F] transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -333,7 +333,7 @@ export default function CropRecommendations({
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-[#DCE7DD] bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150 text-center"
+            className="w-full max-w-md rounded-2xl border border-[#DCE7DD] bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 text-center"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAF7EE] text-[#174D25] border border-[#86EFAC]/70 mb-4">

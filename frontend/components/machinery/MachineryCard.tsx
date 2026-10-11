@@ -35,11 +35,11 @@ export default function MachineryCard({ equipment, onBookNow }: MachineryCardPro
   };
 
   return (
-    <div className="flex flex-col justify-between rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[#24833A]/40 hover:shadow-md">
+    <div className="flex flex-col justify-between rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[#24833A]/40 hover:shadow-md">
       <div>
         {/* Visual Header */}
-        <div className="relative flex h-36 sm:h-40 w-full items-center justify-center rounded-2xl bg-gradient-to-br from-[#E4F0DD]/60 via-amber-50 to-[#F7F9F6] border border-gray-100 overflow-hidden">
-          <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-white shadow-xs text-[#24833A]">
+        <div className="relative flex h-36 sm:h-40 w-full items-center justify-center rounded-xl bg-gradient-to-br from-[#E4F0DD]/60 via-amber-50 to-[#F7F9F6] border border-gray-100 overflow-hidden">
+          <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-xl bg-white shadow-xs text-[#24833A]">
             <Tractor size={38} strokeWidth={2.2} />
           </div>
 
@@ -66,7 +66,7 @@ export default function MachineryCard({ equipment, onBookNow }: MachineryCardPro
         {/* Category & distance */}
         <div className="mt-3 flex items-center justify-between text-[11px]">
           <span
-            className={`rounded-full border px-2.5 py-0.5 font-bold uppercase text-[9px] ${getCategoryColor()}`}
+            className={`rounded-full border px-2.5 py-0.5 font-bold uppercase text-[10px] ${getCategoryColor()}`}
           >
             {equipment.category}
           </span>
@@ -89,13 +89,13 @@ export default function MachineryCard({ equipment, onBookNow }: MachineryCardPro
         {/* Key Features pills */}
         <div className="mt-2.5 flex flex-wrap gap-1.5 text-[10px]">
           {equipment.operatorIncluded && (
-            <span className="inline-flex items-center gap-1 rounded-lg bg-emerald-50 px-2 py-0.5 font-semibold text-emerald-800">
+            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200/80 bg-emerald-50 px-2.5 py-0.5 font-bold text-emerald-800 text-[10px]">
               <UserCheck size={11} />
               <span>Operator Included</span>
             </span>
           )}
           {equipment.fuelIncluded && (
-            <span className="inline-flex items-center gap-1 rounded-lg bg-blue-50 px-2 py-0.5 font-semibold text-blue-800">
+            <span className="inline-flex items-center gap-1 rounded-full border border-blue-200/80 bg-blue-50 px-2.5 py-0.5 font-bold text-blue-800 text-[10px]">
               <Fuel size={11} />
               <span>Fuel Included</span>
             </span>

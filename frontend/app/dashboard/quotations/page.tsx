@@ -164,13 +164,13 @@ export default function ReceivedQuotationsPage() {
       </div>
 
       {/* Page Title */}
-      <div className="rounded-3xl bg-gradient-to-r from-[#174D25] to-[#24833A] p-5 text-white shadow-sm">
+      <div className="rounded-2xl bg-gradient-to-r from-[#174D25] to-[#24833A] p-5 text-white shadow-2xs">
         <div className="flex items-start justify-between gap-3">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold tracking-wide text-emerald-100 backdrop-blur-xs">
               <Sparkles size={13} /> Farmer Harvest Mandi
             </span>
-            <h1 className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-white">
+            <h1 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-white">
               {t("seller.quotations.title") || "Received Quotations"}
             </h1>
             <p className="mt-1 text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
@@ -182,19 +182,19 @@ export default function ReceivedQuotationsPage() {
 
         {/* Quick stats ribbon */}
         <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/15 pt-3 text-center text-white">
-          <div className="rounded-2xl bg-white/10 p-2">
+          <div className="rounded-xl bg-white/10 p-2">
             <span className="text-[10px] text-emerald-200">Total Bids</span>
-            <p className="text-base font-black">{quotations.length}</p>
+            <p className="text-base font-bold">{quotations.length}</p>
           </div>
-          <div className="rounded-2xl bg-white/10 p-2">
+          <div className="rounded-xl bg-white/10 p-2">
             <span className="text-[10px] text-amber-200">Pending Review</span>
-            <p className="text-base font-black">
+            <p className="text-base font-bold">
               {quotations.filter((q) => q.status === "submitted" || q.status === "under_review").length}
             </p>
           </div>
-          <div className="rounded-2xl bg-white/10 p-2">
+          <div className="rounded-xl bg-white/10 p-2">
             <span className="text-[10px] text-emerald-200">Accepted Deals</span>
-            <p className="text-base font-black">
+            <p className="text-base font-bold">
               {quotations.filter((q) => q.status === "accepted").length}
             </p>
           </div>
@@ -314,8 +314,8 @@ export default function ReceivedQuotationsPage() {
       {/* Quotations List */}
       <div className="flex flex-col gap-3">
         {filteredQuotations.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-white p-8 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-[#24833A] mb-2">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-[#24833A] mb-2">
               <FileText size={24} />
             </div>
             <h3 className="text-sm font-bold text-gray-800">
@@ -345,7 +345,7 @@ export default function ReceivedQuotationsPage() {
             return (
               <div
                 key={quote.id}
-                className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs"
+                className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs"
               >
                 {/* Header: Quotation ID, Seller name & Status */}
                 <div className="flex items-start justify-between gap-2">
@@ -387,7 +387,7 @@ export default function ReceivedQuotationsPage() {
                 </div>
 
                 {/* Pricing & Commercial Offer Details */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-2xl bg-[#F4FBF5] p-3 text-xs">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-xl bg-[#F4FBF5] p-3 text-xs">
                   <div>
                     <span className="text-[11px] text-gray-500 font-medium">
                       {t("seller.quotations.quantity") || "Quantity"}
@@ -512,11 +512,11 @@ export default function ReceivedQuotationsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setSelectedQuotation(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10 cursor-pointer"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition z-10 cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />
@@ -536,7 +536,7 @@ export default function ReceivedQuotationsPage() {
             </div>
 
             {/* Status indicator */}
-            <div className="mb-4 flex items-center justify-between rounded-2xl bg-gray-50 p-3">
+            <div className="mb-4 flex items-center justify-between rounded-xl bg-gray-50 p-3">
               <span className="text-xs font-semibold text-gray-600">Current Status</span>
               {(() => {
                 const b = getStatusBadge(activeSelectedQuote.status);
@@ -552,7 +552,7 @@ export default function ReceivedQuotationsPage() {
             </div>
 
             {/* Seller Information Card */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-4 mb-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-4 mb-4">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold uppercase text-gray-400 tracking-wider">
                   {t("seller.quotations.buyer") || "Buyer / Trader Information"}
@@ -586,7 +586,7 @@ export default function ReceivedQuotationsPage() {
             </div>
 
             {/* Commercial Pricing Breakdown */}
-            <div className="rounded-2xl border border-[#24833A]/20 bg-[#F4FBF5] p-4 mb-4">
+            <div className="rounded-xl border border-[#24833A]/20 bg-[#F4FBF5] p-4 mb-4">
               <h4 className="text-xs font-bold uppercase text-[#174D25] tracking-wider mb-2">
                 Commercial Pricing & Quantity
               </h4>
@@ -617,7 +617,7 @@ export default function ReceivedQuotationsPage() {
             </div>
 
             {/* Logistics & Terms */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-4 mb-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-4 mb-4">
               <h4 className="text-xs font-bold uppercase text-gray-400 tracking-wider mb-2">
                 Procurement Terms & Logistics
               </h4>
@@ -655,7 +655,7 @@ export default function ReceivedQuotationsPage() {
               {activeSelectedQuote.notes && (
                 <div className="mt-3 border-t border-gray-100 pt-3">
                   <span className="text-xs font-semibold text-gray-500">Buyer Notes:</span>
-                  <p className="text-xs text-gray-700 mt-1 bg-gray-50 rounded-xl p-2.5 italic">
+                  <p className="text-xs text-gray-700 mt-1 bg-gray-50 rounded-lg p-2.5 italic">
                     &ldquo;{activeSelectedQuote.notes}&rdquo;
                   </p>
                 </div>
@@ -667,7 +667,7 @@ export default function ReceivedQuotationsPage() {
               const relLead = getRelatedLead(activeSelectedQuote.leadId);
               if (!relLead) return null;
               return (
-                <div className="rounded-2xl border border-gray-200 bg-gray-50/70 p-3.5 mb-4 text-xs">
+                <div className="rounded-xl border border-gray-200 bg-gray-50/70 p-3.5 mb-4 text-xs">
                   <span className="text-[11px] font-bold uppercase text-gray-400 tracking-wider">
                     {t("seller.quotations.demandInfo") || "Associated Crop Demand"}
                   </span>
@@ -691,7 +691,7 @@ export default function ReceivedQuotationsPage() {
                     onClick={() => {
                       setRejectConfirmQuote(activeSelectedQuote);
                     }}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-rose-300 bg-white py-3 text-xs font-bold text-rose-700 shadow-2xs hover:bg-rose-50 active:scale-95 transition cursor-pointer"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-rose-300 bg-white py-3 text-xs font-bold text-rose-700 shadow-2xs hover:bg-rose-50 active:scale-95 transition cursor-pointer"
                   >
                     <XCircle size={15} />
                     {t("seller.quotations.rejectButton") || "Reject Quotation"}
@@ -699,28 +699,28 @@ export default function ReceivedQuotationsPage() {
                   <button
                     type="button"
                     onClick={() => handleAccept(activeSelectedQuote)}
-                    className="flex flex-2 items-center justify-center gap-2 rounded-2xl bg-[#24833A] py-3 text-xs font-bold text-white shadow-xs hover:bg-[#1e6e30] active:scale-95 transition cursor-pointer"
+                    className="flex flex-2 items-center justify-center gap-2 rounded-xl bg-[#24833A] py-3 text-xs font-bold text-white shadow-xs hover:bg-[#1e6e30] active:scale-95 transition cursor-pointer"
                   >
                     <CheckCircle2 size={15} />
                     {t("seller.quotations.acceptButton") || "Accept Quotation"}
                   </button>
                 </>
               ) : activeSelectedQuote.status === "accepted" ? (
-                <div className="w-full rounded-2xl bg-emerald-50 border border-emerald-200 p-3 text-center">
+                <div className="w-full rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-center">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800">
                     <CheckCircle2 size={16} className="text-emerald-600" />
                     Quotation Accepted — Harvest Agreement Active
                   </span>
                 </div>
               ) : activeSelectedQuote.status === "not_selected" ? (
-                <div className="w-full rounded-2xl bg-gray-100 border border-gray-200 p-3 text-center">
+                <div className="w-full rounded-xl bg-gray-100 border border-gray-200 p-3 text-center">
                   <span className="text-xs font-semibold text-gray-600">
                     {t("seller.quotations.otherOffersDisabledNotice") ||
                       "Another quotation was accepted for this crop demand. This offer is closed."}
                   </span>
                 </div>
               ) : (
-                <div className="w-full rounded-2xl bg-rose-50 border border-rose-200 p-3 text-center">
+                <div className="w-full rounded-xl bg-rose-50 border border-rose-200 p-3 text-center">
                   <span className="text-xs font-bold text-rose-700">
                     Quotation Rejected — Archived in History
                   </span>
@@ -736,10 +736,10 @@ export default function ReceivedQuotationsPage() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-60 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-in fade-in duration-150"
+          className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-sm rounded-3xl bg-white p-5 sm:p-6 shadow-2xl text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 mb-3">
+          <div className="relative w-full max-w-sm rounded-2xl bg-white p-5 sm:p-6 shadow-2xl text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-rose-100 text-rose-600 mb-3">
               <AlertTriangle size={24} />
             </div>
 
@@ -755,14 +755,14 @@ export default function ReceivedQuotationsPage() {
               <button
                 type="button"
                 onClick={() => setRejectConfirmQuote(null)}
-                className="flex-1 rounded-2xl border border-gray-200 bg-white py-2.5 text-xs font-bold text-gray-700 hover:bg-gray-50 active:scale-95 transition cursor-pointer"
+                className="flex-1 rounded-xl border border-gray-200 bg-white py-2.5 text-xs font-bold text-gray-700 hover:bg-gray-50 active:scale-95 transition cursor-pointer"
               >
                 {t("seller.quotations.cancel") || "Cancel"}
               </button>
               <button
                 type="button"
                 onClick={handleConfirmReject}
-                className="flex-1 rounded-2xl bg-rose-600 py-2.5 text-xs font-bold text-white hover:bg-rose-700 active:scale-95 transition cursor-pointer shadow-xs"
+                className="flex-1 rounded-xl bg-rose-600 py-2.5 text-xs font-bold text-white hover:bg-rose-700 active:scale-95 transition cursor-pointer shadow-xs"
               >
                 {t("seller.quotations.confirmReject") || "Reject Quotation"}
               </button>
@@ -778,11 +778,11 @@ export default function ReceivedQuotationsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-2xl rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-2xl rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setComparingLeadId(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10 cursor-pointer"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition z-10 cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />

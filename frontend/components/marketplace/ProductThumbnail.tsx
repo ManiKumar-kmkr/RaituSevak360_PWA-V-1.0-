@@ -75,7 +75,7 @@ export default function ProductThumbnail({
 
   return (
     <div
-      className={`relative w-full overflow-hidden rounded-2xl bg-gradient-to-br ${theme.bg} flex items-center justify-center p-3 select-none ${heightClass} ${className}`}
+      className={`relative w-full overflow-hidden rounded-xl bg-gradient-to-br ${theme.bg} flex items-center justify-center p-3 select-none ${heightClass} ${className}`}
     >
       {/* Subtle background pattern ring */}
       <div className="absolute -right-6 -bottom-6 h-28 w-28 rounded-full bg-white/40 blur-xs" />
@@ -83,7 +83,7 @@ export default function ProductThumbnail({
 
       {/* Main product visual illustration */}
       <div className="relative z-10 flex flex-col items-center gap-1.5 transition-transform duration-300 group-hover:scale-105">
-        <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-white/90 shadow-sm border border-white/60">
+        <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-xl bg-white/90 shadow-sm border border-white/60">
           {theme.icon}
         </div>
         <span className="rounded-full bg-white/80 px-2 py-0.5 text-[9px] font-extrabold tracking-wider text-gray-700 uppercase shadow-2xs backdrop-blur-xs">

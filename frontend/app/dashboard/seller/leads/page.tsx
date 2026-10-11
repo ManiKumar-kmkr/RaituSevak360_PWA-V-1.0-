@@ -231,15 +231,15 @@ export default function BuyLeadsPage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search crop, location, farmer..."
-          className="w-full rounded-2xl border border-gray-200 bg-white pl-10 pr-10 py-3 text-sm font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
+          className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-10 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
         />
         {searchQuery && (
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+            className="absolute right-3 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-700 transition cursor-pointer"
           >
-            <X size={16} />
+            <X size={12} />
           </button>
         )}
       </div>
@@ -268,8 +268,8 @@ export default function BuyLeadsPage() {
       {/* Leads List */}
       <div className="flex flex-col gap-3">
         {filteredLeads.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-white p-8 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400 mb-2">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 text-gray-400 mb-2">
               <Search size={22} />
             </div>
             <h3 className="text-sm font-bold text-gray-700">No Buy Leads Found</h3>
@@ -288,16 +288,16 @@ export default function BuyLeadsPage() {
           filteredLeads.map((lead) => {
             const urgencyBadge =
               lead.urgency === "High"
-                ? "bg-red-50 text-red-700 border-red-200"
+                ? "bg-rose-50 text-rose-800 border-rose-200"
                 : lead.urgency === "Medium"
-                ? "bg-amber-50 text-amber-700 border-amber-200"
-                : "bg-emerald-50 text-emerald-700 border-emerald-200";
+                ? "bg-amber-50 text-amber-800 border-amber-200"
+                : "bg-emerald-50 text-[#174D25] border-emerald-200";
 
             return (
               <div
                 key={lead.id}
                 onClick={() => setSelectedLead(lead)}
-                className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/60 hover:shadow-xs active:scale-[0.99] cursor-pointer"
+                className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/60 hover:shadow-xs active:scale-[0.99] cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
@@ -392,11 +392,11 @@ export default function BuyLeadsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setSelectedLead(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer z-10"
               aria-label="Close"
             >
               <X size={18} />
@@ -574,11 +574,11 @@ export default function BuyLeadsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setIsQuoteModalOpen(false)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />
@@ -596,7 +596,7 @@ export default function BuyLeadsPage() {
 
             <form onSubmit={handleSendQuotation} className="flex flex-col gap-4">
               {/* Dynamic Calculation Area */}
-              <div className="rounded-2xl border border-[#24833A]/20 bg-[#F4FBF5] p-3.5">
+              <div className="rounded-xl border border-[#24833A]/20 bg-[#F4FBF5] p-3.5">
                 <div className="flex items-center justify-between text-xs mb-1">
                   <span className="text-gray-500 font-medium">Quantity Demanded</span>
                   <span className="font-bold text-[#174D25]">
@@ -631,7 +631,7 @@ export default function BuyLeadsPage() {
                     setOfferedPrice(e.target.value === "" ? "" : Number(e.target.value))
                   }
                   placeholder={`e.g. ${quoteLead.expectedPricePerUnit}`}
-                  className={`w-full rounded-xl border px-3.5 py-2.5 text-sm font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
+                  className={`h-11 w-full rounded-xl border px-3.5 text-xs sm:text-sm font-bold text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition ${
                     quoteErrors.price ? "border-red-500 bg-red-50/30" : "border-gray-200 focus:border-[#24833A]"
                   }`}
                 />
@@ -682,7 +682,7 @@ export default function BuyLeadsPage() {
                     type="date"
                     value={availableFrom}
                     onChange={(e) => setAvailableFrom(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
                 <div>
@@ -693,7 +693,7 @@ export default function BuyLeadsPage() {
                     id="validity"
                     value={validity}
                     onChange={(e) => setValidity(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   >
                     <option value="3 Days">3 Days</option>
                     <option value="5 Days">5 Days</option>
@@ -714,7 +714,7 @@ export default function BuyLeadsPage() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Weighbridge slip payment, immediate bank transfer on pickup..."
-                  className="w-full rounded-xl border border-gray-200 px-3.5 py-2 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none"
+                  className="w-full rounded-xl border border-gray-200 bg-white p-3 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                 />
               </div>
 
@@ -749,7 +749,7 @@ export default function BuyLeadsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl border border-[#24833A]/20 text-center">
+          <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-[#24833A]/20 text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E4F0DD] text-[#24833A] mb-3">
               <CheckCircle2 size={36} strokeWidth={2.4} />
             </div>
@@ -824,7 +824,7 @@ export default function BuyLeadsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[85vh] overflow-y-auto">
+          <div className="relative w-full max-w-md rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[85vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
               <div className="flex items-center gap-2">
                 <Filter size={18} className="text-[#24833A]" />
@@ -833,7 +833,8 @@ export default function BuyLeadsPage() {
               <button
                 type="button"
                 onClick={() => setIsFilterModalOpen(false)}
-                className="rounded-full p-1 text-gray-400 hover:bg-gray-100 transition"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
+                aria-label="Close"
               >
                 <X size={18} />
               </button>
@@ -895,7 +896,7 @@ export default function BuyLeadsPage() {
                   id="districtSelect"
                   value={filterCriteria.district}
                   onChange={(e) => setFilterCriteria((prev) => ({ ...prev, district: e.target.value }))}
-                  className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                 >
                   {DISTRICTS.map((d) => (
                     <option key={d} value={d}>

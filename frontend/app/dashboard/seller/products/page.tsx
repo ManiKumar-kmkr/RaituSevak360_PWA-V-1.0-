@@ -261,15 +261,15 @@ export default function SellerProductsPage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search products by name, tag, category..."
-          className="w-full rounded-2xl border border-gray-200 bg-white pl-10 pr-10 py-3 text-sm font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
+          className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-10 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
         />
         {searchQuery && (
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+            className="absolute right-3 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-700 transition cursor-pointer"
           >
-            <X size={16} />
+            <X size={12} />
           </button>
         )}
       </div>
@@ -298,7 +298,7 @@ export default function SellerProductsPage() {
       {/* Products List */}
       <div className="flex flex-col gap-3">
         {filteredProducts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-white p-8 text-center">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center">
             <Package size={28} className="text-gray-300 mb-2" />
             <h3 className="text-sm font-bold text-gray-700">No Products Listed</h3>
             <p className="text-xs text-gray-400 mt-1 max-w-xs">
@@ -319,19 +319,19 @@ export default function SellerProductsPage() {
               <div
                 key={p.id}
                 onClick={() => setSelectedProduct(p)}
-                className={`flex gap-3.5 rounded-3xl border p-3.5 sm:p-4 bg-white shadow-2xs transition hover:shadow-xs active:scale-[0.99] cursor-pointer ${
+                className={`flex gap-3.5 rounded-2xl border p-3.5 sm:p-4 bg-white shadow-2xs transition hover:shadow-xs active:scale-[0.99] cursor-pointer ${
                   isActive ? "border-gray-200 hover:border-[#24833A]/60" : "border-gray-200 opacity-75 bg-gray-50/60"
                 }`}
               >
                 {/* Product Thumbnail */}
-                <div className="relative h-24 w-24 shrink-0 rounded-2xl overflow-hidden bg-gray-100">
+                <div className="relative h-24 w-24 shrink-0 rounded-xl overflow-hidden bg-gray-100">
                   <img
                     src={p.imageUrl}
                     alt={p.name}
                     className="h-full w-full object-cover"
                   />
                   <span
-                    className={`absolute bottom-1.5 left-1.5 rounded-md px-1.5 py-0.5 text-[9px] font-bold ${
+                    className={`absolute bottom-1.5 left-1.5 rounded-full px-2 py-0.5 text-[10px] font-bold ${
                       isActive ? "bg-emerald-600 text-white" : "bg-gray-700 text-white"
                     }`}
                   >
@@ -348,7 +348,7 @@ export default function SellerProductsPage() {
                       </span>
                       <span
                         className={`text-[10px] font-bold ${
-                          p.stock > 10 ? "text-emerald-600" : p.stock > 0 ? "text-amber-600" : "text-red-500"
+                          p.stock > 10 ? "text-emerald-700" : p.stock > 0 ? "text-amber-700" : "text-rose-600"
                         }`}
                       >
                         Stock: {p.stock}
@@ -387,11 +387,11 @@ export default function SellerProductsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setSelectedProduct(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer z-10"
               aria-label="Close"
             >
               <X size={18} />
@@ -532,11 +532,11 @@ export default function SellerProductsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setIsAddModalOpen(false)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer z-10"
               aria-label="Close"
             >
               <X size={18} />
@@ -586,7 +586,7 @@ export default function SellerProductsPage() {
                     value={addForm.name}
                     onChange={(e) => setAddForm((prev) => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g. Certified Bio-Organic Trichoderma"
-                    className="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 text-sm font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                   {addErrors.name && (
                     <p className="mt-1 text-xs text-red-600 font-medium">{addErrors.name}</p>
@@ -603,7 +603,7 @@ export default function SellerProductsPage() {
                       id="catSelect"
                       value={addForm.category}
                       onChange={(e) => setAddForm((prev) => ({ ...prev, category: e.target.value as any }))}
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                     >
                       <option value="Seeds">Seeds</option>
                       <option value="Fertilizers">Fertilizers</option>
@@ -621,7 +621,7 @@ export default function SellerProductsPage() {
                       value={addForm.subCategory}
                       onChange={(e) => setAddForm((prev) => ({ ...prev, subCategory: e.target.value }))}
                       placeholder="e.g. Bio-Fungicide"
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                     />
                     {addErrors.subCategory && (
                       <p className="mt-1 text-xs text-red-600 font-medium">{addErrors.subCategory}</p>
@@ -679,7 +679,7 @@ export default function SellerProductsPage() {
                         }))
                       }
                       placeholder="1250"
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm font-bold text-gray-800 focus:border-[#24833A] focus:outline-none"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-bold text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                     />
                     {addErrors.price && (
                       <p className="mt-1 text-xs text-red-600 font-medium">{addErrors.price}</p>
@@ -695,7 +695,7 @@ export default function SellerProductsPage() {
                       value={addForm.unit}
                       onChange={(e) => setAddForm((prev) => ({ ...prev, unit: e.target.value }))}
                       placeholder="e.g. bag (25kg), kg, piece"
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                     />
                   </div>
                 </div>
@@ -718,7 +718,7 @@ export default function SellerProductsPage() {
                         }))
                       }
                       placeholder="50"
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                     />
                     {addErrors.stock && (
                       <p className="mt-1 text-xs text-red-600 font-medium">{addErrors.stock}</p>
@@ -737,7 +737,7 @@ export default function SellerProductsPage() {
                         setAddForm((prev) => ({ ...prev, moq: Number(e.target.value) || 1 }))
                       }
                       placeholder="1"
-                      className="w-full rounded-xl border border-gray-200 px-3 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                      className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                     />
                   </div>
                 </div>
@@ -753,7 +753,7 @@ export default function SellerProductsPage() {
                     value={addForm.location}
                     onChange={(e) => setAddForm((prev) => ({ ...prev, location: e.target.value }))}
                     placeholder="e.g. Warangal, Telangana"
-                    className="w-full rounded-xl border border-gray-200 px-3.5 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
 
@@ -768,7 +768,7 @@ export default function SellerProductsPage() {
                     value={addForm.description}
                     onChange={(e) => setAddForm((prev) => ({ ...prev, description: e.target.value }))}
                     placeholder="Describe composition, crop suitability, application rates..."
-                    className="w-full rounded-xl border border-gray-200 px-3.5 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="w-full rounded-xl border border-gray-200 bg-white p-3 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                   {addErrors.description && (
                     <p className="mt-1 text-xs text-red-600 font-medium">{addErrors.description}</p>
@@ -786,7 +786,7 @@ export default function SellerProductsPage() {
                     value={addForm.tagsInput}
                     onChange={(e) => setAddForm((prev) => ({ ...prev, tagsInput: e.target.value }))}
                     placeholder="Certified, Organic, Fast Delivery"
-                    className="w-full rounded-xl border border-gray-200 px-3.5 py-2 text-xs font-medium text-gray-800 focus:border-[#24833A] focus:outline-none"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
 
@@ -912,11 +912,11 @@ export default function SellerProductsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setEditingProduct(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />
@@ -1068,11 +1068,11 @@ export default function SellerProductsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl border border-[#24833A]/20">
+          <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-[#24833A]/20">
             <button
               type="button"
               onClick={() => setStockProduct(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />
@@ -1153,7 +1153,7 @@ export default function SellerProductsPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl border border-red-200 text-center">
+          <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-red-200 text-center">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 mb-3">
               <AlertTriangle size={28} />
             </div>

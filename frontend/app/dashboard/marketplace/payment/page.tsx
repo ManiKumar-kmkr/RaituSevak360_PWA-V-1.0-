@@ -113,7 +113,7 @@ export default function PaymentPage() {
       </div>
 
       {/* Screen Title */}
-      <div className="flex items-center justify-between rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs">
+      <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs">
         <div>
           <h1 className="text-base sm:text-lg font-extrabold text-gray-900">
             Payment Options
@@ -132,7 +132,7 @@ export default function PaymentPage() {
       </div>
 
       {/* Development Safety Disclaimer Banner */}
-      <div className="flex items-start gap-3 rounded-2xl border border-blue-200 bg-blue-50/70 p-3.5 text-xs text-blue-900">
+      <div className="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50/70 p-3.5 text-xs text-blue-900">
         <Info size={18} className="text-blue-600 shrink-0 mt-0.5" />
         <div className="flex flex-col gap-0.5">
           <span className="font-bold">Development Mode Notice</span>
@@ -144,7 +144,7 @@ export default function PaymentPage() {
       </div>
 
       {/* Delivery Summary Review */}
-      <div className="rounded-3xl border border-gray-200/90 bg-white p-4 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-2xs">
         <div className="flex items-center gap-2 text-xs font-bold text-gray-800">
           <MapPin size={15} className="text-[#24833A]" />
           <span>Delivering To Farm Gate:</span>
@@ -164,15 +164,15 @@ export default function PaymentPage() {
             <div
               key={opt.id}
               onClick={() => setSelectedMethod(opt.id)}
-              className={`flex items-center justify-between gap-3.5 rounded-3xl border p-4 sm:p-5 transition-all cursor-pointer ${
+              className={`flex items-center justify-between gap-3.5 rounded-2xl border p-4 sm:p-5 transition cursor-pointer ${
                 isSelected
                   ? "border-[#24833A] bg-[#F7F9F6] shadow-sm ring-1 ring-[#24833A]"
-                  : "border-gray-200/90 bg-white hover:border-gray-300 shadow-2xs"
+                  : "border-gray-200 bg-white hover:border-gray-300 shadow-2xs"
               }`}
             >
               <div className="flex items-center gap-3.5">
                 <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-colors ${
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors ${
                     isSelected ? "bg-[#E4F0DD] text-[#24833A]" : "bg-gray-100 text-gray-600"
                   }`}
                 >
@@ -212,7 +212,7 @@ export default function PaymentPage() {
       </div>
 
       {/* Pay CTA Button */}
-      <div className="mt-2 rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs">
+      <div className="mt-2 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs">
         <Button
           variant="primary"
           size="lg"

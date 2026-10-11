@@ -96,7 +96,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* Ministry & Level Banner */}
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs">
         <div className="flex flex-col gap-3">
           {/* Top Badges */}
           <div className="flex flex-wrap items-center gap-2">
@@ -183,7 +183,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* Verified Financial Benefit Block */}
-      <div className="rounded-3xl border border-[#24833A]/25 bg-gradient-to-br from-[#F4F9F2] to-[#E9F5E6] p-5 shadow-2xs">
+      <div className="rounded-2xl border border-[#24833A]/25 bg-gradient-to-br from-[#F4F9F2] to-[#E9F5E6] p-5 shadow-2xs">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <span className="text-[11px] font-bold text-[#174D25] uppercase tracking-wider">
@@ -193,7 +193,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
               {scheme.benefit.headline}
             </h2>
           </div>
-          <div className="self-start sm:self-auto rounded-2xl bg-white px-3.5 py-1.5 border border-[#24833A]/20 shadow-2xs">
+          <div className="self-start sm:self-auto rounded-xl bg-white px-3.5 py-1.5 border border-[#24833A]/20 shadow-2xs">
             <span className="text-sm sm:text-base font-black text-[#174D25]">
               {scheme.benefit.amountOrSubsidy}
             </span>
@@ -211,7 +211,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* Official Eligibility Criteria */}
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
           <CheckCircle2 size={18} className="text-[#24833A]" />
           <span>{t("schemes.eligibilityCriteria") || "Eligibility Criteria"}</span>
@@ -285,7 +285,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* Required Documents */}
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
           <FileText size={18} className="text-[#24833A]" />
           <span>{t("schemes.requiredDocuments") || "Required Documents"}</span>
@@ -295,7 +295,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
           {scheme.documents.map((doc, idx) => (
             <div
               key={idx}
-              className="rounded-2xl border border-gray-100 bg-gray-50/70 p-3.5 flex flex-col justify-between"
+              className="rounded-xl border border-gray-100 bg-gray-50/70 p-3.5 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
@@ -322,7 +322,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* Important Dates */}
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
           <Calendar size={18} className="text-[#24833A]" />
           <span>{t("schemes.importantDates") || "Important Dates"}</span>
@@ -346,7 +346,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* How to Apply Section (Strictly directs to Official Government Portal) */}
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
           <Landmark size={18} className="text-[#24833A]" />
           <span>{t("schemes.howToApply") || "How to Apply"}</span>
@@ -372,7 +372,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
           </ol>
 
           {/* Safety & Compliance Notice: No Fake Forms */}
-          <div className="mt-4 rounded-2xl bg-amber-50/70 p-3.5 border border-amber-200/80 text-[11px] text-amber-900 leading-relaxed flex items-start gap-2">
+          <div className="mt-4 rounded-xl bg-amber-50/70 p-3.5 border border-amber-200/80 text-[11px] text-amber-900 leading-relaxed flex items-start gap-2">
             <AlertCircle size={15} className="text-amber-700 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold">Official Government Submission: </span>
@@ -386,7 +386,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
       </div>
 
       {/* Official Helpline */}
-      <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-2xs">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-2xs">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
           <Phone size={18} className="text-[#24833A]" />
           <span>{t("schemes.helpline") || "Official Helpline"}</span>
@@ -431,7 +431,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
           <button
             type="button"
             onClick={handleCheckEligibility}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-2xl border border-gray-300 bg-white px-4 py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 active:scale-95 transition cursor-pointer shadow-2xs"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl border border-gray-300 bg-white px-4 py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 active:scale-95 transition cursor-pointer shadow-2xs"
             aria-label="Check your profile eligibility informationally"
           >
             <ShieldCheck size={16} className="text-[#24833A]" />
@@ -443,7 +443,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
             <button
               type="button"
               onClick={handleApplyExternal}
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-[#24833A] px-5 py-3 text-xs font-bold text-white hover:bg-[#1e6f31] active:scale-95 transition shadow-sm cursor-pointer"
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#24833A] px-5 py-3 text-xs font-bold text-white hover:bg-[#1e6f31] active:scale-95 transition shadow-sm cursor-pointer"
               aria-label={`Apply on official portal for ${scheme.name}`}
             >
               <span>{t("schemes.applyNow") || "Apply Now"}</span>
@@ -453,7 +453,7 @@ export default function SchemeDetailView({ scheme, onBack }: SchemeDetailViewPro
             <button
               type="button"
               disabled
-              className="flex-1 inline-flex items-center justify-center gap-1 rounded-2xl bg-gray-200 px-4 py-3 text-xs font-bold text-gray-500 cursor-not-allowed"
+              className="flex-1 inline-flex items-center justify-center gap-1 rounded-xl bg-gray-200 px-4 py-3 text-xs font-bold text-gray-500 cursor-not-allowed"
               title={
                 t("schemes.applyUnavailable") ||
                 "Official application link unavailable. Please visit the scheme's official portal."

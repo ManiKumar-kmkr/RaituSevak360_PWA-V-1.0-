@@ -166,7 +166,7 @@ export default function WeatherPage() {
             <AlertTriangle size={15} className={alertCount > 0 ? "text-[#DC2626]" : "text-[#5F6F64]"} />
             <span>{t("weather.tabs.alerts")}</span>
             {alertCount > 0 && (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#DC2626] px-1 text-[10px] font-black text-white ml-0.5">
+              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#DC2626] px-1 text-[10px] font-bold text-white ml-0.5">
                 {alertCount}
               </span>
             )}

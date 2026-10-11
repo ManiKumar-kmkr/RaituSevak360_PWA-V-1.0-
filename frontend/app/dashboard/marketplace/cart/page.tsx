@@ -70,13 +70,13 @@ export default function CartPage() {
       </div>
 
       {/* Cart Title Banner */}
-      <div className="flex items-center justify-between rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs">
+      <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A]">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E4F0DD] text-[#24833A]">
             <ShoppingBag size={22} strokeWidth={2.4} />
           </div>
           <div>
-            <h1 className="text-base sm:text-lg font-extrabold text-gray-900">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
               Shopping Cart
             </h1>
             <p className="text-xs text-gray-500 font-medium">
@@ -88,7 +88,7 @@ export default function CartPage() {
         </div>
 
         {items.length > 0 && (
-          <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-[#24833A]">
+          <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-1 text-xs font-bold text-[#174D25]">
             Total: ₹{totalAmount.toLocaleString("en-IN")}
           </span>
         )}
@@ -96,9 +96,9 @@ export default function CartPage() {
 
       {/* Empty State */}
       {items.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200/90 bg-white p-10 text-center shadow-2xs">
-          <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-[#E4F0DD] text-[#24833A]">
-            <ShoppingBag size={38} strokeWidth={2} />
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 text-center shadow-2xs">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E4F0DD] text-[#24833A]">
+            <ShoppingBag size={34} strokeWidth={2} />
           </div>
           <div className="max-w-xs">
             <h2 className="text-base font-bold text-gray-900">Your cart is empty</h2>
@@ -108,7 +108,7 @@ export default function CartPage() {
           </div>
           <Link
             href="/dashboard/marketplace"
-            className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-[#24833A] px-5 py-3 text-xs font-bold text-white shadow-xs hover:bg-[#1e6e30] transition active:scale-95 cursor-pointer"
+            className="mt-2 inline-flex items-center gap-2 rounded-xl bg-[#24833A] px-5 py-3 text-xs font-bold text-white shadow-xs hover:bg-[#1e6e30] transition active:scale-95 cursor-pointer"
           >
             <span>Continue Shopping</span>
             <ArrowRight size={15} />
@@ -117,7 +117,7 @@ export default function CartPage() {
       ) : (
         <div className="flex flex-col gap-4">
           {/* Delivery Address Card */}
-          <div className="rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs">
+          <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold text-gray-900">
                 <MapPin size={16} className="text-[#24833A]" />
@@ -136,7 +136,7 @@ export default function CartPage() {
               </button>
             </div>
 
-            <div className="mt-2.5 rounded-2xl bg-gray-50/80 p-3 text-xs text-gray-700">
+            <div className="mt-2.5 rounded-xl bg-gray-50/80 p-3 text-xs text-gray-700 border border-gray-100">
               <p className="font-bold text-gray-900">
                 {deliveryAddress.fullName} • <span className="font-normal text-gray-600">+91 {deliveryAddress.phone}</span>
               </p>
@@ -154,11 +154,11 @@ export default function CartPage() {
               return (
                 <div
                   key={item.product.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 rounded-3xl border border-gray-200/90 bg-white p-4 shadow-2xs"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 rounded-2xl border border-gray-200 bg-white p-4 shadow-2xs"
                 >
                   <div className="flex items-start gap-3.5">
                     {/* Compact Image */}
-                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl">
+                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl">
                       <ProductThumbnail product={item.product} size="sm" />
                     </div>
 
@@ -235,7 +235,7 @@ export default function CartPage() {
           </div>
 
           {/* Order Summary Card */}
-          <div className="rounded-3xl border border-gray-200/90 bg-white p-4 sm:p-5 shadow-2xs">
+          <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs">
             <h2 className="text-xs font-bold uppercase tracking-wider text-gray-400">
               Order Summary
             </h2>
@@ -295,7 +295,7 @@ export default function CartPage() {
           aria-modal="true"
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto"
+            className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">
@@ -305,7 +305,7 @@ export default function CartPage() {
               <button
                 type="button"
                 onClick={() => setIsAddressModalOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 cursor-pointer"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -314,7 +314,7 @@ export default function CartPage() {
 
             <form onSubmit={handleSaveAddress} className="mt-4 flex flex-col gap-3">
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                   Farmer / Recipient Full Name
                 </label>
                 <input
@@ -324,12 +324,12 @@ export default function CartPage() {
                     setAddressForm({ ...addressForm, fullName: e.target.value })
                   }
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                   Mobile Number (10 digits)
                 </label>
                 <input
@@ -340,12 +340,12 @@ export default function CartPage() {
                     setAddressForm({ ...addressForm, phone: e.target.value })
                   }
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                   Farm Gate / Survey No. / Street
                 </label>
                 <input
@@ -355,13 +355,13 @@ export default function CartPage() {
                     setAddressForm({ ...addressForm, street: e.target.value })
                   }
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Village / Town
                   </label>
                   <input
@@ -371,11 +371,11 @@ export default function CartPage() {
                       setAddressForm({ ...addressForm, village: e.target.value })
                     }
                     required
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     Mandal / Tehsil
                   </label>
                   <input
@@ -385,14 +385,14 @@ export default function CartPage() {
                       setAddressForm({ ...addressForm, mandal: e.target.value })
                     }
                     required
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     District
                   </label>
                   <input
@@ -402,11 +402,11 @@ export default function CartPage() {
                       setAddressForm({ ...addressForm, district: e.target.value })
                     }
                     required
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     PIN Code
                   </label>
                   <input
@@ -417,7 +417,7 @@ export default function CartPage() {
                       setAddressForm({ ...addressForm, pincode: e.target.value })
                     }
                     required
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 p-2.5 text-xs text-gray-800 focus:outline-hidden focus:border-[#24833A]"
+                    className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-xs sm:text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition"
                   />
                 </div>
               </div>

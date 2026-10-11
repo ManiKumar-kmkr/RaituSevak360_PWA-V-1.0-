@@ -202,7 +202,7 @@ export default function SellerCustomersPage() {
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold tracking-wide text-emerald-100 backdrop-blur-xs">
               <Users size={13} /> Seller CRM & Buyer Directory
             </span>
-            <h1 className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-white">
+            <h1 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-white">
               {t("seller.customerMgmt.title") || "Customer Management"}
             </h1>
             <p className="mt-1 text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
@@ -218,32 +218,32 @@ export default function SellerCustomersPage() {
             <span className="text-[10px] text-emerald-200">
               {t("seller.customerMgmt.totalCustomers") || "Total"}
             </span>
-            <p className="text-base font-black">{derivedCustomers.length}</p>
+            <p className="text-base font-bold">{derivedCustomers.length}</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-2">
             <span className="text-[10px] text-emerald-200">
               {t("seller.customerMgmt.activeBuyers") || "Buyers"}
             </span>
-            <p className="text-base font-black">{activeProductBuyers}</p>
+            <p className="text-base font-bold">{activeProductBuyers}</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-2">
             <span className="text-[10px] text-amber-200">
               {t("seller.customerMgmt.fleetRenters") || "Renters"}
             </span>
-            <p className="text-base font-black">{activeEquipmentRenters}</p>
+            <p className="text-base font-bold">{activeEquipmentRenters}</p>
           </div>
           <div className="rounded-2xl bg-white/10 p-2">
             <span className="text-[10px] text-emerald-200">
               {t("seller.customerMgmt.totalSpend") || "Revenue"}
             </span>
-            <p className="text-base font-black">₹{(totalSpendSum / 1000).toFixed(1)}k</p>
+            <p className="text-base font-bold">₹{(totalSpendSum / 1000).toFixed(1)}k</p>
           </div>
         </div>
       </div>
 
       {/* Search Input Bar */}
       <div className="relative">
-        <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+        <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
         <input
           type="text"
           value={searchQuery}
@@ -252,15 +252,15 @@ export default function SellerCustomersPage() {
             t("seller.customerMgmt.searchPlaceholder") ||
             "Search by farmer name, mobile number, or village..."
           }
-          className="w-full rounded-2xl border border-gray-200 bg-white pl-9 pr-10 py-3 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#24833A] focus:outline-none focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
+          className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-10 text-xs sm:text-sm font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 shadow-2xs transition"
         />
         {searchQuery && (
           <button
             type="button"
             onClick={() => setSearchQuery("")}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-700 transition cursor-pointer"
           >
-            <X size={15} />
+            <X size={12} />
           </button>
         )}
       </div>
@@ -305,8 +305,8 @@ export default function SellerCustomersPage() {
       {/* Customer Cards List */}
       <div className="flex flex-col gap-3">
         {filteredCustomers.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-white p-8 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-[#24833A] mb-2">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-[#24833A] mb-2">
               <Users size={24} />
             </div>
             <h3 className="text-sm font-bold text-gray-800">
@@ -343,12 +343,12 @@ export default function SellerCustomersPage() {
             return (
               <div
                 key={cust.id}
-                className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs"
+                className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 shadow-2xs transition hover:border-[#24833A]/50 hover:shadow-xs"
               >
                 {/* Header: Customer Name, Avatar & Badges */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#174D25] to-[#24833A] text-sm font-black text-white shadow-xs">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#174D25] to-[#24833A] text-sm font-bold text-white shadow-xs">
                       {initials || "FC"}
                     </div>
                     <div>
@@ -378,7 +378,7 @@ export default function SellerCustomersPage() {
                 </div>
 
                 {/* Activity & Order Summary Grid */}
-                <div className="grid grid-cols-3 gap-2 rounded-2xl bg-[#F4FBF5] p-3 text-xs text-center">
+                <div className="grid grid-cols-3 gap-2 rounded-xl bg-[#F4FBF5] p-3 text-xs text-center">
                   <div>
                     <span className="text-[10px] text-gray-500 font-medium">Product Orders</span>
                     <p className="font-black text-gray-900 text-sm mt-0.5">
@@ -441,11 +441,11 @@ export default function SellerCustomersPage() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150"
         >
-          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-t-3xl sm:rounded-2xl bg-white p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setSelectedCustomer(null)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 transition z-10 cursor-pointer"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition z-10 cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />

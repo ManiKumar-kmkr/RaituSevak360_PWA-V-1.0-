@@ -161,7 +161,7 @@ export default function AppSidebar() {
                   size={19}
                   className={pathname.startsWith("/dashboard/settings") ? "text-[#24833A]" : "text-gray-500"}
                 />
-                <span className="flex-1 truncate">{t("nav.settings")}</span>
+                <span className="flex-1 truncate">{t("nav.settings") || "Settings"}</span>
               </Link>
             </div>
           </nav>

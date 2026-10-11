@@ -96,14 +96,14 @@ export default function CreatePostModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="create-post-title"
     >
       <div
-        className="w-full max-w-lg rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6 flex flex-col"
+        className="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-150 my-6 flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -120,7 +120,7 @@ export default function CreatePostModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition cursor-pointer"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition cursor-pointer"
             aria-label={t("community.close") || "Close"}
           >
             <X size={18} />
@@ -187,7 +187,7 @@ export default function CreatePostModal({
                 "Share crop symptoms, mandi price observations, pest management tips, or questions for fellow farmers..."
               }
               maxLength={500}
-              className="w-full rounded-2xl border border-gray-200 bg-white p-3.5 text-xs sm:text-sm text-gray-900 shadow-2xs placeholder:text-gray-400 focus:border-[#24833A] focus:outline-hidden focus:ring-1 focus:ring-[#24833A] transition resize-none"
+              className="w-full rounded-xl border border-gray-200 bg-white p-3 text-xs sm:text-sm text-gray-900 shadow-2xs placeholder:text-gray-400 focus:outline-none focus:border-[#24833A] focus:ring-2 focus:ring-[#24833A]/20 transition resize-none"
               aria-label="Post content"
             />
           </div>
@@ -203,7 +203,7 @@ export default function CreatePostModal({
             />
 
             {imagePreview ? (
-              <div className="relative rounded-2xl overflow-hidden border border-gray-200 max-h-48 w-full bg-gray-50">
+              <div className="relative rounded-xl overflow-hidden border border-gray-200 max-h-48 w-full bg-gray-50">
                 <img
                   src={imagePreview}
                   alt="Post preview"
